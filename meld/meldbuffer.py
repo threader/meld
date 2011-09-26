@@ -19,6 +19,12 @@
 from __future__ import unicode_literals
 
 import sys
+import os
+import time
+import gio
+import glib
+import gobject
+
 from gettext import gettext as _
 
 from .util import sourceviewer
@@ -72,17 +78,32 @@ class MeldBuffer(sourceviewer.srcviewer.GtkTextBuffer):
         return it
 
 
-class MeldBufferData(object):
+class MeldBufferData(gobject.GObject):
+
+    __gsignals__ = {
+        str('file-changed'): (gobject.SIGNAL_RUN_FIRST, None, ()),
+    }
 
     def __init__(self, filename=None):
+        gobject.GObject.__init__(self)
+        self.reset()
+        self._label = self.filename = filename
+
+    def reset(self):
         self.modified = False
         self.writable = True
         self.editable = True
-        self.filename = filename
+        self._monitor = None
+        self._mtime = None
+        self._disk_mtime = None
+        self.filename = None
         self.savefile = None
-        self._label = filename
+        self._label = None
         self.encoding = None
         self.newlines = None
+
+    def __del__(self):
+        self._disconnect_monitor()
 
     def get_label(self):
         #TRANSLATORS: This is the label of a new, currently-unnamed file.
@@ -92,6 +113,50 @@ class MeldBufferData(object):
         self._label = value
 
     label = property(get_label, set_label)
+
+    def _connect_monitor(self):
+        if self._filename:
+            monitor = os.path.getmtime(self._filename)
+            handler_id = monitor.connect('changed', self._handle_file_change)
+            self._monitor = monitor, handler_id
+
+    def _disconnect_monitor(self):
+        if self._monitor:
+            monitor, handler_id = self._monitor
+            monitor.disconnect(handler_id)
+            monitor.cancel()
+
+    @property
+    def filename(self):
+        return self._filename
+
+    def _query_mtime(self, filename):
+        try:
+            mtime = os.path.getmtime(self._filename)
+        except glib.GError:
+            return None
+        return (mtime)
+
+    def _handle_file_change(self, monitor, f, other_file, event_type):
+        mtime = self._query_mtime(f)
+        if self._disk_mtime and mtime > self._disk_mtime:
+            self.emit('file-changed')
+        self._disk_mtime = mtime
+
+
+    @filename.setter
+    def filename(self, value):
+        self._disconnect_monitor()
+        self._filename = value
+        self.update_mtime()
+
+    def update_mtime(self):
+        if self._filename:
+            self._disk_mtime = self._query_mtime(self._filename)
+            self._mtime = self._disk_mtime
+
+    def current_on_disk(self):
+        return self._mtime == self._disk_mtime
 
 
 class BufferLines(object):

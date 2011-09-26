@@ -30,6 +30,7 @@ from multiprocessing.pool import ThreadPool
 import pango
 import glib
 import gobject
+import gio
 import gtk
 import gtk.keysyms
 
@@ -1188,6 +1189,10 @@ class FileDiff(melddoc.MeldDoc, gnomeglade.Component):
             yield 1
         for b in self.textbuffer:
             self.undosequence.checkpoint(b)
+            b.data.update_mtime()
+            # FIXME: Keep signal ID and disconnect... sometime
+            b.data.connect('file-changed', self.notify_file_changed)
+
 
     def _diff_files(self, refresh=False):
         yield _("[%s] Computing differences") % self.label_text
@@ -1239,6 +1244,33 @@ class FileDiff(melddoc.MeldDoc, gnomeglade.Component):
             yield i
         for i in self._diff_files():
             yield i
+
+    def notify_file_changed(self, data):
+        try:
+            pane = [b.data for b in self.textbuffer].index(data)
+        except ValueError:
+            # Notification for unknown buffer
+            return
+        gfile = gio.File.new_for_path(data.filename)
+
+        primary = _("File %s changed on disk") % gfile.get_parse_name()
+        secondary = _("Do you want to reload the file?")
+        msgarea = self.msgarea_mgr[pane].new_from_text_and_icon(
+                        gtk.STOCK_DIALOG_WARNING, primary, secondary)
+        msgarea.add_button(_("_Reload"), gtk.ResponseType.ACCEPT)
+        msgarea.add_button(_("Hi_de"), gtk.ResponseType.CLOSE)
+
+        def on_file_changed_response(msgarea, response_id, *args):
+            self.msgarea_mgr[pane].clear()
+            if response_id == gtk.ResponseType.ACCEPT:
+                self.on_revert_activate()
+            else:
+                # TODO: Set a flag to indicate that the file has been changed
+                # but not reloaded, so that we can prompt for overwrite on save
+                pass
+
+        msgarea.connect("response", on_file_changed_response)
+        msgarea.show_all()
 
     def refresh_comparison(self):
         """Refresh the view by clearing and redoing all comparisons"""
@@ -1596,6 +1628,11 @@ class FileDiff(melddoc.MeldDoc, gnomeglade.Component):
                 self.fileentry[pane].prepend_history(bufdata.filename)
             else:
                 return False
+
+        if not bufdata.current_on_disk():
+            # TODO: The file has changed since we loaded, so require confirmation.
+            pass
+
         start, end = buf.get_bounds()
         text = text_type(buf.get_text(start, end, False), 'utf8')
         if bufdata.newlines:
@@ -1632,6 +1669,7 @@ class FileDiff(melddoc.MeldDoc, gnomeglade.Component):
         if self._save_text_to_filename(save_to, text):
             self.emit("file-changed", save_to)
             self.undosequence.checkpoint(buf)
+            bufdata.update_mtime()
             return True
         else:
             return False

@@ -32,7 +32,7 @@ from . import filters
 from . import preferences
 from . import recent
 
-version = "1.8.6.2-dev"
+version = "1.8.6.3-dev"
 
 
 class MeldApp(gobject.GObject):
