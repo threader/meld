@@ -1,12 +1,9 @@
-<<<<<<< HEAD
 ### Copyright (C) 2002-2009 Stephen Kennedy <stevek@gnome.org>
 ### Copyright (C) 2012 Kai Willadsen <kai.willadsen@gmail.com>
 
-=======
 # Copyright (C) 2002-2009 Stephen Kennedy <stevek@gnome.org>
 # Copyright (C) 2012-2013 Kai Willadsen <kai.willadsen@gmail.com>
 #
->>>>>>> 82d69cc9 (Update copyright authors and years for all modules except meld.vc)
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 2 of the License, or (at
@@ -28,6 +25,7 @@ from meld import paths
 from . import gnomeglade
 
 from gettext import gettext as _
+
 
 class FindBar(gnomeglade.Component):
     def __init__(self, parent):
@@ -107,28 +105,30 @@ class FindBar(gnomeglade.Component):
         oldsel = buf.get_selection_bounds()
         match = self._find_text(0)
         newsel = buf.get_selection_bounds()
-        # only replace if there is a match at the cursor and it was already selected
-        if match and oldsel and oldsel[0].equal(newsel[0]) and oldsel[1].equal(newsel[1]):
+        # Only replace if there is an already-selected match at the cursor
+        if (match and oldsel and oldsel[0].equal(newsel[0]) and
+                oldsel[1].equal(newsel[1])):
             buf.begin_user_action()
-            buf.delete_selection(False,False)
-            buf.insert_at_cursor( self.replace_entry.get_text() )
-            self._find_text( 0 )
+            buf.delete_selection(False, False)
+            buf.insert_at_cursor(self.replace_entry.get_text())
+            self._find_text(0)
             buf.end_user_action()
 
     def on_replace_all_button__clicked(self, entry):
         buf = self.textview.get_buffer()
-        saved_insert = buf.create_mark(None, buf.get_iter_at_mark(buf.get_insert()), True)
+        saved_insert = buf.create_mark(
+            None, buf.get_iter_at_mark(buf.get_insert()), True)
         buf.begin_user_action()
         while self._find_text(0):
-            buf.delete_selection(False,False)
-            buf.insert_at_cursor( self.replace_entry.get_text() )
+            buf.delete_selection(False, False)
+            buf.insert_at_cursor(self.replace_entry.get_text())
         buf.end_user_action()
         if not saved_insert.get_deleted():
-            buf.place_cursor( buf.get_iter_at_mark(saved_insert) )
+            buf.place_cursor(buf.get_iter_at_mark(saved_insert))
             self.textview.scroll_to_mark(buf.get_insert(), 0.25)
 
-    def on_find_entry__changed(self, entry):
-        entry.modify_base( gtk.STATE_NORMAL, self.orig_base_color )
+    def on_find_entry_changed(self, entry):
+        entry.modify_base(gtk.STATE_NORMAL, self.orig_base_color)
 
         #
         # find/replace buffer
@@ -139,23 +139,26 @@ class FindBar(gnomeglade.Component):
         regex = self.regex.get_active()
         assert self.textview
         buf = self.textview.get_buffer()
-        insert = buf.get_iter_at_mark( buf.get_insert() )
+        insert = buf.get_iter_at_mark(buf.get_insert())
         tofind_utf8 = self.find_entry.get_text()
-        tofind = tofind_utf8.decode("utf-8") # tofind is utf-8 encoded
+        tofind = tofind_utf8.decode("utf-8")
         start, end = buf.get_bounds()
-        text = buf.get_text(start, end, False).decode("utf-8") # as is buffer
+        text = buf.get_text(start, end, False).decode("utf-8")
         if not regex:
             tofind = re.escape(tofind)
         if whole_word:
             tofind = r'\b' + tofind + r'\b'
         try:
-            pattern = re.compile( tofind, (match_case and re.M or (re.M|re.I)) )
+            flags = re.M if match_case else re.M | re.I
+            pattern = re.compile(tofind, flags)
         except re.error as e:
-            misc.run_dialog( _("Regular expression error\n'%s'") % e, self, messagetype=gtk.MESSAGE_ERROR)
+            misc.run_dialog(_("Regular expression error\n'%s'") % e, self,
+                            messagetype=gtk.MESSAGE_ERROR)
         else:
-            self.wrap_box.hide()
-            if backwards == False:
-                match = pattern.search(text, insert.get_offset() + start_offset)
+            self.wrap_box.set_visible(False)
+            if not backwards:
+                match = pattern.search(text,
+                                       insert.get_offset() + start_offset)
                 if match is None and wrap:
                     self.wrap_box.show()
                     match = pattern.search(text, 0)
@@ -168,13 +171,14 @@ class FindBar(gnomeglade.Component):
                     for m in pattern.finditer(text, insert.get_offset()):
                         match = m
             if match:
-                it = buf.get_iter_at_offset( match.start() )
-                buf.place_cursor( it )
-                it.forward_chars( match.end() - match.start() )
-                buf.move_mark( buf.get_selection_bound(), it )
+                it = buf.get_iter_at_offset(match.start())
+                buf.place_cursor(it)
+                it.forward_chars(match.end() - match.start())
+                buf.move_mark(buf.get_selection_bound(), it)
                 self.textview.scroll_to_mark(buf.get_insert(), 0.25)
                 return True
             else:
-                buf.place_cursor( buf.get_iter_at_mark(buf.get_insert()) )
-                self.find_entry.modify_base(gtk.STATE_NORMAL, gtk.gdk.color_parse("#ffdddd"))
-                self.wrap_box.hide()
+                buf.place_cursor(buf.get_iter_at_mark(buf.get_insert()))
+                self.find_entry.modify_base(gtk.STATE_NORMAL,
+                                            gtk.gdk.color_parse("#ffdddd"))
+                self.wrap_box.set_visible(False)
