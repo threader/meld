@@ -1253,10 +1253,10 @@ class FileDiff(melddoc.MeldDoc, gnomeglade.Component):
             # Notification for unknown buffer
             return
 
-        primary = _("File %s has changed on disk") % self._filename)
+        primary = _("File %s has changed on disk") % gfile.get_parse_name()
         secondary = _("Do you want to reload the file?")
         msgarea = self.msgarea_mgr[pane].new_from_text_and_icon(
-                        Gtk.STOCK_DIALOG_WARNING, primary, secondary)
+                        gtk.STOCK_DIALOG_WARNING, primary, secondary)
         msgarea.add_button(_("_Reload"), gtk.ResponseType.ACCEPT)
         msgarea.add_button(_("Hi_de"), gtk.ResponseType.CLOSE)
 
