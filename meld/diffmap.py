@@ -1,25 +1,25 @@
-### Copyright (C) 2002-2009 Stephen Kennedy <stevek@gnome.org>
-### Copyright (C) 2009-2010 Kai Willadsen <kai.willadsen@gmail.com>
-
-### This program is free software; you can redistribute it and/or modify
-### it under the terms of the GNU General Public License as published by
-### the Free Software Foundation; either version 2 of the License, or
-### (at your option) any later version.
-
-### This program is distributed in the hope that it will be useful,
-### but WITHOUT ANY WARRANTY; without even the implied warranty of
-### MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-### GNU General Public License for more details.
-
-### You should have received a copy of the GNU General Public License
-### along with this program; if not, write to the Free Software
-### Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
-### USA.
+# Copyright (C) 2002-2009 Stephen Kennedy <stevek@gnome.org>
+# Copyright (C) 2009-2013 Kai Willadsen <kai.willadsen@gmail.com>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import collections
 
 import gobject
 import gtk
+import cairo
+
 
 
 class DiffMap(gtk.DrawingArea):
@@ -67,7 +67,11 @@ class DiffMap(gtk.DrawingArea):
         self._difffunc = change_chunk_fn
         self.set_color_scheme(color_map)
         self._setup = True
+        self._cached_map = None
         self.queue_draw()
+
+    def on_diffs_changed(self, *args):
+        self._cached_map = None
 
     def set_color_scheme(self, color_map):
         self.fill_colors, self.line_colors = color_map
@@ -111,18 +115,29 @@ class DiffMap(gtk.DrawingArea):
         context.rectangle(x0 - 3, -1, x1 + 6, height + 1)
         context.clip()
 
-        tagged_diffs = collections.defaultdict(list)
-        for c, y0, y1 in self._difffunc():
-            tagged_diffs[c].append((y0, y1))
+        if self._cached_map is None:
+            surface = cairo.Surface.create_similar(
+                context.get_target(), cairo.CONTENT_COLOR_ALPHA,
+               y_start ,height)
+            cache_ctx = cairo.Context(surface)
+            cache_ctx.set_line_width(1)
 
-        for tag, diffs in tagged_diffs.items():
-            context.set_source_color(self.fill_colors[tag])
-            for y0, y1 in diffs:
-                y0, y1 = round(y0 * height) - 0.5, round(y1 * height) - 0.5
-                context.rectangle(x0, y0, x1, y1 - y0)
-            context.fill_preserve()
-            context.set_source_color(self.line_colors[tag])
-            context.stroke()
+            tagged_diffs = collections.defaultdict(list)
+            for c, y0, y1 in self._difffunc():
+                tagged_diffs[c].append((y0, y1))
+
+            for tag, diffs in tagged_diffs.items():
+                cache_ctx.set_source_rgba(*self.fill_colors[tag])
+                for y0, y1 in diffs:
+                    y0, y1 = round(y0 * height) - 0.5, round(y1 * height) - 0.5
+                    cache_ctx.rectangle(x0, y0, x1, y1 - y0)
+                cache_ctx.fill_preserve()
+                cache_ctx.set_source_rgba(*self.line_colors[tag])
+                cache_ctx.stroke()
+            self._cached_map = surface
+
+        context.set_source_surface(self._cached_map, 0., 0.)
+        context.paint()
 
         page_color = (0., 0., 0., 0.1)
         page_outline_color = (0.0, 0.0, 0.0, 0.3)
