@@ -35,6 +35,7 @@ def on_undo_button_pressed():
 
 import gobject
 
+
 class GroupAction(object):
     """A group action combines several actions into one logical action.
     """
@@ -55,6 +56,7 @@ class GroupAction(object):
         while self.seq.can_redo():
             actions.extend(self.seq.redo())
         return actions
+
 
 class UndoSequence(gobject.GObject):
     """A manager class for operations which can be undone/redone.
@@ -164,7 +166,7 @@ class UndoSequence(gobject.GObject):
 
     def redo(self):
         """Redo an action.
-        
+
         Raises and AssertionError if the sequence is not undoable.
         """
         assert self.next_redo < len(self.actions)
@@ -190,8 +192,8 @@ class UndoSequence(gobject.GObject):
         while start > 0 and self.actions[start - 1].buffer != buf:
             start -= 1
         end = self.next_redo
-        while end < len(self.actions) - 1 and \
-              self.actions[end + 1].buffer != buf:
+        while (end < len(self.actions) - 1 and
+               self.actions[end + 1].buffer != buf):
             end += 1
         if end == len(self.actions):
             end = None
@@ -221,13 +223,13 @@ class UndoSequence(gobject.GObject):
             return
 
         if self.group:
-            self.group.begin_group() 
+            self.group.begin_group()
         else:
             self.group = UndoSequence()
 
     def end_group(self):
         """End a logical group action. See also begin_group().
-        
+
         Raises an AssertionError if there was not a matching call to
         begin_group().
         """
@@ -240,14 +242,15 @@ class UndoSequence(gobject.GObject):
         else:
             group = self.group
             self.group = None
-            if len(group.actions) == 1: # collapse 
-                self.add_action( group.actions[0] )
+            # Collapse single action groups
+            if len(group.actions) == 1:
+                self.add_action(group.actions[0])
             elif len(group.actions) > 1:
-                self.add_action( GroupAction(group) )
+                self.add_action(GroupAction(group))
 
     def abort_group(self):
         """Revert the sequence to the state before begin_group() was called.
-        
+
         Raises an AssertionError if there was no a matching call to begin_group().
         """
         if self.busy:
@@ -261,4 +264,3 @@ class UndoSequence(gobject.GObject):
 
     def in_grouped_action(self):
         return self.group is not None
-
