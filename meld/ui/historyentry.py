@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # Copyright (C) 2008-2009 Kai Willadsen <kai.willadsen@gmail.com>
+=======
+# Copyright (C) 2008-2011, 2013 Kai Willadsen <kai.willadsen@gmail.com>
+>>>>>>> 82d69cc9 (Update copyright authors and years for all modules except meld.vc)
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
