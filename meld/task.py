@@ -172,7 +172,7 @@ if __name__ == "__main__":
             yield 1
         print("end", x)
 
-    s = RoundRobinScheduler()
+    s = FifoScheduler()
     m.add_task(s)
     s.add_task(sayhello(10))
     s.add_task(sayhello(20))
