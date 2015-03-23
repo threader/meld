@@ -44,7 +44,6 @@ class CommitDialog(gnomeglade.Component):
     def __init__(self, parent):
         gnomeglade.Component.__init__(self, paths.ui_dir("vcview.ui"),
                                       "commitdialog")
-        self.parent = parent
         self.widget.set_transient_for(parent.widget.get_toplevel())
         selected = parent._get_selected_files()
 
@@ -63,7 +62,6 @@ class CommitDialog(gnomeglade.Component):
 
         fontdesc = pango.FontDescription(self.parent.prefs.get_current_font())
         self.textview.modify_font(fontdesc)
-        commit_prefill = self.parent.vc.get_commit_message_prefill()
         if commit_prefill:
             buf = self.textview.get_buffer()
             buf.set_text(commit_prefill)
@@ -87,6 +85,7 @@ class CommitDialog(gnomeglade.Component):
         self.previousentry.set_active(-1)
         self.textview.grab_focus()
         response = self.widget.run()
+        msg = None
         if response == gtk.RESPONSE_OK:
             buf = self.textview.get_buffer()
             msg = buf.get_text(*buf.get_bounds(), include_hidden_chars=False)
@@ -94,11 +93,10 @@ class CommitDialog(gnomeglade.Component):
             if prefs.vc_show_commit_margin and prefs.vc_break_commit_message:
                 paragraphs = msg.split("\n\n")
                 msg = "\n\n".join(textwrap.fill(p, margin) for p in paragraphs)
-            self.parent._command_on_selected(
-                self.parent.vc.commit_command(msg))
             if msg.strip():
                 self.previousentry.prepend_history(msg)
         self.widget.destroy()
+        return response, msg
 
     def on_previousentry_activate(self, gentry):
         idx = gentry.get_active()
@@ -113,7 +111,6 @@ class PushDialog(gnomeglade.Component):
     def __init__(self, parent):
         gnomeglade.Component.__init__(self, paths.ui_dir("vcview.ui"),
                                       "pushdialog")
-        self.parent = parent
         self.widget.set_transient_for(parent.widget.get_toplevel())
         self.widget.show_all()
 
@@ -122,6 +119,5 @@ class PushDialog(gnomeglade.Component):
         # In git, this is probably the parsed output of push --dry-run.
 
         response = self.widget.run()
-        if response == gtk.RESPONSE_OK:
-            self.parent.vc.push(self.parent._command)
         self.widget.destroy()
+        return response
