@@ -43,12 +43,18 @@ class GroupAction(object):
         # TODO: If a GroupAction affects more than one sequence, our logic
         # breaks. Currently, this isn't a problem.
         self.buffer = seq.actions[0].buffer
+
     def undo(self):
+        actions = []
         while self.seq.can_undo():
-            self.seq.undo()
+            actions.extend(self.seq.undo())
+        return actions
+
     def redo(self):
+        actions = []
         while self.seq.can_redo():
-            self.seq.redo()
+            actions.extend(self.seq.redo())
+        return actions
 
 class UndoSequence(gobject.GObject):
     """A manager class for operations which can be undone/redone.
@@ -142,7 +148,7 @@ class UndoSequence(gobject.GObject):
             self.emit('checkpointed', buf, False)
         could_redo = self.can_redo()
         self.next_redo -= 1
-        self.actions[self.next_redo].undo()
+        actions = self.actions[self.next_redo].undo()
         self.busy = False
         if not self.can_undo():
             self.emit('can-undo', 0)
@@ -150,6 +156,7 @@ class UndoSequence(gobject.GObject):
             self.emit('can-redo', 1)
         if self.checkpointed(buf):
             self.emit('checkpointed', buf, True)
+        return actions
 
     def redo(self):
         """Redo an action.
@@ -164,7 +171,7 @@ class UndoSequence(gobject.GObject):
         could_undo = self.can_undo()
         a = self.actions[self.next_redo]
         self.next_redo += 1
-        a.redo()
+        actions = a.redo()
         self.busy = False
         if not could_undo:
             self.emit('can-undo', 1)
@@ -172,6 +179,7 @@ class UndoSequence(gobject.GObject):
             self.emit('can-redo', 0)
         if self.checkpointed(buf):
             self.emit('checkpointed', buf, True)
+        return actions
 
     def checkpoint(self, buf):
         start = self.next_redo
