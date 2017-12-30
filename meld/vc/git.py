@@ -69,9 +69,9 @@ class Vc(_vc.CachedVc):
         self._tree_cache = {}
         self._tree_meta_cache = {}
 
-    def check_repo_root(self, location):
+    def check_repo_root(cls, location):
         # Check exists instead of isdir, since .git might be a git-file
-        if not os.path.exists(os.path.join(location, self.VC_DIR)):
+        if not os.path.exists(os.path.join(location, cls.VC_DIR)):
             raise ValueError
         return location
 

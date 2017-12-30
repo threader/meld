@@ -319,5 +319,5 @@ def popen(cmd, cwd=None):
 
 # Return the return value of a given command
 def call(cmd, cwd=None):
-    NULL = open(os.devnull, "wb")
-    return subprocess.call(cmd, cwd=cwd, stdout=NULL, stderr=NULL)
+    devnull = open(os.devnull, "wb")
+    return subprocess.call(cmd, cwd=cwd, stdout=devnull, stderr=devnull)
