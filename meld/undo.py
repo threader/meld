@@ -91,7 +91,12 @@ class UndoSequence(gobject.GObject):
             self.emit('can-redo', 0)
         self.actions = []
         self.next_redo = 0
-        self.checkpoints = {}
+        self.checkpoints = {
+            # Each buffer's checkpoint starts at zero and has no end
+            ref(): [0, None] for ref in self.buffer_refs
+        }
+        self.group = None
+        self.busy = False
 
     def can_undo(self):
         """Return whether an undo is possible."""
