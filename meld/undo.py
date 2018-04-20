@@ -33,10 +33,8 @@ def on_undo_button_pressed():
     s.undo()
 """
 
-
 import logging
 import gobject
-
 
 log = logging.getLogger(__name__)
 
