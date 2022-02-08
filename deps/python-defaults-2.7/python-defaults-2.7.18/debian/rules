@@ -1,0 +1,292 @@
+#!/usr/bin/make -f
+# Sample debian/rules that uses debhelper. GNU copyright 1997 by Joey Hess.
+
+export SHELL = /bin/bash
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+DEB_HOST_ARCH ?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
+DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
+DEB_HOST_GNU_TYPE ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
+
+changelog_values := $(shell dpkg-parsechangelog \
+			| awk '/^(Version|Source):/ {print $$2}')
+PKGSOURCE  := $(word 1, $(changelog_values))
+PKGVERSION := $(word 2, $(changelog_values))
+
+distribution := $(shell dpkg-vendor --query Vendor)
+distrelease  := $(shell lsb_release -cs)
+
+export VER=2.7
+export NVER=2.8
+export PVER=python2.7
+
+PREVVER	:= $(shell awk '/^python/ && NR > 1 {print substr($$2,2,length($$2)-2); exit}' debian/changelog)
+# first version with Multi-Arch: allowed
+PREVVER := 2.7.18~
+
+# not yet allowed
+ma_allowed	= yes
+
+ifeq (,$(filter $(distrelease),lenny etch squeeze wheezy lucid maverick natty oneiric precise quantal raring saucy trusty))
+  bd_i586 = dpkg-dev (>= 1.17.11), python2.7:any (>= 2.7.18~)
+endif
+
+
+PWD		:= $(shell pwd)
+
+d		:= debian/tmp
+scriptdir	=  usr/share/lib/python$(VER)
+scriptdir	=  usr/share/python$(VER)
+scriptdir	=  usr/lib/python$(VER)
+
+rst2html	= rst2html
+
+with_doc	= yes
+ifneq ($(with_doc),yes)
+  NOPKGS	= -Npython-doc
+endif
+
+build: stamp-build
+build-arch: stamp-build
+build-indep: stamp-build
+stamp-build:
+	touch stamp-build
+
+control-file:
+	sed -e "s/@PVER@/$(PVER)/g" \
+	    -e "s/@NVER@/$(NVER)/g" \
+	    -e "s/@VER@/$(VER)/g" \
+	    -e "s/@PREVVER@/$(PREVVER)/g" \
+	    -e "s/@bd_i586@/$(bd_i586)/g" \
+		<debian/control.in \
+	    $(if $(ma_allowed),,| grep -v '^Multi-Arch: allowed$$') \
+		>debian/control.tmp
+ifeq ($(distribution),Ubuntu)
+  ifneq (,$(findstring ubuntu, $(PKGVERSION)))
+	m='Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>'; \
+	sed -i "/^Maintainer:/s/\(.*\)/Maintainer: $$m\nXSBC-Original-\1/" \
+	  debian/control.tmp
+  endif
+endif
+	[ -e debian/control ] \
+	  && cmp -s debian/control debian/control.tmp \
+	  && rm -f debian/control.tmp && exit 0; \
+	  mv debian/control.tmp debian/control
+
+clean: control-file
+	dh_testdir
+	dh_testroot
+	rm -f stamp-*
+	rm -f patch-stamp*
+
+	set -e;\
+	for f in debian/*.in; do \
+	    f2=`echo $$f | sed "s,PVER,$(PVER),g;s/VER/$(VER)/g;s,\.in$$,,"`; \
+	    if [ $$f2 != debian/control ]; then \
+	        rm -f $$f2; \
+	    fi; \
+	done
+	rm -f debian/*.py[co]
+	make clean
+	dh_clean
+
+stamp-control:
+	: # We have to prepare the various control files
+
+	set -e;\
+	for f in debian/*.in; do \
+	    f2=`echo $$f | sed "s,PVER,$(PVER),g;s/VER/$(VER)/g;s,\.in$$,,"`; \
+	    if [ $$f2 != debian/control ]; then \
+		sed -e "s/@PVER@/$(PVER)/g;s/@VER@/$(VER)/g" \
+		    -e "s/@PRIORITY@/$(PRIORITY)/g" \
+		    -e "s,@SCRIPTDIR@,/$(scriptdir),g" \
+		  <$$f >$$f2; \
+	    fi; \
+	done
+
+install: build stamp-install
+stamp-install: stamp-build control-file stamp-control
+	dh_testdir
+	dh_testroot
+#	dh_installdirs -ppython usr/share/doc/python
+	dh_install
+	DESTDIR=debian/python2-minimal PREFIX=/usr make install-runtime
+
+	touch stamp-install
+
+# Build architecture-independent files here.
+binary-indep: build install
+	dh_testdir -i
+	dh_testroot -i
+	dh_installman -i
+
+ifeq ($(with_doc),yes)
+	dh_installdocs -ppython2-doc debian/README.Debian
+	dh_installchangelogs -ppython2-doc
+
+	mkdir -p debian/python2-doc/usr/share/doc/python2
+	ln -sf ../python$(VER)-doc/html \
+		debian/python2-doc/usr/share/doc/python2/html
+	mkdir -p debian/python2-doc/usr/share/doc/python2-doc
+	ln -sf ../python$(VER)-doc/html \
+		debian/python2-doc/usr/share/doc/python2-doc/html
+endif
+
+#	dh_installdebconf -i $(NOPKGS)
+	dh_lintian -i
+	dh_installdocs -i $(NOPKGS) --all debian/README.Debian
+	rm -f debian/python2-doc/usr/share/doc/python2/README.Debian
+	dh_installchangelogs -i $(NOPKGS)
+
+	dh_compress -i $(NOPKGS)
+	dh_fixperms -i $(NOPKGS)
+	dh_installdeb -i $(NOPKGS)
+	dh_gencontrol -i $(NOPKGS)
+	dh_md5sums -i $(NOPKGS)
+	dh_builddeb -i $(NOPKGS)
+
+# Build architecture-dependent files here.
+binary-arch: build install
+	dh_testdir -a
+	dh_testroot -a
+	dh_installman -a
+
+	: # provide the python2 and python2.1 defaults
+	mkdir -p debian/python2-minimal/usr/bin
+	ln -sf python$(VER) debian/python2-minimal/usr/bin/python2
+	mkdir -p debian/python2-minimal/usr/share/man/man1
+	ln -sf python$(VER).1.gz \
+		debian/python2-minimal/usr/share/man/man1/python2.1.gz
+
+	: # 
+	mkdir -p debian/python2-minimal/usr/share/python
+	cp -p debian/debian_defaults \
+		debian/python2-minimal/usr/share/python/
+
+	install -m 755 debian/pyversions.py \
+		debian/python2-minimal/usr/share/python/
+	install -m 644 debian/pyversions.1 \
+		debian/python2-minimal/usr/share/man/man1/
+	dh_link -ppython2-minimal /usr/share/python/pyversions.py /usr/bin/pyversions
+
+	mkdir -p debian/python2/usr/bin
+	ln -sf pydoc$(VER) debian/python2/usr/bin/pydoc2
+	ln -sf pygettext$(VER) debian/python2/usr/bin/pygettext2
+	ln -sf pdb$(VER) debian/python2/usr/bin/pdb2
+
+	mkdir -p debian/python2/usr/share/python
+	install -m 644 debian/python.mk \
+		debian/python2/usr/share/python/
+
+	mkdir -p debian/python2/usr/share/man/man1
+	ln -sf pydoc$(VER).1.gz \
+		debian/python2/usr/share/man/man1/pydoc2.1.gz
+	ln -sf pygettext$(VER).1.gz \
+		debian/python2/usr/share/man/man1/pygettext2.1.gz
+	ln -sf pdb$(VER).1.gz \
+		debian/python2/usr/share/man/man1/pdb2.1.gz
+
+	mkdir -p debian/python2/usr/share/pixmaps
+	ln -sf python$(VER).xpm debian/python2/usr/share/pixmaps/python2.xpm
+
+	mkdir -p debian/python2/usr/share/apps/konsole
+	cp -p debian/python2.desktop debian/python2/usr/share/apps/konsole/
+
+	: # provide the python2-config default
+	mkdir -p debian/python2-dev/usr/bin
+	ln -sf python$(VER)-config debian/python2-dev/usr/bin/python2-config
+	mkdir -p debian/python2-dev/usr/share/man/man1
+	ln -sf python$(VER)-config.1.gz \
+		debian/python2-dev/usr/share/man/man1/python2-config.1.gz
+
+	: # provide pkgconfig defaults
+	mkdir -p debian/python2-dev/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig
+	ln -sf python-$(VER).pc debian/python2-dev/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig/python2.pc
+	mkdir -p debian/python2-dbg/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig
+	ln -sf python-$(VER)-dbg.pc debian/python2-dbg/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig/python2-dbg.pc
+
+	: # provide the python2-dbg and python2-dbg.1 defaults
+	mkdir -p debian/python2-dbg/usr/bin
+	ln -sf python$(VER)-dbg debian/python2-dbg/usr/bin/python2-dbg
+	ln -sf python$(VER)-dbg-config debian/python2-dbg/usr/bin/python2-dbg-config
+	mkdir -p debian/python2-dbg/usr/share/man/man1
+	ln -sf python$(VER)-dbg.1.gz \
+		debian/python2-dbg/usr/share/man/man1/python2-dbg.1.gz
+	ln -sf python$(VER)-dbg-config.1.gz \
+		debian/python2-dbg/usr/share/man/man1/python2-dbg-config.1.gz
+	mkdir -p debian/python2-dbg/usr/share/doc/python2
+	ln -sf ../python$(VER)/SpecialBuilds.txt.gz \
+		debian/python2-dbg/usr/share/doc/python2/SpecialBuilds.txt.gz
+	ln -sf ../python$(VER)/README.debug \
+		debian/python2-dbg/usr/share/doc/python2/README.debug
+
+	mkdir -p debian/python2/usr/lib/valgrind
+	cp -p debian/valgrind-python.supp \
+		debian/python2/usr/lib/valgrind/python2.supp
+
+	: # provide the DEB_HOST_GNU_TYPE/DEB_HOST_MULTIRACH python2-config defaults
+	mkdir -p debian/libpython2-dev/usr/bin
+	ln -sf $(DEB_HOST_MULTIARCH)-python$(VER)-config \
+		debian/libpython2-dev/usr/bin/$(DEB_HOST_MULTIARCH)-python2-config
+	mkdir -p debian/libpython2-dev/usr/share/man/man1
+	ln -sf $(DEB_HOST_MULTIARCH)-python$(VER)-config.1.gz \
+		debian/libpython2-dev/usr/share/man/man1/$(DEB_HOST_MULTIARCH)-python2-config.1.gz
+ifneq ($(DEB_HOST_MULTIARCH),$(DEB_HOST_GNU_TYPE))
+	ln -sf $(DEB_HOST_GNU_TYPE)-python$(VER)-config \
+		debian/libpython2-dev/usr/bin/$(DEB_HOST_GNU_TYPE)-python2-config
+	ln -sf $(DEB_HOST_GNU_TYPE)-python$(VER)-config.1.gz \
+		debian/libpython2-dev/usr/share/man/man1/$(DEB_HOST_GNU_TYPE)-python2-config.1.gz
+endif
+
+	mkdir -p debian/libpython2-dbg/usr/bin
+	ln -sf $(DEB_HOST_MULTIARCH)-python$(VER)-dbg-config \
+		debian/libpython2-dbg/usr/bin/$(DEB_HOST_MULTIARCH)-python2-dbg-config
+	mkdir -p debian/libpython2-dbg/usr/share/man/man1
+	ln -sf $(DEB_HOST_MULTIARCH)-python$(VER)-dbg-config.1.gz \
+		debian/libpython2-dbg/usr/share/man/man1/$(DEB_HOST_MULTIARCH)-python2-dbg-config.1.gz
+ifneq ($(DEB_HOST_MULTIARCH),$(DEB_HOST_GNU_TYPE))
+	ln -sf $(DEB_HOST_GNU_TYPE)-python$(VER)-dbg-config \
+		debian/libpython2-dbg/usr/bin/$(DEB_HOST_GNU_TYPE)-python2-dbg-config
+	ln -sf $(DEB_HOST_GNU_TYPE)-python$(VER)-dbg-config.1.gz \
+		debian/libpython2-dbg/usr/share/man/man1/$(DEB_HOST_GNU_TYPE)-python2-dbg-config.1.gz
+endif
+
+	dh_lintian -a
+	dh_installdocs -a $(NOPKGS) --all debian/README.Debian
+	dh_installchangelogs -a $(NOPKGS)
+
+	for p in dbg dev; do \
+	  p=python2-$$p; \
+	  rm -rf debian/$$p/usr/share/doc/$$p; \
+	  ln -sf python2 debian/$$p/usr/share/doc/$$p; \
+	done
+	for p in all all-dev all-dbg; do \
+	  p=python-$$p; \
+	  rm -rf debian/$$p/usr/share/doc/$$p; \
+	  ln -sf python2 debian/$$p/usr/share/doc/$$p; \
+	done
+	rm -rf debian/libpython-all-dev/usr/share/doc/libpython-all-dev
+	ln -sf libpython2-dev debian/libpython-all-dev/usr/share/doc/libpython-all-dev
+	rm -rf debian/libpython-all-dbg/usr/share/doc/libpython-all-dbg
+	ln -sf libpython2-dbg debian/libpython-all-dbg/usr/share/doc/libpython-all-dbg
+
+	dh_compress -a $(NOPKGS)
+	dh_fixperms -a $(NOPKGS)
+	dh_installdeb -a $(NOPKGS)
+	dh_gencontrol -a $(NOPKGS)
+	dh_md5sums -a $(NOPKGS)
+	dh_builddeb -a $(NOPKGS)
+
+# Build architecture-dependent files here.
+binary-arch: build install
+# nothing to do
+
+binary: binary-indep binary-arch
+
+.PHONY: control-file configure build clean binary-indep binary-arch binary install
+
+# Local Variables:
+# mode: makefile
+# end:

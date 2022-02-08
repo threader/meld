@@ -1,0 +1,57 @@
+
+## Notes 
+
+apt source libpython-all-dev
+Reading package lists... Done
+Picking 'python-defaults' as source package instead of 'libpython-all-dev'
+NOTICE: 'python-defaults' packaging is maintained in the 'Git' version control system at:
+https://salsa.debian.org/cpython-team/python-defaults.git
+Please use:
+git clone https://salsa.debian.org/cpython-team/python-defaults.git
+to retrieve the latest (possibly unreleased) updates to the package.
+Need to get 47.1 kB of source archives.
+Get:1 http://kali.download/kali kali-rolling/main python-defaults 2.7.18-3 (dsc) [2,446 B]
+Get:2 http://kali.download/kali kali-rolling/main python-defaults 2.7.18-3 (tar) [44.7 kB]
+Fetched 47.1 kB in 1s (35.8 kB/s)         
+dpkg-source: info: extracting python-defaults in python-defaults-2.7.18
+dpkg-source: info: unpacking python-defaults_2.7.18-3.tar.gz
+
+##
+
+apt source python-gtk2-dev
+Reading package lists... Done
+Picking 'pygtk' as source package instead of 'python-gtk2-dev'
+NOTICE: 'pygtk' packaging is maintained in the 'Svn' version control system at:
+svn://svn.debian.org/svn/pkg-gnome/attic/pygtk/
+Need to get 3,253 kB of source archives.
+Get:1 http://deb.debian.org/debian stretch/main pygtk 2.24.0-5.1 (dsc) [2,860 B]
+Get:2 http://deb.debian.org/debian stretch/main pygtk 2.24.0-5.1 (tar) [3,234 kB]
+Get:3 http://deb.debian.org/debian stretch/main pygtk 2.24.0-5.1 (diff) [16.1 kB]
+Fetched 3,253 kB in 1s (2,767 kB/s)
+dpkg-source: info: extracting pygtk in pygtk-2.24.0
+dpkg-source: info: unpacking pygtk_2.24.0.orig.tar.gz
+dpkg-source: info: unpacking pygtk_2.24.0-5.1.debian.tar.xz
+dpkg-source: info: using patch list from debian/patches/series
+dpkg-source: info: applying 01_pygtk-demo.patch
+dpkg-source: info: applying 03_testsuite_filechooser.patch
+dpkg-source: info: applying 04_Fix_leaks_of_Pango_objects.patch
+dpkg-source: info: applying 05_Fix_GdkColor_pixel_parse.patch
+
+##
+
+apt source cdbs
+Reading package lists... Done
+NOTICE: 'cdbs' packaging is maintained in the 'Git' version control system at:
+https://salsa.debian.org/build-common-team/cdbs.git
+Please use:
+git clone https://salsa.debian.org/build-common-team/cdbs.git
+to retrieve the latest (possibly unreleased) updates to the package.
+Need to get 208 kB of source archives.
+Get:1 http://kali.download/kali kali-rolling/main cdbs 0.4.163 (dsc) [1,898 B]
+Get:2 http://kali.download/kali kali-rolling/main cdbs 0.4.163 (tar) [206 kB]
+Fetched 208 kB in 3s (80.6 kB/s)
+dpkg-source: info: extracting cdbs in cdbs-0.4.163
+dpkg-source: info: unpacking cdbs_0.4.163.tar.xz
+
+##
+
