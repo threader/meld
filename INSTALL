@@ -33,7 +33,7 @@
 ## 
 ## If you need to, you can customise the install paths used here:
 ##
-PYTHON ?= python
+PYTHON ?= python2
 prefix := /usr/local
 bindir := $(prefix)/bin
 libdir := $(prefix)/lib
@@ -62,6 +62,17 @@ helpdir_ := $(helpdir)/meld
 ## Optional:
 ##  * pygtksourceview 2.4 or higher
 ##    (http://sourceforge.net/projects/pygtksourceview)
+##
+## According to Debian:
+##  cdbs libgtksourceview2.0-dev libpython-all-dev python-all python-all-dev python-gtk2-dev
+##
+## Build-Depends: debhelper (>= 5),
+##               cdbs (>= 0.4.90~),
+##               gnome-pkg-tools
+## Build-Depends-Indep: python (>=2.6.6-3~),
+##                     intltool,
+##                     scrollkeeper
+##
 ## 
 ## They are all available from your favourite gnome mirror.
 ## Alternatively many distributions provide binary packages.
