@@ -694,12 +694,12 @@ class VcView(melddoc.MeldDoc, gnomeglade.Component):
 
     def on_button_push_clicked(self, obj):
         response = vcdialogs.PushDialog(self).run()
-        if response == Gtk.ResponseType.OK:
+        if response == gtk.RESPONSE_OK:
             self.vc.push(self._command)
 
     def on_button_commit_clicked(self, obj):
         response, commit_msg = vcdialogs.CommitDialog(self).run()
-        if response == Gtk.ResponseType.OK:
+        if response == gtk.RESPONSE_OK:
             self._command_on_selected(
                 self.vc.commit_command(commit_msg))
 
