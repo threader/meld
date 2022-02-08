@@ -1,0 +1,2 @@
+?package(meld):needs="X11" section="Applications/Programming" \
+  title="Meld" command="/usr/bin/meld"

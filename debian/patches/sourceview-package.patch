@@ -1,0 +1,12 @@
+=== modified file 'preferences.py'
+--- a/meld/preferences.py
++++ b/meld/preferences.py
+@@ -139,7 +139,7 @@
+             self.checkbutton_use_syntax_highlighting.set_active( self.prefs.use_syntax_highlighting )
+         else:
+             no_sourceview_text = \
+-                _("Only available if you have gnome-python-desktop installed")
++                _("Only available if you have python-gtksourceview2 installed")
+             for w in (self.checkbutton_spaces_instead_of_tabs,
+                       self.checkbutton_show_line_numbers,
+                       self.checkbutton_use_syntax_highlighting,

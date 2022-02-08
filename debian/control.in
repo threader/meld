@@ -1,0 +1,33 @@
+Source: meld
+Section: gnome
+Priority: optional
+Maintainer: Ross Burton <ross@debian.org>
+Build-Depends: debhelper (>= 5),
+               cdbs (>= 0.4.90~),
+               gnome-pkg-tools
+Build-Depends-Indep: python (>=2.6.6-3~),
+                     intltool,
+                     scrollkeeper
+Uploaders: @GNOME_TEAM@, Balint Reczey <balint@balintreczey.hu>
+DM-Upload-Allowed: yes
+Standards-Version: 3.9.3
+Vcs-Svn: svn://svn.debian.org/svn/pkg-gnome/packages/unstable/meld
+Vcs-Browser: http://svn.debian.org/wsvn/pkg-gnome/packages/unstable/meld/
+Homepage: http://meldmerge.org
+X-Python-Version: >= 2.6
+
+Package: meld
+Architecture: all
+Depends: ${python:Depends},
+         ${misc:Depends},
+         python-gtk2 (>= 2.14),
+         python-glade2 (>= 2.14),
+         python-gobject-2 (>= 2.16),
+         patch
+Recommends: yelp,
+            python-gnome2,
+            python-gconf,
+            python-gtksourceview2 (>= 2.4)
+Description: graphical tool to diff and merge files
+ Meld is a tool which allows the user to see the changes in, and merge between,
+ either two files, two directories, or two files with a common ancestor.
