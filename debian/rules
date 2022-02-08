@@ -1,6 +1,7 @@
 #!/usr/bin/make -f
 
 include /usr/share/cdbs/1/rules/debhelper.mk
+DEB_PYTHON2_MODULE_PACKAGES=meld
 include /usr/share/cdbs/1/class/makefile.mk
 include /usr/share/gnome-pkg-tools/1/rules/uploaders.mk
 -include /usr/share/gnome-pkg-tools/1/rules/gnome-get-source.mk
@@ -13,4 +14,7 @@ binary-install/meld::
 	dh_python2 -p$(cdbs_curpkg)
 
 binary-post-install/meld::
-	rm -rf debian/$(cdbs_curpkg)/usr/share/application-registry
+	rm -rf debian/$(cdbs_curpkg)/usr/share/doc/meld-* \
+		debian/$(cdbs_curpkg)/usr/share/meld/icons/COPYING \
+		debian/$(cdbs_curpkg)/usr/share/pyshared/meld/vc/COPYING \
+		debian/$(cdbs_curpkg)/usr/lib/python2.7/dist-packages/meld/vc/COPYING
