@@ -175,7 +175,7 @@ def _files_same(files, regexes, prefs):
 
     need_contents = regexes or prefs.ignore_blank_lines
 
-    regexes = tuple(regexes) if apply_text_filters else ()
+    regexes = tuple(regexes)
 
     # If all entries are directories, they are considered to be the same
     if all([stat.S_ISDIR(s.mode) for s in stats]):
@@ -198,7 +198,7 @@ def _files_same(files, regexes, prefs):
         return Different
 
     # Check the cache before doing the expensive comparison
-    cache_key = (files, need_contents, regexes, ignore_blank_lines)
+    cache_key = (files, need_contents, regexes, prefs.ignore_blank_lines)
     cache = _cache.get(cache_key)
     if cache and cache.stats == stats:
         return cache.result
@@ -220,7 +220,7 @@ def _files_same(files, regexes, prefs):
 
             # normalize and compare files again
             if result == Different and need_contents and not is_bin:
-                contents = _normalize(contents, ignore_blank_lines, regexes)
+                contents = _normalize(contents, prefs.ignore_blank_lines, regexes)
                 result = SameFiltered if all_same(contents) else Different
 
         # Files are too large; we can't apply filters
