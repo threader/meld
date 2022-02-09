@@ -123,6 +123,7 @@ class DiffTreeStore(gtk.TreeStore):
         for pane in range(self.ntree):
             self.set_value(it, self.column_index(COL_PATH, pane), None)
             self.set_state(it, pane, STATE_EMPTY, text)
+        return child
 
     def add_error(self, parent, msg, pane):
         it = self.append(parent)
