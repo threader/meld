@@ -119,17 +119,17 @@ class DiffTreeStore(gtk.TreeStore):
         return self.ntree * col + pane
 
     def add_entries(self, parent, names):
-        child = self.append(parent)
+        it = self.append(parent)
         for pane, path in enumerate(names):
-            self.set_value(child, self.column_index(COL_PATH, pane), path)
-        return child
+            self.set_value(it, self.column_index(COL_PATH, pane), path)
+        return it
 
     def add_empty(self, parent, text="empty folder"):
         it = self.append(parent)
         for pane in range(self.ntree):
             self.set_value(it, self.column_index(COL_PATH, pane), None)
             self.set_state(it, pane, STATE_EMPTY, text)
-        return child
+        return it
 
     def add_error(self, parent, msg, pane):
         it = self.append(parent)
