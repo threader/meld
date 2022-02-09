@@ -15,9 +15,10 @@ BROWSER := firefox
 all: $(addsuffix .install,$(SPECIALS)) meld.desktop meld.xml
 	$(MAKE) -C po
 	$(MAKE) -C help
+	chmod 0755 bin/meld.install
 
 .PHONY:clean
-clean: 
+clean:
 	@find ./meld -type f \( -name '*.pyc' -o -name '*.install' \) -print0 |\
 		xargs -0 rm -f
 	@find ./bin -type f \( -name '*.install' \) -print0 | xargs -0 rm -f
