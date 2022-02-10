@@ -112,12 +112,14 @@ class MeldBufferData(gobject.GObject):
 
     def _connect_monitor(self):
         if self._filename:
-            monitor = self._filename
-            self._monitor = monitor
+            monitor = self._filename.monitor_file(None)
+            handler_id = monitor.connect('changed', self._handle_file_change)
+            self._monitor = monitor, handler_id
 
     def _disconnect_monitor(self):
         if self._monitor:
-            monitor = self._monitor
+            monitor, handler_id = self._monitor
+            monitor.disconnect(handler_id)
             monitor.cancel()
 
 
@@ -129,10 +131,11 @@ class MeldBufferData(gobject.GObject):
         try:
             time_query = ",".join((gio.FILE_ATTRIBUTE_TIME_MODIFIED,
                                    gio.FILE_ATTRIBUTE_TIME_MODIFIED_USEC))
+			info = filename.query_info(time_query, 0, None)
         except glib.GError:
             return None
-        mtime = os.path.getmtime(filename)
-        return (mtime)
+        mtime = info.get_modification_time()
+        return (mtime.tv_sec, mtime.tv_usec)
 
     def _handle_file_change(self, monitor, f, other_file, event_type):
         mtime = self._query_mtime(f)
