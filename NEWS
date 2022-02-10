@@ -1,4 +1,9 @@
 
+2022-xx-xx meld 1.8.6.2-dev
+====================
+	* Maintainance! Backported every fix I could (so far) (Michael Heltne)
+	* WIP: Backport File changed on disk. (Michael Heltne)
+
 2013-7-19 meld 1.8.6
 ====================
 
