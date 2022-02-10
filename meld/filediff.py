@@ -1252,18 +1252,17 @@ class FileDiff(melddoc.MeldDoc, gnomeglade.Component):
         except ValueError:
             # Notification for unknown buffer
             return
-        gfile = Gio.File.new_for_path(data.filename)
 
-        primary = _("File %s changed on disk") % gfile.get_parse_name()
+        primary = _("File %s has changed on disk") % self._filename)
         secondary = _("Do you want to reload the file?")
         msgarea = self.msgarea_mgr[pane].new_from_text_and_icon(
                         Gtk.STOCK_DIALOG_WARNING, primary, secondary)
-        msgarea.add_button(_("_Reload"), Gtk.ResponseType.ACCEPT)
-        msgarea.add_button(_("Hi_de"), Gtk.ResponseType.CLOSE)
+        msgarea.add_button(_("_Reload"), gtk.ResponseType.ACCEPT)
+        msgarea.add_button(_("Hi_de"), gtk.ResponseType.CLOSE)
 
         def on_file_changed_response(msgarea, response_id, *args):
             self.msgarea_mgr[pane].clear()
-            if response_id == Gtk.ResponseType.ACCEPT:
+            if response_id == gtk.ResponseType.ACCEPT:
                 self.on_revert_activate()
             else:
                 # TODO: Set a flag to indicate that the file has been changed
