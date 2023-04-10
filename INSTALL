@@ -64,7 +64,7 @@ helpdir_ := $(helpdir)/meld
 ##    (http://sourceforge.net/projects/pygtksourceview)
 ##
 ## According to Debian:
-##  cdbs libgtksourceview2.0-dev libpython-all-dev python-all python-all-dev python-gtk2-dev
+## intltool scrollkeeper cdbs libgtksourceview2.0-dev libpython-all-dev python-all python-all-dev python-gtk2-dev
 ##
 ## Build-Depends: debhelper (>= 5),
 ##               cdbs (>= 0.4.90~),
