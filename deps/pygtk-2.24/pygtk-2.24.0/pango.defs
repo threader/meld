@@ -1303,15 +1303,6 @@
   )
 )
 
-(define-method find_shaper
-  (of-object "PangoFont")
-  (c-name "pango_font_find_shaper")
-  (return-type "PangoEngineShape*")
-  (parameters
-    '("PangoLanguage*" "language")
-    '("guint32" "ch")
-  )
-)
 
 (define-method get_metrics
   (of-object "PangoFont")
@@ -1391,14 +1382,6 @@
   )
 )
 
-(define-virtual find_shaper
-  (of-object "PangoFont")
-  (return-type "PangoEngineShape*")
-  (parameters
-    '("PangoLanguage*" "lang")
-    '("guint32" "ch")
-  )
-)
 
 (define-virtual get_glyph_extents
   (of-object "PangoFont")
