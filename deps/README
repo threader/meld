@@ -15,13 +15,24 @@ needs
 libatk-bridge2.0-dev
 check-local must be removed from Makefile.in also in tests/ if it appears
 ----
+
 gtksourceview2-2.10.5
 depends on: gobject-introspection
 
 Gentoo fixed building with gcc-14
 https://gitweb.gentoo.org/repo/gentoo.git/diff/?id=4f79cdcc9f9f1d131994a0764d0dc3e1d9a5fbad&id2=05481fab1748df6e85deb763b75843f52d96f7e9
-
 ---
+
+pygtksourceview-2.10.1 
+
+thankfully simply changing debian/rules worked:
+DEB_CONFIGURE_EXTRA_FLAGS="PYTHON=python2"
+# include /usr/share/cdbs/1/class/python-autotools.mk
+include /usr/share/python/python.mk 
+
+dpkg-buildpackage -us -uc -nc --no-post-clean 
+---
+
 My source.list file has these entries: 
 
 #legacy

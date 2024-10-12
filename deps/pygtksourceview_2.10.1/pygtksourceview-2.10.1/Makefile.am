@@ -6,7 +6,7 @@ SUBDIRS = test
 if ENABLE_DOCS
 SUBDIRS += docs
 endif
-PYTHON="python2"
+
 INCLUDES = $(PYTHON_INCLUDES)
 
 EXTRA_DIST =				\
