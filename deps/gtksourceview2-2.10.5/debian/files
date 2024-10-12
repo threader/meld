@@ -1,0 +1,6 @@
+gtksourceview2_2.10.5-3_amd64.buildinfo libs optional
+libgtksourceview2.0-0-dbgsym_2.10.5-3_amd64.deb debug optional automatic=yes
+libgtksourceview2.0-0_2.10.5-3_amd64.deb oldlibs optional
+libgtksourceview2.0-common_2.10.5-3_all.deb oldlibs optional
+libgtksourceview2.0-dev_2.10.5-3_amd64.deb oldlibs optional
+libgtksourceview2.0-doc_2.10.5-3_all.deb doc optional

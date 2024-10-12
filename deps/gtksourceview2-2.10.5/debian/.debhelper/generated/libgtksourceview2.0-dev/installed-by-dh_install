@@ -1,0 +1,4 @@
+debian/tmp/usr/include
+debian/tmp/usr/lib/x86_64-linux-gnu/libgtksourceview-2.0.a
+debian/tmp/usr/lib/x86_64-linux-gnu/libgtksourceview-2.0.so
+debian/tmp/usr/lib/x86_64-linux-gnu/pkgconfig/gtksourceview-2.0.pc

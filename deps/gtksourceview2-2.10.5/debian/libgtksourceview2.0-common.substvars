@@ -1,0 +1,6 @@
+gnome:Version=2.10
+gnome:UpstreamVersion=2.10
+gnome:NextVersion=2.12
+gnome:NextUpstreamVersion=2.12
+misc:Depends=
+misc:Pre-Depends=

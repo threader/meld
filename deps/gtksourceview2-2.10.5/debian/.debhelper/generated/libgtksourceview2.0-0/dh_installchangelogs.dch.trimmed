@@ -1,0 +1,47 @@
+gtksourceview2 (2.10.5-3) unstable; urgency=medium
+
+  * Strip debian/tmp/ prefix from .install files.
+  * Convert to multiarch. (Closes: #813251)
+  * Convert from cdbs to dh.
+  * Drop debian/patches/99_ltmain_as-needed.patch and use
+    dh_autoreconf --as-needed instead.
+  * Bump debhelper compat level to 10.
+  * Move into section oldlibs.
+  * Add Build-Depends on gnome-common. Required by autoreconf.
+    (Closes: #837838)
+  * Bump Standards-Version to 3.9.8.
+
+ -- Michael Biebl <biebl@debian.org>  Fri, 21 Oct 2016 03:24:12 +0200
+
+gtksourceview2 (2.10.5-2) unstable; urgency=medium
+
+  * Team upload.
+
+  [ Andreas Barth ]
+  * Add debian/patches/drop-gettext-configure.patch
+  * Add build-dependency on dh-autoreconf
+  * Use autoreconf in debian/rules (Closes: #558550)
+
+ -- Andreas Henriksson <andreas@fatal.se>  Sat, 06 Sep 2014 05:27:42 -0700
+
+gtksourceview2 (2.10.5-1) unstable; urgency=low
+
+  [ Josselin Mouette ]
+  * Update repository URL.
+
+  [ Emilio Pozuelo Monfort ]
+  * Drop glade-3 support as glade-3 is being removed. Closes: #715338.
+
+  [ Jeremy Bicha ]
+  * New upstream release
+
+ -- Michael Biebl <biebl@debian.org>  Mon, 26 Aug 2013 22:40:43 +0200
+
+gtksourceview2 (2.10.4-1) unstable; urgency=low
+
+  * New upstream bugfix and documentation release.
+
+ -- Josselin Mouette <joss@debian.org>  Mon, 16 Aug 2010 19:17:09 +0200
+
+# Older entries have been removed from this changelog.
+# To read the complete changelog use `apt changelog libgtksourceview2.0-0`.

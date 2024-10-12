@@ -1,0 +1,24 @@
+#!/usr/bin/make -f
+
+-include /usr/share/gnome-pkg-tools/1/rules/gnome-get-source.mk
+
+GNOME_MODULE = gtksourceview
+
+export DEB_LDFLAGS_MAINT_APPEND = -Wl,-z,defs -Wl,-O1 -Wl,--as-needed
+
+%:
+	dh $@ --with gnome
+
+override_dh_autoreconf:
+	dh_autoreconf --as-needed
+
+override_dh_auto_configure:
+	dh_auto_configure -- --enable-static
+
+override_dh_makeshlibs:
+	dh_makeshlibs -V 'libgtksourceview2.0-0 (>= 2.10.0)'
+
+override_dh_auto_test:
+ifeq (, $(filter nocheck, $(DEB_BUILD_OPTIONS)))
+	$(MAKE) -C gtksourceview/language-specs check VERBOSE=1
+endif

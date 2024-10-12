@@ -1,0 +1,89 @@
+pygtksourceview (2.10.1-3) unstable; urgency=low
+
+  [ Josselin Mouette ]
+  * Replace python-gobject by python-gobject-2.
+
+  [ Emilio Pozuelo Monfort ]
+  * Add patch from Chris Lamb to make build reproducible. Closes: #835807.
+
+ -- Emilio Pozuelo Monfort <pochu@debian.org>  Wed, 25 Jan 2017 23:18:48 +0100
+
+pygtksourceview (2.10.1-2) unstable; urgency=low
+
+  [ Emilio Pozuelo Monfort ]
+  * debian/control.in,
+    debian/rules:
+    - Switch to CDBS with python-autotools.mk.
+
+  [ Martin Pitt ]
+  * debian/control.in, debian/rules: Switch from obsolete python-support to
+    dh_python2.
+  * debian/control.in, debian/compat: Bump to dh compat 8.
+  * debian/control.in: Bump Standards-Version to 3.9.2.
+  * debian/rules: Don't install .la files for the Python libraries.
+
+ -- Martin Pitt <mpitt@debian.org>  Mon, 30 May 2011 12:08:55 +0200
+
+pygtksourceview (2.10.1-1) unstable; urgency=low
+
+  * New upstream bugfix release.
+
+ -- Sebastian Dröge <slomo@debian.org>  Mon, 19 Apr 2010 10:33:45 +0200
+
+pygtksourceview (2.10.0-1) unstable; urgency=low
+
+  * New upstream release.
+    + debian/control.in:
+      - Bump gtksourceview build depend requirement.
+  * Standards-Version is 3.8.4, no changes needed.
+  * debian/source/format:
+    - Switch to format 3.0 (quilt).
+
+ -- Emilio Pozuelo Monfort <pochu@debian.org>  Mon, 05 Apr 2010 19:25:52 +0200
+
+pygtksourceview (2.8.0-1) unstable; urgency=low
+
+  * New upstream release.
+  * Require gtksourceview 2.8 for the new API.
+
+ -- Josselin Mouette <joss@debian.org>  Thu, 24 Sep 2009 23:45:50 +0200
+
+pygtksourceview (2.6.0-1) unstable; urgency=low
+
+  * Build-depend on python-gtk2-doc to ensure proper xrefs.
+  * New upstream release.
+
+ -- Josselin Mouette <joss@debian.org>  Tue, 09 Jun 2009 19:39:32 +0200
+
+pygtksourceview (2.4.0-2) unstable; urgency=low
+
+  * Upload to unstable.
+
+ -- Josselin Mouette <joss@debian.org>  Sun, 08 Mar 2009 15:31:12 +0100
+
+pygtksourceview (2.4.0-1) experimental; urgency=low
+
+  * New upstream release.
+  * Update dependencies and build-dependencies.
+  * Standards version is 3.8.0.
+  * Require python 2.5 to match the requirement in pygobject.
+  * Add missing copyright information.
+  * Fix capitalization of Python in the description.
+
+ -- Josselin Mouette <joss@debian.org>  Thu, 13 Nov 2008 10:22:58 +0100
+
+pygtksourceview (2.2.0-1) unstable; urgency=low
+
+  * New upstream stable release:
+    + Removes gtksourceview1 documentation (Closes: #457624).
+    + debian/control.in:
+      - Update build dependencies.
+      - Update Standards-Version to 3.7.3, no additional changes needed.
+
+ -- Sebastian Dröge <slomo@debian.org>  Mon, 17 Mar 2008 00:13:39 +0100
+
+pygtksourceview (2.0.0-1) unstable; urgency=low
+
+  * Initial release. Closes: #444820.
+
+ -- Josselin Mouette <joss@debian.org>  Mon, 01 Oct 2007 11:28:18 +0200

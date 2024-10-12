@@ -1,0 +1,7 @@
+gnome:NextUpstreamVersion=2.12
+gnome:NextVersion=2.12
+gnome:UpstreamVersion=2.10
+gnome:Version=2.10
+shlibs:Depends=libc6 (>= 2.14), libcairo2 (>= 1.2.4), libgdk-pixbuf-2.0-0 (>= 2.22.0), libglib2.0-0t64 (>= 2.80.0), libgtk2.0-0t64 (>= 2.16.0), libpango-1.0-0 (>= 1.18.0), libpangocairo-1.0-0 (>= 1.14.0), libxml2 (>= 2.7.4)
+misc:Depends=
+misc:Pre-Depends=

@@ -1,0 +1,1273 @@
+/* -*- C -*- */
+%%
+headers
+#define NO_IMPORT_PYGOBJECT
+#include "pygobject.h"
+
+#include "pygtksourceview-private.h"
+
+#include <gtksourceview/gtksourceview.h>
+#include <gtksourceview/gtksourceview-typebuiltins.h>
+#include <gtksourceview/gtksourcelanguagemanager.h>
+#include <gtksourceview/gtksourcestyleschememanager.h>
+#include <gtksourceview/gtksourcestyle.h>
+#include <gtksourceview/gtksourcestylescheme.h>
+#include <gtksourceview/gtksourcelanguage.h>
+#include <gtksourceview/gtksourcegutter.h>
+
+#include <gtksourceview/gtksourceiter.h>
+#include <gtksourceview/gtksourcebuffer.h>
+#include <gtksourceview/gtksourceprintcompositor.h>
+#include <gtksourceview/gtksourcecompletion.h>
+#include <gtksourceview/gtksourcecompletionitem.h>
+#include <gtksourceview/gtksourcecompletionprovider.h>
+#include <gtksourceview/gtksourcecompletioninfo.h>
+#include <gtksourceview/completion-providers/words/gtksourcecompletionwords.h>
+
+static PyObject *
+glist_to_pylist_objs (const GList *source)
+{
+    const GList *iter;
+    PyObject *dest = PyList_New (0);
+    for (iter = source; iter != NULL; iter = iter->next)
+    {
+        PyObject *item = pygobject_new ((GObject *)iter->data);
+        PyList_Append (dest, item);
+        Py_DECREF (item);
+    }
+    return dest;
+}
+
+static PyObject *
+gslist_to_pylist_objs (const GSList *source)
+{
+    const GSList *iter;
+    PyObject *dest = PyList_New (0);
+    for (iter = source; iter != NULL; iter = iter->next)
+    {
+        PyObject *item = pygobject_new ((GObject *)iter->data);
+        PyList_Append (dest, item);
+        Py_DECREF (item);
+    }
+    return dest;
+}
+
+static PyObject *
+strv_to_pylist (char **strv)
+{
+    gsize len, i;
+    PyObject *list;
+
+    len = strv ? g_strv_length (strv) : 0;
+    list = PyList_New (len);
+
+    for (i = 0; i < len; i++)
+        PyList_SetItem (list, i, PyString_FromString (strv[i]));
+
+    return list;
+}
+
+static gboolean
+pylist_to_strv (PyObject *list,
+                char   ***strvp)
+{
+    int i, len;
+    char **ret;
+
+    *strvp = NULL;
+
+    if (list == Py_None)
+        return TRUE;
+
+    if (!PySequence_Check (list))
+    {
+        PyErr_Format (PyExc_TypeError, "argument must be a list or tuple of strings");
+        return FALSE;
+    }
+
+    if ((len = PySequence_Size (list)) < 0)
+        return FALSE;
+
+    ret = g_new (char*, len + 1);
+    for (i = 0; i <= len; ++i)
+        ret[i] = NULL;
+
+    for (i = 0; i < len; ++i)
+    {
+        PyObject *item = PySequence_GetItem (list, i);
+
+        if (!item)
+        {
+            g_strfreev (ret);
+            return FALSE;
+        }
+
+        if (!PyString_Check (item))
+        {
+            Py_DECREF (item);
+            g_strfreev (ret);
+            PyErr_Format (PyExc_TypeError, "argument must be a list of strings");
+            return FALSE;
+        }
+
+        ret[i] = g_strdup (PyString_AsString (item));
+        Py_DECREF (item);
+    }
+
+    *strvp = ret;
+    return TRUE;
+}
+
+void
+pygtksourceview_custom_destroy_notify(gpointer user_data)
+{
+    PyGtkSourceViewCustomNotify *cunote = user_data;
+    PyGILState_STATE state;
+
+    g_return_if_fail(user_data);
+    state = pyg_gil_state_ensure();
+    Py_XDECREF(cunote->func);
+    Py_XDECREF(cunote->data);
+    pyg_gil_state_release(state);
+    
+    g_free(cunote);
+}
+
+%%
+modulename gtksourceview2
+
+%%
+import gobject.GObject as PyGObject_Type
+import gtk.gdk.Pixbuf as PyGdkPixbuf_Type
+import gtk.TextTagTable as PyGtkTextTagTable_Type
+import gtk.TextView as PyGtkTextView_Type
+import gtk.TextBuffer as PyGtkTextBuffer_Type
+import gtk.TextMark as PyGtkTextMark_Type
+import gtk.PrintContext as PyGtkPrintContext_Type
+import gtk.Widget as PyGtkWidget_Type
+import gtk.Window as PyGtkWindow_Type
+import gtk.TextIter as PyGtkTextIter_Type
+import gtk.CellRenderer as PyGtkCellRenderer_Type
+import gtk.Tooltip as PyGtkTooltip_Type
+import gobject.GObject as PyGInitiallyUnowned_Type
+%%
+ignore-glob
+*_get_type
+
+%%
+override gtk_source_language_get_globs noargs
+static PyObject *
+_wrap_gtk_source_language_get_globs(PyGObject *self)
+{
+    gchar **globs;
+    PyObject *ret;
+
+    globs = gtk_source_language_get_globs (GTK_SOURCE_LANGUAGE (self->obj));
+    ret = strv_to_pylist (globs);
+    g_strfreev (globs);
+
+    return ret;
+}
+
+%%
+override gtk_source_language_get_mime_types noargs
+static PyObject *
+_wrap_gtk_source_language_get_mime_types(PyGObject *self)
+{
+    gchar **mime_types;
+    PyObject *ret;
+
+    mime_types = gtk_source_language_get_mime_types (GTK_SOURCE_LANGUAGE (self->obj));
+    ret = strv_to_pylist (mime_types);
+    g_strfreev (mime_types);
+
+    return ret;
+}
+
+%%
+override gtk_source_language_manager_get_language_ids noargs
+static PyObject *
+_wrap_gtk_source_language_manager_get_language_ids (PyGObject *self)
+{
+    PyObject *py_ret;
+    const char * const *ret;
+
+    ret = gtk_source_language_manager_get_language_ids (GTK_SOURCE_LANGUAGE_MANAGER (self->obj));
+    py_ret = strv_to_pylist ((char**) ret);
+
+    return py_ret;
+}
+
+%%
+override gtk_source_language_manager_get_search_path noargs
+static PyObject *
+_wrap_gtk_source_language_manager_get_search_path(PyGObject *self)
+{
+    const char * const *ret;
+    PyObject  *py_ret;
+
+    ret = gtk_source_language_manager_get_search_path (GTK_SOURCE_LANGUAGE_MANAGER(self->obj));
+    py_ret = strv_to_pylist ((char**) ret);
+
+    return py_ret;
+}
+
+%%
+override gtk_source_language_manager_set_search_path kwargs
+static PyObject *
+_wrap_gtk_source_language_manager_set_search_path (PyGObject *self, PyObject *args, PyObject *kwargs)
+{
+    static char *kwlist[] = { "dirs", NULL };
+    PyObject *py_dirs;
+    char **dirs;
+
+    if (!PyArg_ParseTupleAndKeywords(args, kwargs,"O:GtkSourceLanguageManager.set_search_path", kwlist, &py_dirs))
+        return NULL;
+
+    if (!pylist_to_strv (py_dirs, &dirs))
+        return NULL;
+
+    gtk_source_language_manager_set_search_path (GTK_SOURCE_LANGUAGE_MANAGER (self->obj), dirs);
+    g_strfreev (dirs);
+
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+%%
+override gtk_source_style_scheme_manager_get_search_path noargs
+static PyObject *
+_wrap_gtk_source_style_scheme_manager_get_search_path(PyGObject *self)
+{
+    const char * const *ret;
+    PyObject *py_ret;
+
+    ret = gtk_source_style_scheme_manager_get_search_path (GTK_SOURCE_STYLE_SCHEME_MANAGER (self->obj));
+    py_ret = strv_to_pylist ((char**) ret);
+
+    return py_ret;
+}
+
+%%
+override gtk_source_style_scheme_manager_set_search_path kwargs
+static PyObject *
+_wrap_gtk_source_style_scheme_manager_set_search_path(PyGObject *self, PyObject *args, PyObject *kwargs)
+{
+    static char *kwlist[] = { "dirs", NULL };
+    PyObject *py_dirs;
+    char **dirs;
+
+    if (!PyArg_ParseTupleAndKeywords(args, kwargs,"O:GtkSourceStyleSchemeManager.set_search_path", kwlist, &py_dirs))
+        return NULL;
+
+    if (!pylist_to_strv (py_dirs, &dirs))
+        return NULL;
+
+    gtk_source_style_scheme_manager_set_search_path (GTK_SOURCE_STYLE_SCHEME_MANAGER (self->obj), dirs);
+    g_strfreev (dirs);
+
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+%%
+override gtk_source_style_scheme_manager_get_scheme_ids noargs
+static PyObject *
+_wrap_gtk_source_style_scheme_manager_get_scheme_ids (PyGObject *self)
+{
+    PyObject *py_ret;
+    const char * const *ret;
+
+    ret = gtk_source_style_scheme_manager_get_scheme_ids (GTK_SOURCE_STYLE_SCHEME_MANAGER (self->obj));
+    py_ret = strv_to_pylist ((char**) ret);
+
+    return py_ret;
+}
+
+%%
+override gtk_source_style_scheme_get_authors noargs
+static PyObject *
+_wrap_gtk_source_style_scheme_get_authors (PyGObject *self)
+{
+    PyObject *py_ret;
+    const char * const *ret;
+
+    ret = gtk_source_style_scheme_get_authors (GTK_SOURCE_STYLE_SCHEME (self->obj));
+    py_ret = strv_to_pylist ((char**) ret);
+
+    return py_ret;
+}
+
+%%
+override-slot GtkSourceLanguage.tp_new
+static PyObject *
+_wrap_gtk_source_language_tp_new(PyTypeObject *type)
+{
+    PyErr_SetString(PyExc_TypeError,
+            "cannot create instance of type `GtkSourceLanguage'");
+    return NULL;
+}
+
+%%
+override-slot GtkSourceStyleScheme.tp_new
+static PyObject *
+_wrap_gtk_source_style_scheme_tp_new(PyTypeObject *type)
+{
+    PyErr_SetString(PyExc_TypeError,
+            "cannot create instance of type `GtkSourceStyleScheme'");
+    return NULL;
+}
+
+%%
+override gtk_source_language_get_style_ids noargs
+static PyObject *
+_wrap_gtk_source_language_get_style_ids(PyGObject *self)
+{
+    gchar       **ret;
+    PyObject    *py_ret;
+
+    ret = gtk_source_language_get_style_ids(GTK_SOURCE_LANGUAGE(self->obj));
+    py_ret = strv_to_pylist ((char**) ret);
+
+    return py_ret;
+}
+
+%%
+override gtk_source_buffer_get_source_marks_at_iter kwargs
+static PyObject *
+_wrap_gtk_source_buffer_get_source_marks_at_iter(PyGObject *self,
+                                                 PyObject *args,
+                                                 PyObject *kwargs)
+{
+    static char *kwlist[] = { "iter", "category", NULL };
+    PyObject    *py_iter, *py_ret;
+    gchar       *category;
+    GtkTextIter *iter = NULL;
+    GSList      *ret;
+
+    if (!PyArg_ParseTupleAndKeywords(args, kwargs,
+                                     "Oz:GtkSourceBuffer.get_source_marks_at_iter",
+                                     kwlist, &py_iter, &category))
+        return NULL;
+
+    if (pyg_boxed_check(py_iter, GTK_TYPE_TEXT_ITER))
+        iter = pyg_boxed_get(py_iter, GtkTextIter);
+    else {
+        PyErr_SetString(PyExc_TypeError, "iter should be a GtkTextIter");
+        return NULL;
+    }
+
+    ret = gtk_source_buffer_get_source_marks_at_iter(GTK_SOURCE_BUFFER(self->obj),
+                                                     iter, category);
+
+    py_ret = gslist_to_pylist_objs (ret);
+
+    return py_ret;
+}
+
+%%
+override gtk_source_buffer_get_source_marks_at_line kwargs
+static PyObject *
+_wrap_gtk_source_buffer_get_source_marks_at_line(PyGObject *self,
+                                                 PyObject *args,
+                                                 PyObject *kwargs)
+{
+    static char *kwlist[] = { "line", "category", NULL };
+    PyObject    *py_ret;
+    gint        line;
+    gchar       *category;
+    GSList      *ret;
+
+    if (!PyArg_ParseTupleAndKeywords(args, kwargs,
+                                     "iz:GtkSourceBuffer.get_source_marks_at_line",
+                                     kwlist, &line, &category))
+        return NULL;
+
+    ret = gtk_source_buffer_get_source_marks_at_line(GTK_SOURCE_BUFFER(self->obj),
+                                                     line, category);
+
+    py_ret = gslist_to_pylist_objs (ret);
+
+    return py_ret;
+}
+
+%%
+override gtk_source_iter_backward_search kwargs
+static PyObject *
+_wrap_gtk_source_iter_backward_search(PyObject *self, PyObject *args,
+                                      PyObject *kwargs)
+{
+    static char *kwlist[] = { "iter", "str", "flags", "limit", NULL };
+    gchar *str;
+    PyObject *py_flags, *py_iter, *py_limit = Py_None;
+    GtkTextIter match_start, match_end, *iter = NULL, *limit = NULL;
+    GtkSourceSearchFlags flags;
+
+    if (!PyArg_ParseTupleAndKeywords(args, kwargs,
+                                    "OsO|O:gtksourceview2.iter_backward_search",
+                                    kwlist, &py_iter, &str, &py_flags,
+                                    &py_limit))
+        return NULL;
+
+    if (pyg_boxed_check(py_iter, GTK_TYPE_TEXT_ITER))
+        iter = pyg_boxed_get(py_iter, GtkTextIter);
+
+    if (pyg_boxed_check(py_limit, GTK_TYPE_TEXT_ITER))
+        limit = pyg_boxed_get(py_limit, GtkTextIter);
+
+    else if (py_limit != Py_None) {
+        PyErr_SetString(PyExc_TypeError,"limit must be a GtkTextIter or None");
+        return NULL;
+    }
+
+    if (pyg_flags_get_value(GTK_TYPE_TEXT_SEARCH_FLAGS, py_flags,
+                            (gint *)&flags))
+        return NULL;
+
+    if (gtk_source_iter_backward_search(iter, str, flags, &match_start,
+                                        &match_end, limit))
+        return Py_BuildValue("(NN)",
+                             pyg_boxed_new(GTK_TYPE_TEXT_ITER, &match_start,
+                                           TRUE, TRUE),
+                             pyg_boxed_new(GTK_TYPE_TEXT_ITER, &match_end,
+                                           TRUE, TRUE));
+
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+%%
+override gtk_source_iter_forward_search kwargs
+static PyObject *
+_wrap_gtk_source_iter_forward_search(PyObject *self, PyObject *args,
+                                      PyObject *kwargs)
+{
+    static char *kwlist[] = { "iter", "str", "flags", "limit", NULL };
+    gchar *str;
+    PyObject *py_flags, *py_iter, *py_limit = Py_None;
+    GtkTextIter match_start, match_end, *iter = NULL, *limit = NULL;
+    GtkSourceSearchFlags flags;
+
+    if (!PyArg_ParseTupleAndKeywords(args, kwargs,
+                                    "OsO|O:gtksourceview2.iter_forward_search",
+                                    kwlist, &py_iter, &str, &py_flags,
+                                    &py_limit))
+        return NULL;
+
+    if (pyg_boxed_check(py_iter, GTK_TYPE_TEXT_ITER))
+        iter = pyg_boxed_get(py_iter, GtkTextIter);
+
+    if (pyg_boxed_check(py_limit, GTK_TYPE_TEXT_ITER))
+        limit = pyg_boxed_get(py_limit, GtkTextIter);
+
+    else if (py_limit != Py_None) {
+        PyErr_SetString(PyExc_TypeError,"limit must be a GtkTextIter or None");
+        return NULL;
+    }
+
+    if (pyg_flags_get_value(GTK_TYPE_TEXT_SEARCH_FLAGS, py_flags,
+                            (gint *)&flags))
+        return NULL;
+
+    if (gtk_source_iter_forward_search(iter, str, flags, &match_start,
+                                        &match_end, limit))
+        return Py_BuildValue("(NN)",
+                             pyg_boxed_new(GTK_TYPE_TEXT_ITER, &match_start,
+                                           TRUE, TRUE),
+                             pyg_boxed_new(GTK_TYPE_TEXT_ITER, &match_end,
+                                           TRUE, TRUE));
+
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+%%
+override gtk_source_view_get_mark_category_background kwargs
+static PyObject *
+_wrap_gtk_source_view_get_mark_category_background(PyGObject *self,
+                                                   PyObject *args,
+                                                   PyObject *kwargs)
+{
+    static char *kwlist[] = { "category", NULL };
+    char *category;
+    int ret;
+    GdkColor dest = { 0, 0, 0, 0 };
+
+    if (!PyArg_ParseTupleAndKeywords(args,
+                                kwargs,
+                                "s:GtkSourceView.get_mark_category_background",
+                                kwlist, &category))
+        return NULL;
+
+    ret = gtk_source_view_get_mark_category_background(
+                                                    GTK_SOURCE_VIEW(self->obj),
+                                                    category, &dest);
+
+    if (ret)
+        return pyg_boxed_new(GDK_TYPE_COLOR, &dest, TRUE, TRUE);
+    else {
+        Py_INCREF(Py_None);
+        return(Py_None);
+    }
+}
+
+%%
+override gtk_source_gutter_set_cell_data_func kwargs
+static void
+pygtksourceview_cell_data_func_marshal (GtkSourceGutter *gutter,
+                                        GtkCellRenderer *cell,
+                                        gint line_number,
+                                        gboolean current_line,
+                                        gpointer data)
+{
+    PyGILState_STATE state;
+    PyGtkSourceViewCustomNotify *cunote = data;
+    PyObject *retobj;
+    PyObject *pygutter, *pycell;
+
+    g_assert (cunote->func);
+
+    state = pyg_gil_state_ensure();
+
+    pygutter = pygobject_new((GObject *)gutter);
+    pycell = pygobject_new((GObject *)cell);
+    
+    if (cunote->data)
+        retobj = PyEval_CallFunction(cunote->func, "(NNiiO)",
+                                     pygutter, pycell,
+                                     line_number, current_line, cunote->data);
+    else
+        retobj = PyEval_CallFunction(cunote->func, "(NNii)",
+                                     pygutter, pycell,
+                                     line_number, current_line);
+
+    if (retobj == NULL) {
+        PyErr_Print();
+    } else
+        Py_DECREF(retobj);
+
+    pyg_gil_state_release(state);
+}
+
+static PyObject *
+_wrap_gtk_source_gutter_set_cell_data_func (PyGObject *self,
+                                            PyObject *args,
+                                            PyObject *kwargs)
+{
+    PyObject *pycell, *pyfunc, *pyarg = NULL;
+    GtkCellRenderer *cell;
+    PyGtkSourceViewCustomNotify *cunote;
+
+    if (!PyArg_ParseTuple(args, "OO|O:GtkSourceGutter.set_cell_data_func",
+                          &pycell, &pyfunc, &pyarg))
+        return NULL;
+
+    if (pygobject_check(pycell, &PyGtkCellRenderer_Type))
+        cell = GTK_CELL_RENDERER(pygobject_get(pycell));
+    else {
+        PyErr_SetString(PyExc_TypeError,
+                        "first argument must be a GtkCellRenderer");
+        return NULL;
+    }
+
+    if (pyfunc == Py_None) {
+        PyErr_SetString(PyExc_TypeError,
+                        "Function can't be None");
+    } else {
+        cunote = g_new0(PyGtkSourceViewCustomNotify, 1);
+        cunote->func = pyfunc;
+        cunote->data = pyarg;
+        Py_INCREF(cunote->func);
+        Py_XINCREF(cunote->data);
+
+        gtk_source_gutter_set_cell_data_func(GTK_SOURCE_GUTTER(self->obj), cell,
+                                        pygtksourceview_cell_data_func_marshal,
+                                        cunote,
+                                        pygtksourceview_custom_destroy_notify);
+    }
+
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+%%
+override gtk_source_completion_context_add_proposals kwargs
+static PyObject *
+_wrap_gtk_source_completion_context_add_proposals(PyGObject *self,
+                                                  PyObject *args,
+                                                  PyObject *kwargs)
+{
+    static char *kwlist[] = { "provider", "proposals", "finished", NULL };
+    PyGObject   *py_provider;
+    PyObject    *py_proposals;
+    PyObject    *py_finished = NULL;
+    GList       *ret;
+
+    if (!PyArg_ParseTupleAndKeywords(args, kwargs,
+                                     "O!O|O:GtkSourceCompletionContext.add_proposals",
+                                     kwlist, 
+                                     &PyGtkSourceCompletionProvider_Type, &py_provider, 
+                                     &py_proposals, 
+                                     &py_finished))
+        return NULL;
+
+	if (py_proposals != Py_None && !PySequence_Check(py_proposals)) {
+        PyErr_SetString(PyExc_TypeError, "proposals must be a list");
+        return NULL;
+    }
+
+	ret = pylist_to_glist_gobjs (py_proposals, GTK_TYPE_SOURCE_COMPLETION_PROPOSAL);
+	gtk_source_completion_context_add_proposals(GTK_SOURCE_COMPLETION_CONTEXT (self->obj),
+	                                            GTK_SOURCE_COMPLETION_PROVIDER (py_provider->obj),
+	                                            ret,
+	                                            py_finished == NULL ? TRUE : PyObject_IsTrue (py_finished));
+
+    g_list_foreach(ret, (GFunc)g_object_unref, NULL);
+    g_list_free(ret);
+
+	Py_INCREF(Py_None);
+    return Py_None;
+}
+
+%%
+override gtk_source_completion_get_providers kwargs
+static GList *
+pylist_to_glist_gobjs (PyObject *object, GType gtype)
+{
+    PyObject *item;
+    GObject *obj;
+    GList *ret = NULL;
+    int num;
+    int i;
+    
+    if (object == Py_None) {
+        return ret;
+    }
+    
+    num = PySequence_Size (object);
+    
+    for (i = 0; i < num; ++i) {
+        item = PySequence_GetItem (object, i);
+        
+        if (PyObject_TypeCheck(item, &PyGObject_Type)) {
+            obj = pygobject_get (item);
+            
+            if (g_type_is_a (G_TYPE_FROM_INSTANCE (obj), gtype)) {
+                ret = g_list_prepend (ret, g_object_ref (obj));
+            }
+        }
+    }
+    
+    return g_list_reverse (ret);
+}
+
+static PyObject *
+_wrap_gtk_source_completion_get_providers(PyGObject *self,
+                                          PyObject *args,
+                                          PyObject *kwargs)
+{
+    static char *kwlist[] = { NULL };
+    PyObject    *py_ret;
+    GList      *ret;
+
+    if (!PyArg_ParseTupleAndKeywords(args, kwargs,
+                                     "Oz:GtkSourceCompletion.get_providers",
+                                     kwlist))
+        return NULL;
+
+    ret = gtk_source_completion_get_providers(GTK_SOURCE_COMPLETION(self->obj));
+
+    py_ret = glist_to_pylist_objs (ret);
+
+    return py_ret;
+}
+
+%%
+override gtk_source_completion_show kwargs
+
+static PyObject *
+_wrap_gtk_source_completion_show(PyGObject *self,
+                                  PyObject  *args,
+                                  PyObject  *kwargs)
+{
+    static char *kwlist[] = { "providers", "context", NULL };
+    PyObject *providers;
+    PyGObject *context;
+    GList *items;
+    
+    if (!PyArg_ParseTupleAndKeywords(args,
+                                         kwargs,
+                                         "|OO!:GtkSourceCompletion.show",
+                                         kwlist, &providers, &PyGtkSourceCompletionContext_Type, &context));
+
+    if (providers != Py_None && !PySequence_Check(providers)) {
+        PyErr_SetString(PyExc_TypeError, "providers must be a list");
+        return NULL;
+    }
+    
+    items = pylist_to_glist_gobjs (providers, GTK_TYPE_SOURCE_COMPLETION_PROVIDER);
+    
+    gtk_source_completion_show (GTK_SOURCE_COMPLETION(self->obj), 
+                                items, 
+                                GTK_SOURCE_COMPLETION_CONTEXT (context->obj));
+    
+    g_list_foreach (items, (GFunc)g_object_unref, NULL);
+    g_list_free (items);
+    
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+%%
+override gtk_source_completion_context_get_iter noargs
+static PyObject *
+_wrap_gtk_source_completion_context_get_iter(PyGObject *self)
+{
+	GtkTextIter iter;
+    gtk_source_completion_context_get_iter(GTK_SOURCE_COMPLETION_CONTEXT(self->obj), &iter);
+    
+    return pyg_boxed_new(GTK_TYPE_TEXT_ITER, &iter, TRUE, TRUE);
+}
+
+%%
+override GtkSourceCompletionProvider__do_get_start_iter kwargs
+static PyObject *
+_wrap_GtkSourceCompletionProvider__do_get_start_iter(PyObject *cls,
+                                                     PyObject *args,
+                                                     PyObject *kwargs)
+{
+    GtkSourceCompletionProviderIface *iface;
+    static char *kwlist[] = { "self", "context", "proposal", NULL };
+    PyGObject *self;
+    PyGObject *context;
+    PyGObject *proposal;
+    gboolean ret;
+    GtkTextIter iter;
+
+    if (!PyArg_ParseTupleAndKeywords(args, 
+                                     kwargs, 
+                                     "O!O!O!:GtkSourceCompletionProvider.get_start_iter", kwlist, 
+                                     &PyGtkSourceCompletionProvider_Type, &self,
+                                     &PyGtkSourceCompletionContext_Type, &context,
+                                     &PyGtkSourceCompletionProposal_Type, &proposal))
+        return NULL;
+
+    iface = g_type_interface_peek(g_type_class_peek(pyg_type_from_object(cls)), GTK_TYPE_SOURCE_COMPLETION_PROVIDER);
+
+    if (iface->get_start_iter)
+        ret = iface->get_start_iter(GTK_SOURCE_COMPLETION_PROVIDER(self->obj), 
+                                    GTK_SOURCE_COMPLETION_CONTEXT(context->obj),
+                                    GTK_SOURCE_COMPLETION_PROPOSAL(proposal->obj),
+                                    &iter);
+    else{
+        PyErr_SetString(PyExc_NotImplementedError, "interface method GtkSourceCompletionProvider.get_start_iter not implemented");
+        return NULL;
+    }
+    
+    if (ret)
+    {
+	    return pyg_boxed_new(GTK_TYPE_TEXT_ITER, &iter, TRUE, TRUE);
+	}
+	else
+	{
+		Py_INCREF(Py_None);
+		return Py_None;
+	}
+}
+
+%%
+override gtk_source_completion_provider_get_start_iter kwargs
+static PyObject *
+_wrap_gtk_source_completion_provider_get_start_iter(PyGObject *self,
+                                                    PyObject  *args,
+                                                    PyObject  *kwargs)
+{
+    static char *kwlist[] = { "context", "proposal", NULL };
+    PyGObject *context;
+    PyGObject *proposal;
+	gboolean ret;
+	GtkTextIter iter;
+	
+	if (!PyArg_ParseTupleAndKeywords(args,
+                                         kwargs,
+                                         "|O!O!:GtkSourceCompletionProvider.get_start_iter",
+                                         kwlist, 
+                                         &PyGtkSourceCompletionContext_Type, &context,
+                                         &PyGtkSourceCompletionProposal_Type, &proposal));
+
+	ret = gtk_source_completion_provider_get_start_iter (GTK_SOURCE_COMPLETION_PROVIDER (self->obj),
+	                                                     GTK_SOURCE_COMPLETION_CONTEXT (context->obj),
+	                                                     GTK_SOURCE_COMPLETION_PROPOSAL (proposal->obj),
+	                                                     &iter);
+
+	if (!ret)
+	{
+		Py_INCREF(Py_None);
+		return Py_None;
+	}
+	else
+	{
+		return pyg_boxed_new(GTK_TYPE_TEXT_ITER, &iter, TRUE, TRUE);
+	}
+}
+%%
+override GtkSourceCompletionProvider__proxy_do_get_start_iter
+static gboolean
+_wrap_GtkSourceCompletionProvider__proxy_do_get_start_iter(GtkSourceCompletionProvider *self, GtkSourceCompletionContext*context, GtkSourceCompletionProposal*proposal, GtkTextIter*iter)
+{
+    PyGILState_STATE __py_state;
+    PyObject *py_self;
+    PyObject *py_context = NULL;
+    PyObject *py_proposal = NULL;
+    PyObject *py_retval;
+    PyObject *py_args;
+    PyObject *py_method;
+    
+    __py_state = pyg_gil_state_ensure();
+    py_self = pygobject_new((GObject *) self);
+    if (!py_self) {
+        if (PyErr_Occurred())
+            PyErr_Print();
+        pyg_gil_state_release(__py_state);
+        return FALSE;
+    }
+    
+    if (context)
+        py_context = pygobject_new((GObject *) context);
+    else {
+        Py_INCREF(Py_None);
+        py_context = Py_None;
+    }
+    
+    if (proposal)
+        py_proposal = pygobject_new((GObject *) proposal);
+    else {
+        Py_INCREF(Py_None);
+        py_proposal = Py_None;
+    }
+    
+    py_args = PyTuple_New(2);
+    PyTuple_SET_ITEM(py_args, 0, py_context);
+    PyTuple_SET_ITEM(py_args, 1, py_proposal);
+    
+    py_method = PyObject_GetAttrString(py_self, "do_get_start_iter");
+    if (!py_method) {
+        if (PyErr_Occurred())
+            PyErr_Print();
+        Py_DECREF(py_args);
+        Py_DECREF(py_self);
+        pyg_gil_state_release(__py_state);
+        return FALSE;
+    }
+    py_retval = PyObject_CallObject(py_method, py_args);
+    if (!py_retval || py_retval == Py_None) {
+        if (PyErr_Occurred())
+            PyErr_Print();
+        Py_XDECREF(py_retval);
+        Py_DECREF(py_method);
+        Py_DECREF(py_args);
+        Py_DECREF(py_self);
+        pyg_gil_state_release(__py_state);
+        return FALSE;
+    }
+
+    if (!pyg_boxed_check(py_retval, GTK_TYPE_TEXT_ITER)) {
+        PyErr_SetString(PyExc_TypeError, "retval should be a GtkTextIter");
+        PyErr_Print();
+        Py_XDECREF(py_retval);
+        Py_DECREF(py_method);
+        Py_DECREF(py_args);
+        Py_DECREF(py_self);
+        pyg_gil_state_release(__py_state);
+        return FALSE;
+    }
+    
+    *iter = *pyg_boxed_get(py_retval, GtkTextIter);
+    
+    Py_XDECREF(py_retval);
+    Py_DECREF(py_method);
+    Py_DECREF(py_args);
+    Py_DECREF(py_self);
+    pyg_gil_state_release(__py_state);
+    
+    return TRUE;
+}
+%%
+override GtkSourceCompletionProvider__proxy_do_get_info_widget
+
+static GtkWidget*
+_wrap_GtkSourceCompletionProvider__proxy_do_get_info_widget(GtkSourceCompletionProvider *self, GtkSourceCompletionProposal*proposal)
+{
+    PyGILState_STATE __py_state;
+    PyObject *py_self;
+    PyObject *py_proposal = NULL;
+    GtkWidget* retval;
+    PyObject *py_retval;
+    PyObject *py_args;
+    PyObject *py_method;
+    
+    __py_state = pyg_gil_state_ensure();
+    py_self = pygobject_new((GObject *) self);
+    if (!py_self) {
+        if (PyErr_Occurred())
+            PyErr_Print();
+        pyg_gil_state_release(__py_state);
+        return NULL;
+    }
+    if (proposal)
+        py_proposal = pygobject_new((GObject *) proposal);
+    else {
+        Py_INCREF(Py_None);
+        py_proposal = Py_None;
+    }
+    
+    py_args = PyTuple_New(1);
+    PyTuple_SET_ITEM(py_args, 0, py_proposal);
+    
+    py_method = PyObject_GetAttrString(py_self, "do_get_info_widget");
+    if (!py_method) {
+        if (PyErr_Occurred())
+            PyErr_Print();
+        Py_DECREF(py_args);
+        Py_DECREF(py_self);
+        pyg_gil_state_release(__py_state);
+        return NULL;
+    }
+    py_retval = PyObject_CallObject(py_method, py_args);
+    if (!py_retval) {
+        if (PyErr_Occurred())
+            PyErr_Print();
+        Py_XDECREF(py_retval);
+        Py_DECREF(py_method);
+        Py_DECREF(py_args);
+        Py_DECREF(py_self);
+        pyg_gil_state_release(__py_state);
+        return NULL;
+    }
+    if (!PyObject_TypeCheck(py_retval, &PyGObject_Type)) {
+        PyErr_SetString(PyExc_TypeError, "retval should be a GObject");
+        PyErr_Print();
+        Py_XDECREF(py_retval);
+        Py_DECREF(py_method);
+        Py_DECREF(py_args);
+        Py_DECREF(py_self);
+        pyg_gil_state_release(__py_state);
+        return NULL;
+    }
+    retval = (GtkWidget*) pygobject_get(py_retval);    
+    
+    Py_XDECREF(py_retval);
+    Py_DECREF(py_method);
+    Py_DECREF(py_args);
+    Py_DECREF(py_self);
+    pyg_gil_state_release(__py_state);
+    
+    return retval;
+}
+
+%%
+override gtk_source_completion_item_new kwargs
+static int
+_wrap_gtk_source_completion_item_new(PyGObject *self, PyObject *args, PyObject *kwargs)
+{
+    static char *kwlist[] = { "label", "text", "icon", "info", NULL };
+    char *label, *text = NULL, *info = NULL;
+    PyGObject *icon = NULL;
+
+    if (!PyArg_ParseTupleAndKeywords(args, 
+                                     kwargs, "s|sO!s:GtkSourceCompletionItem.__init__", 
+                                     kwlist, 
+                                     &label, 
+                                     &text, 
+                                     &PyGdkPixbuf_Type, &icon, 
+                                     &info))
+        return -1;
+
+    self->obj = (GObject *)gtk_source_completion_item_new(label, text, icon ? GDK_PIXBUF(icon->obj) : NULL, info);
+
+    if (!self->obj) {
+        PyErr_SetString(PyExc_RuntimeError, "could not create GtkSourceCompletionItem object");
+        return -1;
+    }
+    pygobject_register_wrapper((PyObject *)self);
+    return 0;
+}
+
+%%
+override gtk_source_completion_create_context kwargs
+static PyObject *
+_wrap_gtk_source_completion_create_context(PyGObject *self, PyObject *args, PyObject *kwargs)
+{
+    static char *kwlist[] = { "position", NULL };
+    PyObject *py_position = NULL;
+    GtkSourceCompletionContext *ret;
+    GtkTextIter *position = NULL;
+
+    if (!PyArg_ParseTupleAndKeywords(args, 
+                                     kwargs,
+                                     "|O!:GtkSourceCompletion.create_context", 
+                                     kwlist, 
+                                     &PyGtkTextIter_Type, &py_position))
+        return NULL;
+
+	if (py_position != NULL)
+	{
+		if (pyg_boxed_check(py_position, GTK_TYPE_TEXT_ITER))
+		    position = pyg_boxed_get(py_position, GtkTextIter);
+		else {
+		    PyErr_SetString(PyExc_TypeError, "position should be a GtkTextIter");
+		    return NULL;
+	    }
+	}
+    
+    ret = gtk_source_completion_create_context(GTK_SOURCE_COMPLETION(self->obj), position);
+    
+    /* pygobject_new handles NULL checking */
+    return pygobject_new((GObject *)ret);
+}
+
+%%
+override gtk_source_gutter_set_cell_size_func kwargs
+static void
+pygtksourceview_cell_size_func_marshal (GtkSourceGutter *gutter,
+                                        GtkCellRenderer *cell,
+                                        gpointer data)
+{
+    PyGILState_STATE state;
+    PyGtkSourceViewCustomNotify *cunote = data;
+    PyObject *retobj;
+    PyObject *pygutter, *pycell;
+
+    g_assert (cunote->func);
+
+    state = pyg_gil_state_ensure();
+
+    pygutter = pygobject_new((GObject *)gutter);
+    pycell = pygobject_new((GObject *)cell);
+    
+    if (cunote->data)
+        retobj = PyEval_CallFunction(cunote->func, "(NNO)",
+                                     pygutter, pycell,
+                                     cunote->data);
+    else
+        retobj = PyEval_CallFunction(cunote->func, "(NN)",
+                                     pygutter, pycell);
+
+    if (retobj == NULL) {
+        PyErr_Print();
+    } else
+        Py_DECREF(retobj);
+
+    pyg_gil_state_release(state);
+}
+
+static PyObject *
+_wrap_gtk_source_gutter_set_cell_size_func (PyGObject *self,
+                                            PyObject *args,
+                                            PyObject *kwargs)
+{
+    PyObject *pycell, *pyfunc, *pyarg = NULL;
+    GtkCellRenderer *cell;
+    PyGtkSourceViewCustomNotify *cunote;
+
+    if (!PyArg_ParseTuple(args, "OO|O:GtkSourceGutter.set_cell_size_func",
+                          &pycell, &pyfunc, &pyarg))
+        return NULL;
+
+    if (pygobject_check(pycell, &PyGtkCellRenderer_Type))
+        cell = GTK_CELL_RENDERER(pygobject_get(pycell));
+    else {
+        PyErr_SetString(PyExc_TypeError,
+                        "first argument must be a GtkCellRenderer");
+        return NULL;
+    }
+
+    if (pyfunc == Py_None) {
+        PyErr_SetString(PyExc_TypeError,
+                        "func must be a callable object");
+    } else {
+        cunote = g_new0(PyGtkSourceViewCustomNotify, 1);
+        cunote->func = pyfunc;
+        cunote->data = pyarg;
+        Py_INCREF(cunote->func);
+        Py_XINCREF(cunote->data);
+
+        gtk_source_gutter_set_cell_size_func(GTK_SOURCE_GUTTER(self->obj), cell,
+                                        pygtksourceview_cell_size_func_marshal,
+                                        cunote,
+                                        pygtksourceview_custom_destroy_notify);
+    }
+
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+%%
+override gtk_source_view_set_mark_category_tooltip_func kwargs
+static gchar *
+pygtksourceview_mark_tooltip_func_marshal (GtkSourceMark *mark,
+                                           gpointer data)
+{
+    PyGILState_STATE state;
+    PyGtkSourceViewCustomNotify *cunote = data;
+    PyObject *retobj;
+    PyObject *pymark;
+    gchar *retval = NULL;
+
+    g_assert (cunote->func);
+
+    state = pyg_gil_state_ensure();
+
+    pymark = pygobject_new((GObject *)mark);
+    
+    if (cunote->data)
+        retobj = PyEval_CallFunction(cunote->func, "(NO)",
+                                     pymark,
+                                     cunote->data);
+    else
+        retobj = PyEval_CallFunction(cunote->func, "(N)",
+                                     pymark);
+
+    if (retobj == NULL) {
+        PyErr_Print();
+    } else
+        retval = PyString_AsString(retobj);
+        Py_DECREF(retobj);
+
+    pyg_gil_state_release(state);
+    
+    return retval;
+}
+
+static PyObject *
+_wrap_gtk_source_view_set_mark_category_tooltip_func (PyGObject *self,
+                                                      PyObject *args,
+                                                      PyObject *kwargs)
+{
+    PyObject *pyfunc, *pyarg = NULL;
+    PyGtkSourceViewCustomNotify *cunote;
+    gchar *category;
+
+    if (!PyArg_ParseTuple(args, "sO|O:GtkSourceView.set_mark_category_tooltip_func",
+                          &category, &pyfunc, &pyarg))
+        return NULL;
+
+    if (pyfunc == Py_None) {
+        gtk_source_view_set_mark_category_tooltip_func(GTK_SOURCE_VIEW(self->obj),
+                                        category, NULL, NULL, NULL);
+    } else {
+        cunote = g_new0(PyGtkSourceViewCustomNotify, 1);
+        cunote->func = pyfunc;
+        cunote->data = pyarg;
+        Py_INCREF(cunote->func);
+        Py_XINCREF(cunote->data);
+
+        gtk_source_view_set_mark_category_tooltip_func(GTK_SOURCE_VIEW(self->obj),
+                                        category,
+                                        pygtksourceview_mark_tooltip_func_marshal,
+                                        cunote,
+                                        pygtksourceview_custom_destroy_notify);
+    }
+
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+%%
+override gtk_source_view_set_mark_category_tooltip_markup_func kwargs
+static PyObject *
+_wrap_gtk_source_view_set_mark_category_tooltip_markup_func (PyGObject *self,
+                                                             PyObject *args,
+                                                             PyObject *kwargs)
+{
+    PyObject *pyfunc, *pyarg = NULL;
+    PyGtkSourceViewCustomNotify *cunote;
+    gchar *category;
+
+    if (!PyArg_ParseTuple(args, "sO|O:GtkSourceView.set_mark_category_tooltip_markup_func",
+                          &category, &pyfunc, &pyarg))
+        return NULL;
+
+    if (pyfunc == Py_None) {
+        gtk_source_view_set_mark_category_tooltip_markup_func(GTK_SOURCE_VIEW(self->obj),
+                                        category, NULL, NULL, NULL);
+    } else {
+        cunote = g_new0(PyGtkSourceViewCustomNotify, 1);
+        cunote->func = pyfunc;
+        cunote->data = pyarg;
+        Py_INCREF(cunote->func);
+        Py_XINCREF(cunote->data);
+
+        gtk_source_view_set_mark_category_tooltip_markup_func(GTK_SOURCE_VIEW(self->obj),
+                                        category,
+                                        pygtksourceview_mark_tooltip_func_marshal,
+                                        cunote,
+                                        pygtksourceview_custom_destroy_notify);
+    }
+
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+%%
+override gtk_source_completion_words_new kwargs
+static int
+_wrap_gtk_source_completion_words_new(PyGObject *self, PyObject *args, PyObject *kwargs)
+{
+    static char *kwlist[] = { "name", "icon", NULL };
+    char *name = NULL;
+    PyGObject *icon = NULL;
+
+    if (!PyArg_ParseTupleAndKeywords(args, 
+                                     kwargs,
+                                     "|sO!:GtkSourceCompletionWords.__init__", 
+                                     kwlist, 
+                                     &name, &PyGdkPixbuf_Type, &icon))
+        return -1;
+
+    self->obj = (GObject *)gtk_source_completion_words_new(name, icon ? GDK_PIXBUF(icon->obj) : NULL);
+
+    if (!self->obj) {
+        PyErr_SetString(PyExc_RuntimeError, "could not create GtkSourceCompletionWords object");
+        return -1;
+    }
+    pygobject_register_wrapper((PyObject *)self);
+    return 0;
+}
+
+%%
+override gtk_source_buffer_get_context_classes_at_iter kwargs
+static PyObject *
+_wrap_gtk_source_buffer_get_context_classes_at_iter(PyGObject *self, PyObject *args, PyObject *kwargs)
+{
+    static char *kwlist[] = { "iter", NULL };
+    PyObject *py_iter;
+    GtkTextIter *iter = NULL;
+    gchar **context_classes;
+
+    PyObject *ret;
+
+    if (!PyArg_ParseTupleAndKeywords(args,
+                                     kwargs,
+                                     "Os:GtkSourceBuffer.get_context_classes_at_iter",
+                                     kwlist,
+                                     &py_iter))
+        return NULL;
+
+    if (pyg_boxed_check(py_iter, GTK_TYPE_TEXT_ITER))
+    {
+        iter = pyg_boxed_get(py_iter, GtkTextIter);
+    }
+    else
+    {
+        PyErr_SetString(PyExc_TypeError, "iter should be a GtkTextIter");
+        return NULL;
+    }
+
+    context_classes = gtk_source_buffer_get_context_classes_at_iter (GTK_SOURCE_BUFFER (self->obj),
+                                                                     iter);
+    ret = strv_to_pylist (context_classes);
+    g_strfreev (context_classes);
+
+    return ret;
+}

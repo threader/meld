@@ -1,0 +1,15 @@
+Description: Make the build reproducible
+Author: Chris Lamb <lamby@debian.org>
+Last-Update: 2016-08-28
+
+--- pygtksourceview-2.10.1.orig/docs/Makefile.am
++++ pygtksourceview-2.10.1/docs/Makefile.am
+@@ -66,7 +66,7 @@ $(HTML_DATA): build_stamp
+ if ENABLE_DOCS
+ 
+ reference/builddate.xml: $(REFERENCE_DEPS)
+-	$(PYTHON) -c 'import datetime; print datetime.date.today()' > $@
++	$(PYTHON) -c 'import os, time, datetime; print datetime.datetime.utcfromtimestamp(int(os.environ.get("SOURCE_DATE_EPOCH", time.time()))).date()' > $@
+ 
+ build_stamp: $(REFERENCE_DEPS)reference/builddate.xml
+ 	xsltproc --nonet --xinclude -o $(BUILDDIR)/html/ \

@@ -1,0 +1,473 @@
+=== ChangeLog discontinued ===
+ChangeLog has been discontinued, we autogenerate the ChangeLog from git logs
+
+=== pygtksourceview 2.6.0 ===
+
+2009-03-04  Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* configure.ac: bump version 2.6.0
+	* NEWS: updated
+
+2009-03-04  Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* configure.ac: bump version 2.5.1
+
+=== pygtksourceview 2.5.0 ===
+
+2009-03-04  Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* NEWS: updated
+	* configure.ac: bump version 2.5.0
+
+	pygtksourceview 2.5.0 released
+
+2008-12-03  Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
+
+	* gtksourceview2.defs:
+	Added NBSP to draw spaces.
+
+=== pygtksourceview 2.4.0 ===
+
+2008-09-20  Paolo Borelli  <pborelli@katamail.com>
+
+	* NEWS: updated
+	* configure.ac: bump version 2.4.0
+
+	pygtksourceview 2.4.0 released
+
+2008-08-10  Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* configure.ac: bump version 2.3.1
+
+=== pygtksourceview 2.3.0 ===
+
+2008-08-10  Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* NEWS: updated
+
+	pygtksourceview 2.3.0 released
+
+2008-08-10  Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* configure.ac: bump pygobject required version 2.15.2
+
+	* test/test-widget.py: remove gnomevfs dependency, use gio instead.
+
+2008-08-10  Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* gtksourceview2.defs: Add some defaults and null-ok.
+
+	* gtksourceview2.override: Manually wrap
+	gtk_source_view_get_mark_category_background
+
+	* docs/reference/gtksourceview2-gtksourceview.xml:
+	* docs/reference/gtksourceview2-gtksourcelanguagesmanager.xml:
+	Update with the new API.
+
+2008-08-10  Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* configure.ac: bump gtksourceview required version 2.3.0
+
+2008-08-10  Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* configure.ac: bump version 2.3.0
+
+	* gtksourceview2.defs: Add new gtksourceview API.
+
+2008-04-28  Paolo Borelli  <pborelli@katamail.com>
+
+	* setup.py:
+	* pygtksourceview_postinstall.py:
+
+	add an unofficial distutils based buildsystem that alllows to create
+	win32 installers.
+
+=== pygtksourceview 2.2.0 ===
+
+2008-03-10  Paolo Borelli  <pborelli@katamail.com>
+
+	* configure.ac:
+	* NEWS:
+
+	pygtksourceview 2.2.0 released
+
+=== pygtksourceview 2.1.1 ===
+
+2008-02-03  Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* NEWS: updated
+
+	pygtksourceview 2.1.1 released
+
+2008-02-03  Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* docs/reference/gtksourceview2-gtksourcebuffer.xml: small fix.
+
+2008-02-03  Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* gtksourceview2.defs: define NULL as default for catogory params.
+
+	* docs/reference/gtksourceview2-gtksourcebuffer.xml: fix the docs.
+
+2008-02-01  Paolo Borelli  <pborelli@katamail.com>
+
+	* gtksourceview2.override: fix various issues with some of the marks
+	functions
+
+	* test/test-widget.py: make marks work in the test widget
+
+2008-02-01  Paolo Borelli  <pborelli@katamail.com>
+
+	* gtksourceview2.defs:
+
+	Adapt to Mark API changes
+
+2008-01-21  Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* configure.ac: post release version bump
+
+=== pygtksourceview 2.1.0 ===
+
+2008-01-21  Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* NEWS: updated
+
+	pygtksourceview 2.1.0 released
+
+2008-01-21  Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* gtksourceview2.override: manual wrappers for iter_backward_search and
+	iter_forward_search.
+
+	* docs/reference/gtksourceview2-gtksourcebuffer.xml: document the above
+	functions
+
+2008-01-21  Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* docs/reference/gtksourceview2-gtksourceprintcompositor.xml:
+	fix a couple of links.
+
+2008-01-20  Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* docs/reference/gtksourceview2-gtksourceprintcompositor.xml:
+	add print_compositor_new_from_view function.
+
+	* docs/reference/gtksourceview2-gtksourceview.xml: add virtuals.
+
+2008-01-20  Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* docs/reference/gtksourceview2-gtksourceprintcompositor.xml: add.
+
+	* docs/reference/gtksourceview2-ref.xml:
+	* docs/Makefile.am: add gtksourceprintcompositor docs.
+
+	* configure.ac: bump to version 2.1.0 and require gtksourceview 2.1.0.
+
+	* gtksourceview2.defs: fix NULL in parameters.
+
+2008-01-16  Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* gtksourceview2.defs:
+	* gtksourceview2.override: add the new GtkSourcePrintCompositor API.
+
+2008-01-06  Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* docs/reference/gtksourceview2-gtksourcestyleschememanager.xml: typo.
+
+2008-01-06  Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* gtksourceview2.defs: Fix null-ok in parameters.
+
+	* docs/reference/gtksourceview2-gtksourcemarker.xml: remove old docs.
+
+	* docs/reference/gtksourceview2-gtksourcemark.xml: add new mark docs.
+
+	* docs/Makefile.am:
+	* docs/reference/gtksourceview2-gtksourcebuffer.xml:
+	* docs/reference/gtksourceview2-gtksourceview.xml:
+	* docs/reference/gtksourceview2-ref.xml: New mark API documented.
+
+2008-01-05  Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* gtksourceview2.defs:
+	* gtksourceview2.override: add the new GtkSourceMark stuff.
+
+2008-01-05  Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* docs/reference/gtksourceview2-gtksourcestylescheme.xml:
+	 add properties section.
+
+2008-01-03  Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* docs/Makefile.am:
+	* docs/reference/gtksourceview2-ref.xml:
+	* docs/reference/gtksourceview2-gtksourcestyleschememanager.xml:
+	add new StyleSchemeManager docs.
+
+2008-01-03  Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* docs/Makefile.am:
+	* docs/reference/gtksourceview2-ref.xml:
+	* docs/reference/gtksourceview2-gtksourcestyle.xml: add new Style docs.
+
+2008-01-03  Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* docs/Makefile.am:
+
+2008-01-02  Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* gtksourceview2.defs: remove the last bits of GtkSourceMarker stuff.
+
+2008-01-01  Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* docs/Makefile.am:
+	* docs/reference/gtksourceview2-ref.xml:
+	* docs/reference/gtksourceview2-gtksourcebuffer.xml:
+	* docs/reference/gtksourceview2-gtksourceview.xml:
+	* docs/reference/gtksourceview2-gtksourcemarker.xml:
+	* docs/reference/gtksourceview2-gtksourcelanguage.xml:
+	* docs/reference/gtksourceview2-gtksourcestylescheme.xml:
+	* docs/reference/gtksourceview2-gtksourcelanguagesmanager.xml: updated.
+
+	* docs/reference/gtksourceview2-classes.xml:
+	* docs/reference/gtksourceview2-gtksourceprintjob.xml: delete unsed.
+
+2008-01-01  Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* gtksourceview2.override: hide gslist_to_pylist_objs for now.
+
+2008-01-01  Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* gtksourceview2.defs:
+	* gtksourceview2.override: remove GtkSourceMarker stuff.
+
+2007-12-31  Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* gtksourceview2.override: override-slot GtkSourceMarker.tp_new,
+	prevents instances of gtksourceview2.Marker() to be created.
+
+2007-12-31  Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* gtksourceview2.defs: add gtk_source_language_get_style_ids and
+	gtk_source_language_get_style_name.
+
+	* gtksourceview2.override: wrap gtk_source_language_get_style_ids.
+
+2007-12-30  Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* gtksourceview2.override: override-slot GtkSourceStyleScheme.tp_new,
+	prevents instances of gtksourceview2.StyleScheme() to be created.
+
+2007-12-29  Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* gtksourceview2.override: Add override-slot GtkSourceLanguage.tp_new,
+	prevents instances of gtksourceview2.Language() to be created.
+
+	* configure.ac: release version bump to 2.0.1.
+
+=== pygtksourceview 2.0.0 ===
+
+2007-09-17  Paolo Borelli  <pborelli@katamail.com>
+
+	* configure.ac:
+	* NEWS:
+
+	pygtksourceview 2.0.0 released
+
+=== pygtksourceview 1.90.2 ===
+
+2007-08-28  Paolo Borelli  <pborelli@katamail.com>
+
+	* configure.ac:
+	* NEWS:
+
+	pygtksourceview 1.90.4 released
+
+2007-08-27  Paolo Borelli  <pborelli@katamail.com>
+
+	* gtksourceview2.defs:
+	* test/test-widget.py:
+
+	More api update (language-manager)
+
+2007-08-27  Paolo Borelli  <pborelli@katamail.com>
+
+	* gtksourceview2.defs: more api updates.
+	* test/test-widget.py: bring uptodate with api changes
+
+2007-08-27  Paolo Borelli  <pborelli@katamail.com>
+
+	* gtksourceview2.defs: update to latest api changes.
+
+2007-08-25  Paolo Borelli  <pborelli@katamail.com>
+
+	* gtksourceview2.defs: update to latest api changes.
+
+2007-08-25  Paolo Borelli  <pborelli@katamail.com>
+
+	* gtksourceview2.defs: remove methods that do not exist anymore.
+
+=== pygtksourceview 1.90.2 ===
+
+2007-08-01  Paolo Borelli  <pborelli@katamail.com>
+
+	* configure.ac:
+	* NEWS:
+
+	pygtksourceview 1.90.3 released
+
+2007-07-27  Paolo Borelli  <pborelli@katamail.com>
+
+	* gtksourceview2.defs: bind Buffer.ensure_highlight and
+	language.get_hidden.
+
+2007-07-17  Yevgen Muntyan  <muntyan at tamu dot edu>
+
+	Mingw cross-compiling fixes and some cleanup.
+
+	* acinclude.m4: MOO_AM_PYTHON_DEVEL_CROSS_MINGW macro to
+	use when cross-compiling with mingw.
+
+	* configure.ac:
+	Use that macro; use '$PKG_CONFIG' instead of 'pkg-config';
+	do not use -std=c9x gcc option, we do not do C99.
+
+	* Makefile.am:
+	require automake-1.9, not 1.7;
+        use -no-undefined and -shrext ".pyd" on win32;
+        call the library "gtksourceview2", not "gtksourceview2module".
+
+2007-07-17  Paolo Borelli  <pborelli@katamail.com>
+
+	* gtksourceview2.defs: add get_description and get_filename
+	to StyleScheme.
+
+2007-07-16  Yevgen Muntyan  <muntyan at tamu dot edu>
+
+	* tests/test-widget.py:
+	Do not hardcode font size, just use "monospace".
+
+	* gtksourceview2.defs:
+	* gtksourceview2.override:
+	API has changed once again.
+
+=== pygtksourceview 1.90.2 ===
+
+2007-07-03  Paolo Borelli  <pborelli@katamail.com>
+
+	* configure.ac:
+	* NEWS:
+
+	pygtksourceview 1.90.2 released
+
+2007-07-03  Paolo Borelli  <pborelli@katamail.com>
+
+	* gtksourceview2module.c: the prefix for constants is GTK_SOURCE_
+	not GTK_.
+
+2007-06-27  Yevgen Muntyan  <muntyan@tamu.edu>
+
+	* tests/test-widget.py
+	* gtksourceview2.defs:
+	* gtksourceview2.override (_wrap_gtk_source_style_manager_list_schemes,
+	_wrap_gtk_source_language_manager_list_languages):
+	API changed once again.
+
+2007-06-27  Yevgen Muntyan  <muntyan@tamu.edu>
+
+	* gtksourceview2.override (_wrap_gtk_source_style_manager_list_schemes):
+	updated for changed GtkSourceStyleManager API.
+
+2007-06-26  Yevgen Muntyan  <muntyan@tamu.edu>
+
+	* gtksourceview2.defs: updated for changed GtkSourceStyleScheme API.
+
+=== pygtksourceview 1.90.1 ===
+
+2007-06-24  Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* configure.ac:
+	* NEWS:
+
+	pygtksourceview 1.90.1 released
+
+2007-06-20  Paolo Borelli  <pborelli@katamail.com>
+
+	* gtksourceview2.defs: remove Buffer signals which are not
+	there anymore.
+
+2007-06-18  Yevgen Muntyan  <muntyan@tamu.edu>
+
+	* gtksourceview2.defs: updated for new GtkSourceStyle API.
+
+2007-06-11  Yevgen Muntyan  <muntyan@tamu.edu>
+
+	* gtksourceview2.defs: wrapped gtk_source_*_manager_get_default().
+	* test/test-widget.py: use new api here.
+
+2007-06-09  Yevgen Muntyan  <muntyan@tamu.edu>
+
+	* gtksourceview2.defs: added (null-ok) to Buffer.set_language.
+	* autogen.sh: do not fail when builddir != srcdir.
+
+2007-06-03  Yevgen Muntyan  <muntyan@tamu.edu>
+
+	Some little fixes.
+
+	* test/test-widget.py: made it work, removed printing stuff.
+	* gtksourceview2.override: some fixes here and there, corrected
+        set_search_path() methods.
+	* gtksourceview2.defs: renamed all SourceSomeThing to SomeThing;
+	corrected GtkSourceBuffer and GtkSourceView constructors to make
+	codegen do right thing; corrected SourceStyle.
+	* configure.ac: require pygobject-2.8 instead of 2.10; removed sed
+        script which removed -export-dynamic from PYGTKSOURCEVIEW_LIBS (there
+        is no -export-dynamic, and it breaks things here).
+
+=== pygtksourceview 1.90.0 ===
+
+2007-06-03  Paolo Borelli  <pborelli@katamail.com>
+
+	* configure.ac:
+	* README:
+	* NEWS:
+
+	pygtksourceview 2.18.1 released
+
+2007-06-03  Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* configure.ac: bump version to 1.90.0
+	* Makefile.am: clean build, distcheck now works.
+	* docs/reference/builddate.xml: deleted, it's a generated file.
+
+2007-06-02  Paolo Borelli  <pborelli@katamail.com>
+
+	* configure.ac: relax gtskourceview version requirements
+	so that it builds against the 1.90.0 tarball.
+
+2007-05-14  Paolo Borelli  <pborelli@katamail.com>
+
+	* configure.ac:
+	* Makefile.am:
+	* pygtksourceview-2.0.pc.in:
+
+	Install pygtksourceview-2.0.pc file
+
+2007-05-13  Paolo Borelli  <pborelli@katamail.com>
+
+	* Makefile.am: install gtksourceview2.defs
+
+2007-05-12  Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* gtksourceview2.defs: added new enum type GtkSourceViewSmartHomeEndType
+
+	* configure.ac: fix project link
+
+2007-05-02  Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* gtksourceview2.override: (gtk_source_style_manager_get_search_path)
+	use PyList instead of a PyTuple.
+
+2007-05-02  Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* initial import

@@ -1,0 +1,295 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+
+<refentry id="class-gtksourcelanguage2">
+  <refnamediv>
+    <refname>gtksourceview2.Language</refname>
+    <refpurpose>Source language object for <link linkend="class-gtksourceview2">gtksourceview2.View</link></refpurpose>
+  </refnamediv>
+
+<!-- *********************************** -->
+<!-- BEGIN OF GTKSOURCELANGUAGE SYNOPSIS -->
+<!-- *********************************** -->
+
+<refsect1>
+  <title>Synopsis</title>
+  
+    <classsynopsis language="python">
+    <ooclass><classname>gtksourceview2.Language</classname></ooclass>
+    <ooclass><classname><link linkend="class-gobject">gobject.GObject</link></classname></ooclass>   
+    
+    <methodsynopsis language="python">
+      <methodname><link linkend="method-gtksourcelanguage2--get-globs">get_globs</link></methodname>
+      <methodparam></methodparam>
+    </methodsynopsis>
+    
+    <methodsynopsis language="python">
+      <methodname><link linkend="method-gtksourcelanguage2--get-hidden">get_hidden</link></methodname>
+      <methodparam></methodparam>
+    </methodsynopsis>
+    
+    <methodsynopsis language="python">
+      <methodname><link linkend="method-gtksourcelanguage2--get-id">get_id</link></methodname>
+      <methodparam></methodparam>
+    </methodsynopsis>
+    
+    <methodsynopsis language="python">
+      <methodname><link linkend="method-gtksourcelanguage2--get-metadata">get_metadata</link></methodname>
+      <methodparam><parameter role="keyword">name</parameter></methodparam>
+    </methodsynopsis>
+    
+    <methodsynopsis language="python">
+      <methodname><link linkend="method-gtksourcelanguage2--get-mime-types">get_mime_types</link></methodname>
+      <methodparam></methodparam>
+    </methodsynopsis>
+
+    <methodsynopsis language="python">
+      <methodname><link linkend="method-gtksourcelanguage2--get-name">get_name</link></methodname>
+      <methodparam></methodparam>
+    </methodsynopsis>
+
+    <methodsynopsis language="python">
+      <methodname><link linkend="method-gtksourcelanguage2--get-section">get_section</link></methodname>
+      <methodparam></methodparam>
+    </methodsynopsis>
+    
+    <methodsynopsis language="python">
+      <methodname><link linkend="method-gtksourcelanguage2--get-style-ids">get_style_ids</link></methodname>
+      <methodparam></methodparam>
+    </methodsynopsis>
+    
+    <methodsynopsis language="python">
+      <methodname><link linkend="method-gtksourcelanguage2--get-style-name">get_style_name</link></methodname>
+      <methodparam><parameter role="keyword">style_id</parameter></methodparam>
+    </methodsynopsis>
+  </classsynopsis>
+</refsect1>
+
+<!-- *********************************** -->
+<!-- BEGIN OF GTKSOURCELANGUAGE ANCESTRY -->
+<!-- *********************************** -->
+
+<refsect1>
+    <title>Ancestry</title>
+
+<synopsis>+-- <link linkend="class-gobject">gobject.GObject</link>
+    +-- <link linkend="class-gtksourcelanguage2">gtksourceview2.Language</link>
+</synopsis>
+</refsect1>
+
+<!-- ************************************** -->
+<!-- BEGIN OF GTKSOURCELANGUAGE DESCRIPTION -->
+<!-- ************************************** -->
+
+<refsect1 id="description-gtksourcelanguage">
+    <title>Description</title>
+
+    <para>
+      A source code language description.
+    </para>
+</refsect1>
+
+<!-- ********************************** -->
+<!-- BEGIN OF GTKSOURCELANGUAGE METHODS -->
+<!-- ********************************** -->
+
+<refsect1>
+  <title>Methods</title>
+
+  <refsect2 id="method-gtksourcelanguage2--get-globs">
+    <title>gtksourceview2.Language.get_globs</title>
+    <programlisting><methodsynopsis language="python">
+    <methodname>get_globs</methodname>
+    <methodparam></methodparam>
+    </methodsynopsis></programlisting>
+      
+    <variablelist>
+      <varlistentry>
+        <term><emphasis>Returns</emphasis>&nbsp;:</term>
+        <listitem><simpara>a list containing the globs or <literal>None</literal>
+        if no globs are found.</simpara></listitem>
+      </varlistentry>
+    </variablelist>
+
+    <para>
+      The <methodname>get_globs</methodname>() method returns the globs associated to this language.
+      This is just an utility wrapper around
+      <methodname><link linkend="method-gtksourcelanguage2--get-metadata">gtksourceview2.Language.get_metadata</link></methodname>()
+      to retrieve the "globs" metadata property and split it into an array.
+    </para>
+  </refsect2>
+
+  <refsect2 id="method-gtksourcelanguage2--get-hidden">
+    <title>gtksourceview2.Language.get_hidden</title>
+    <programlisting><methodsynopsis language="python">
+    <methodname>get_hidden</methodname>
+    <methodparam></methodparam>
+    </methodsynopsis></programlisting>
+      
+    <variablelist>
+      <varlistentry>
+        <term><emphasis>Returns</emphasis>&nbsp;:</term>
+        <listitem><simpara><literal>True</literal> if the language should be hidden,
+        <literal>False</literal> otherwise.</simpara></listitem>
+      </varlistentry>
+    </variablelist>
+
+    <para>
+      The <methodname>get_hidden</methodname>() method
+      returns whether the language should be hidden from the user.
+    </para>
+  </refsect2>
+
+  <refsect2 id="method-gtksourcelanguage2--get-id">
+    <title>gtksourceview2.Language.get_id</title>
+    <programlisting><methodsynopsis language="python">
+    <methodname>get_id</methodname>
+    <methodparam></methodparam>
+    </methodsynopsis></programlisting>
+      
+    <variablelist>
+      <varlistentry>
+        <term><emphasis>Returns</emphasis>&nbsp;:</term>
+        <listitem><simpara>the ID of language.</simpara></listitem>
+      </varlistentry>
+    </variablelist>
+
+    <para>
+      The <methodname>get_id</methodname>() method
+      returns the ID of the language. The ID is not locale-dependent.
+    </para>
+  </refsect2>
+
+  <refsect2 id="method-gtksourcelanguage2--get-metadata">
+    <title>gtksourceview2.Language.get_metadata</title>
+    <programlisting><methodsynopsis language="python">
+    <methodname>get_metadata</methodname>
+    <methodparam><parameter role="keyword">name</parameter></methodparam>
+    </methodsynopsis></programlisting>
+      
+    <variablelist>
+      <varlistentry>
+        <term><parameter role="keyword">name</parameter>&nbsp;:</term>
+        <listitem><simpara>metadata property name.</simpara></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><emphasis>Returns</emphasis>&nbsp;:</term>
+        <listitem><simpara>value of property name stored in the metadata of language
+        or <literal>None</literal> if language doesn't contain that metadata property.</simpara></listitem>
+      </varlistentry>
+    </variablelist>
+
+    <para>
+      The <methodname>get_metadata</methodname>() method
+      returns the value of property name stored in the metadata of language.
+    </para>
+  </refsect2>
+
+  <refsect2 id="method-gtksourcelanguage2--get-mime-types">
+    <title>gtksourceview2.Language.get_mime_types</title>
+    <programlisting><methodsynopsis language="python">
+    <methodname>get_mime_types</methodname>
+    <methodparam></methodparam>
+    </methodsynopsis></programlisting>
+      
+    <variablelist>
+      <varlistentry>
+        <term><emphasis>Returns</emphasis>&nbsp;:</term>
+        <listitem><simpara> a list of mime types (strings).</simpara></listitem>
+      </varlistentry>
+    </variablelist>
+
+    <para>
+      The <methodname>get_mime_types</methodname>() method returns a list of mime types for the given <parameter>language</parameter>. 
+      This is just an utility wrapper around <methodname><link linkend="method-gtksourcelanguage2--get-metadata">get_metadata</link></methodname>
+      to retrieve the "mimetypes" metadata property and split it into a list.
+    </para>
+  </refsect2>
+  
+  <refsect2 id="method-gtksourcelanguage2--get-name">
+    <title>gtksourceview2.Language.get_name</title>
+    <programlisting><methodsynopsis language="python">
+    <methodname>get_name</methodname>
+    <methodparam></methodparam>
+    </methodsynopsis></programlisting>
+      
+    <variablelist>
+      <varlistentry>
+        <term><emphasis>Returns</emphasis>&nbsp;:</term>
+        <listitem><simpara>the name of <parameter>language</parameter>.</simpara></listitem>
+      </varlistentry>
+    </variablelist>
+
+    <para>
+      The <methodname>get_name</methodname>() method returns the localized name of the language.
+    </para>
+  </refsect2>
+
+  <refsect2 id="method-gtksourcelanguage2--get-section">
+    <title>gtksourceview2.Language.get_section</title>
+    <programlisting><methodsynopsis language="python">
+    <methodname>get_section</methodname>
+    <methodparam></methodparam>
+    </methodsynopsis></programlisting>
+      
+    <variablelist>
+      <varlistentry>
+        <term><emphasis>Returns</emphasis>&nbsp;:</term>
+        <listitem><simpara>the section of <parameter>language</parameter>.</simpara></listitem>
+      </varlistentry>
+    </variablelist>
+
+    <para>
+      The <methodname>get_section</methodname>() method returns the localized section of the language. 
+      Each language belong to a section (ex. HTML belogs to the Markup section)
+    </para>
+  </refsect2>
+
+  <refsect2 id="method-gtksourcelanguage2--get-style-ids">
+    <title>gtksourceview2.Language.get_style_ids</title>
+    <programlisting><methodsynopsis language="python">
+    <methodname>get_style_ids</methodname>
+    <methodparam></methodparam>
+    </methodsynopsis></programlisting>
+      
+    <variablelist>
+      <varlistentry>
+        <term><emphasis>Returns</emphasis>&nbsp;:</term>
+        <listitem><simpara>a list containing ids of the styles defined by this
+        language or <literal>None</literal> if no style is defined.</simpara></listitem>
+      </varlistentry>
+    </variablelist>
+
+    <para>
+      The <methodname>get_style_ids</methodname>() method
+      returns the ids of the styles defined by this language.
+    </para>
+  </refsect2>
+  
+  <refsect2 id="method-gtksourcelanguage2--get-style-name">
+    <title>gtksourceview2.Language.get_style_name</title>
+    <programlisting><methodsynopsis language="python">
+    <methodname>get_style_name</methodname>
+    <methodparam><parameter role="keyword">style_id</parameter></methodparam>
+    </methodsynopsis></programlisting>
+      
+    <variablelist>
+      <varlistentry>
+        <term><parameter role="keyword">style_id</parameter>&nbsp;:</term>
+        <listitem><simpara>a style ID.</simpara></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><emphasis>Returns</emphasis>&nbsp;:</term>
+        <listitem><simpara>the name of the style with ID style_id defined by this
+        language or <literal>None</literal> if the style has no name or there is
+        no style with ID  defined by this language</simpara></listitem>
+      </varlistentry>
+    </variablelist>
+
+    <para>
+      The <methodname>get_style_name</methodname>() method
+      returns the name of the style with ID <parameter>style_id</parameter> defined by this language.
+    </para>
+  </refsect2>
+</refsect1> 
+</refentry>

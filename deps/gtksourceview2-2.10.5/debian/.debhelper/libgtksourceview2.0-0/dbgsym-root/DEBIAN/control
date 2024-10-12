@@ -1,0 +1,13 @@
+Package: libgtksourceview2.0-0-dbgsym
+Source: gtksourceview2
+Version: 2.10.5-3
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Debian GNOME Maintainers <pkg-gnome-maintainers@lists.alioth.debian.org>
+Installed-Size: 713
+Depends: libgtksourceview2.0-0 (= 2.10.5-3)
+Section: debug
+Priority: optional
+Multi-Arch: same
+Description: debug symbols for libgtksourceview2.0-0
+Build-Ids: 04336545bcf4bd9cfd09af3cb96e8a44b7b0b904

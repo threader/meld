@@ -1,0 +1,79 @@
+Source: gtksourceview2
+Section: libs
+Priority: optional
+Maintainer: Debian GNOME Maintainers <pkg-gnome-maintainers@lists.alioth.debian.org>
+Uploaders: @GNOME_TEAM@
+Build-Depends: debhelper (>= 10),
+               gnome-pkg-tools (>= 0.7),
+               gnome-common,
+               libgtk2.0-dev (>= 2.12.0),
+               libxml2-dev (>= 2.5),
+               intltool (>= 0.40),
+               gtk-doc-tools (>= 1.11),
+               libglib2.0-dev (>= 2.16.0),
+Build-Depends-Indep: libglib2.0-doc, libgtk2.0-doc
+Standards-Version: 3.9.8
+Vcs-Svn: svn://anonscm.debian.org/pkg-gnome/attic/gtksourceview2
+Vcs-Browser: https://anonscm.debian.org/viewvc/pkg-gnome/attic/gtksourceview2
+Homepage: http://projects.gnome.org/gtksourceview/
+
+Package: libgtksourceview2.0-0
+Section: oldlibs
+Architecture: any
+Multi-Arch: same
+Depends: ${misc:Depends},
+         ${shlibs:Depends},
+         libgtksourceview2.0-common (>= ${gnome:Version}),
+         libgtksourceview2.0-common (<< ${gnome:NextVersion})
+Description: shared libraries for the GTK+ syntax highlighting widget
+ GtkSourceView is a text widget that extends the standard GTK+ 2.x text widget
+ GtkTextView. It improves GtkTextView by implementing syntax highlighting and
+ other features typical of a source editor.
+ .
+ This package contains the shared libraries required by applications to use
+ this widget.
+
+Package: libgtksourceview2.0-common
+Section: oldlibs
+Architecture: all
+Multi-Arch: foreign
+Depends: ${misc:Depends}
+Description: common files for the GTK+ syntax highlighting widget
+ GtkSourceView is a text widget that extends the standard GTK+ 2.x text widget
+ GtkTextView. It improves GtkTextView by implementing syntax highlighting and
+ other features typical of a source editor.
+ .
+ This package contains the language specifications files for Ada, C, C++, C#,
+ CSS, ".desktop", ".diff" (patch), Fortran 95, GtkRC, Haskell, HTML, IDL,
+ ".ini", Java, JavaScript, LaTeX, Lua, MSIL, Nemerle, Pascal, Perl, PHP, ".po"
+ (gettext), Python, R, Ruby, sh, SQL, Tcl, Texinfo, VB.NET, Verilog, VHDL and
+ XML.
+
+Package: libgtksourceview2.0-dev
+Section: oldlibs
+Architecture: any
+Multi-Arch: same
+Depends: ${misc:Depends},
+         libgtksourceview2.0-0 (= ${binary:Version}),
+         libgtk2.0-dev (>= 2.12.0),
+         libxml2-dev (>= 2.5.0)
+Suggests: libgtksourceview2.0-doc
+Description: development files for the GTK+ syntax highlighting widget
+ GtkSourceView is a text widget that extends the standard GTK+ 2.x text widget
+ GtkTextView. It improves GtkTextView by implementing syntax highlighting and
+ other features typical of a source editor.
+ .
+ This package contains the header files required if you wish to develop
+ software that uses the GtkSourceView widget.
+
+Package: libgtksourceview2.0-doc
+Section: doc
+Architecture: all
+Multi-Arch: foreign
+Depends: ${misc:Depends}
+Description: documentation for the GTK+ syntax highlighting widget
+ GtkSourceView is a text widget that extends the standard GTK+ 2.x text widget
+ GtkTextView. It improves GtkTextView by implementing syntax highlighting and
+ other features typical of a source editor.
+ .
+ This package contains the GtkSourceView reference manual.

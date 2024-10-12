@@ -1,0 +1,586 @@
+commit 4aa4a59951ae779dfec15c47974d8e6821a82df9
+Author: Paolo Borelli <pborelli@gnome.org>
+Date:   Sun Apr 18 15:30:57 2010 +0200
+
+    Release 2.10.1
+
+ NEWS         |    5 +++++
+ configure.ac |    2 +-
+ 2 files changed, 6 insertions(+), 1 deletions(-)
+
+commit 0713d3a46db0b2d86a6c4225c28240cba448d8d7
+Author: Jesse van den Kieboom <jesse@icecrew.nl>
+Date:   Sat Apr 17 16:00:11 2010 +0200
+
+    Fixed parameter type from guint to gint for set/get_indent_width
+
+    I think at some point this was changed in gsv to accomodate the
+    -1 default value, meaning to take the value from tab-width instead.
+    This was then not updated in the bindings, but now it is.
+
+ gtksourceview2.defs |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+commit 812857b437c3d175e99a592e0d5166b71101da45
+Author: Paolo Borelli <pborelli@gnome.org>
+Date:   Sun Mar 28 14:34:55 2010 +0200
+
+    Release 2.10.0
+
+ NEWS         |    5 +++++
+ configure.ac |    4 ++--
+ 2 files changed, 7 insertions(+), 2 deletions(-)
+
+commit 2579e2557195b4a0c99bdf109136ee957af46a6c
+Author: Jesse van den Kieboom <jesse.vandenkieboom@epfl.ch>
+Date:   Mon Jan 4 19:32:04 2010 +0100
+
+    Added bindings for context classes
+
+ gtksourceview2.defs     |   37 +++++++++++++++++++++++++++++++++++++
+ gtksourceview2.override |   37 +++++++++++++++++++++++++++++++++++++
+ 2 files changed, 74 insertions(+), 0 deletions(-)
+
+commit e38c2064f7dd040075d353261c51708143416e0a
+Author: Paolo Borelli <pborelli@gnome.org>
+Date:   Mon Feb 22 22:34:37 2010 +0100
+
+    Post-release version bump
+
+ configure.ac |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit f415465f450dd0c2decf8aea4c8a2a70ccf8c9da
+Author: Paolo Borelli <pborelli@gnome.org>
+Date:   Mon Feb 22 22:32:25 2010 +0100
+
+    Release 2.9.2
+
+ NEWS         |    9 ++++++++-
+ configure.ac |    4 ++--
+ 2 files changed, 10 insertions(+), 3 deletions(-)
+
+commit 81a3f8230d861d963fc4ed1ec3605d5f1b847857
+Author: Paolo Borelli <pborelli@gnome.org>
+Date:   Mon Feb 22 22:17:14 2010 +0100
+
+    Bind UndoManager
+
+ gtksourceview2.defs |  122
+ +++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 files changed, 122 insertions(+), 0 deletions(-)
+
+commit a5b32a232abb428b39896a619b12d58bcd297e1c
+Author: Krzesimir Nowak <qdlacz@gmail.com>
+Date:   Sun Feb 21 23:20:51 2010 +0100
+
+    Adapt to changes in virtual methods of proposal and provider.
+
+ gtksourceview2.defs |   20 ++++++++++----------
+ 1 files changed, 10 insertions(+), 10 deletions(-)
+
+commit 345fa39c8758285047f77392db195bc77ba3ea85
+Author: Jesse van den Kieboom <jesse@icecrew.nl>
+Date:   Fri Oct 16 19:15:47 2009 +0200
+
+    Release 2.9.1
+
+ NEWS         |    4 ++++
+ configure.ac |    4 ++--
+ 2 files changed, 6 insertions(+), 2 deletions(-)
+
+commit 683a9cb34653e59ebcda69dd1a22c4c4de390432
+Author: Jesse van den Kieboom <jesse@icecrew.nl>
+Date:   Fri Oct 16 19:15:24 2009 +0200
+
+    Added new draw spaces enum values
+
+ gtksourceview2.defs |    3 +++
+ 1 files changed, 3 insertions(+), 0 deletions(-)
+
+commit 77ec37549f2d4eb37093379d11cd298cca499d49
+Merge: e2e71f3 85f2ce5
+Author: Jesse van den Kieboom <jesse@icecrew.nl>
+Date:   Sun Oct 4 14:05:44 2009 +0200
+
+    Merge branch 'gtksourcecompletion'
+
+commit 85f2ce50daf969674127f255901b3f451c0da759
+Author: Jesse van den Kieboom <jesse@icecrew.nl>
+Date:   Sun Oct 4 14:00:55 2009 +0200
+
+    Updated API to include change of get_start_iter
+
+ gtksourceview2.defs     |    1 +
+ gtksourceview2.override |   32 ++++++++++++++++++++++++--------
+ 2 files changed, 25 insertions(+), 8 deletions(-)
+
+commit 78f081705d480407ce7b2c521ba3fa9a0aa199c3
+Author: Jesse van den Kieboom <jesse@icecrew.nl>
+Date:   Sun Oct 4 02:07:22 2009 +0200
+
+    Added CompletionActivation
+
+ gtksourceview2.defs |   43 ++++++++++++++++++-------------------------
+ 1 files changed, 18 insertions(+), 25 deletions(-)
+
+commit 64819552012ccc2e55c0f0c541e14d8b4c107da8
+Author: Jesse van den Kieboom <jesse@icecrew.nl>
+Date:   Sat Sep 26 19:58:14 2009 +0200
+
+    Provide bindings for WordsCompletion
+
+ gtksourceview2.defs     |   40 ++++++++++++++++++++++++++++++++++++++++
+ gtksourceview2.override |   27 +++++++++++++++++++++++++++
+ 2 files changed, 67 insertions(+), 0 deletions(-)
+
+commit e2e71f384424462f70f498b730450ab02cc2a067
+Author: Jesse van den Kieboom <jesse@icecrew.nl>
+Date:   Mon Sep 21 17:48:38 2009 +0200
+
+    Post release version bump to 2.8.1
+
+ configure.ac |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit ac6cd5040519704a126ee0f253a2c9685ad0d558
+Author: Jesse van den Kieboom <jesse@icecrew.nl>
+Date:   Mon Sep 21 17:46:59 2009 +0200
+
+    Release 2.8.0
+
+ NEWS         |    5 +++++
+ configure.ac |    4 ++--
+ 2 files changed, 7 insertions(+), 2 deletions(-)
+
+commit c3e42468526196560af0972dc880fd76094a74ca
+Author: Jesse van den Kieboom <jesse@icecrew.nl>
+Date:   Sun Sep 20 23:36:16 2009 +0200
+
+    Removed context_move_window and added completion_move_window
+
+ gtksourceview2.defs |   18 +++++++++---------
+ 1 files changed, 9 insertions(+), 9 deletions(-)
+
+commit 162fd28faeccb6944cf92a7037426fdbb83d318b
+Author: Jesse van den Kieboom <jesse@icecrew.nl>
+Date:   Sun Sep 20 23:24:18 2009 +0200
+
+    Fixed wrong cast from self instead of self->obj in completion_show
+
+ gtksourceview2.override |    5 ++++-
+ 1 files changed, 4 insertions(+), 1 deletions(-)
+
+commit b291563712b98d5a9395c14eadd1b7da30219992
+Author: Jesse van den Kieboom <jesse@icecrew.nl>
+Date:   Sun Sep 20 23:23:56 2009 +0200
+
+    Fixed memory leak in add_proposals
+
+ gtksourceview2.override |    4 +++-
+ 1 files changed, 3 insertions(+), 1 deletions(-)
+
+commit 6be2680e4ff04667598dbedeb194df064b2e03ae
+Author: Jesse van den Kieboom <jesse@icecrew.nl>
+Date:   Sun Sep 20 23:23:39 2009 +0200
+
+    Fixed wrong type check in add_proposals override
+
+ gtksourceview2.override |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit 83ba787e894ab4db72d31e27b36a24f3f938b621
+Author: Jesse van den Kieboom <jesse@icecrew.nl>
+Date:   Sun Sep 20 23:23:23 2009 +0200
+
+    Override some not so well mapped API
+
+    Override context_get_iter, provider_get_start_iter to work with iters
+    properly. Override completion_item_new to allow optional arguments
+
+ gtksourceview2.override |  219
+ +++++++++++++++++++++++++++++++++++++++++++++++
+ 1 files changed, 219 insertions(+), 0 deletions(-)
+
+commit 36e5c00fae496f9b7f2ccf7aa8663691e5e8364d
+Author: Jesse van den Kieboom <jesse@icecrew.nl>
+Date:   Sun Sep 20 19:29:05 2009 +0200
+
+    Updated bindings to latest API
+
+ gtksourceview2.defs     |  249 +++++++++++++++++++++++++++-------
+ gtksourceview2.override |  346
+ ++++++++++++++++++-----------------------------
+ 2 files changed, 335 insertions(+), 260 deletions(-)
+
+commit 79e3fe9421a95396e129965c703719771121ed9e
+Merge: 6ef81e2 03de663
+Author: Jesse van den Kieboom <jesse@icecrew.nl>
+Date:   Sun Sep 20 17:43:29 2009 +0200
+
+    Merge branch 'master' into gtksourcecompletion
+
+    Conflicts:
+	gtksourceview2.defs
+	gtksourceview2.override
+
+commit 03de6631a01899f55cc2b8e5332d4d394db37d18
+Author: Gian Mario Tagliaretti <gianmt@gnome.org>
+Date:	Tue Aug 18 08:26:13 2009 +0200
+
+    Post release version bump to 2.7.1
+
+ configure.ac |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit 1f1f6b24d57080afa8aa1ecbd1edfadeb2253607
+Author: Gian Mario Tagliaretti <gianmt@gnome.org>
+Date:	Mon Aug 17 23:54:00 2009 +0200
+
+    Update NEWS, release pygtksourceview 2.7.0
+
+ NEWS |    8 ++++++++
+ 1 files changed, 8 insertions(+), 0 deletions(-)
+
+commit b1dfd6a704f740a6397181e67413be18e1608615
+Author: Gian Mario Tagliaretti <gianmt@gnome.org>
+Date:	Mon Aug 17 23:53:36 2009 +0200
+
+    Clean autogenerated Changelog for dist files
+
+ Makefile.am |	  2 ++
+ 1 files changed, 2 insertions(+), 0 deletions(-)
+
+commit 2d9e3fb700cc321c17bbbedf00403b97ba8595e6
+Author: Gian Mario Tagliaretti <gianmt@gnome.org>
+Date:	Mon Aug 17 23:26:39 2009 +0200
+
+    Update the docs for gtksourceview2.View class with new API additions.
+
+ docs/reference/gtksourceview2-gtksourceview.xml |  301
+ ++++++++++++++++++++++-
+ 1 files changed, 300 insertions(+), 1 deletions(-)
+
+commit d21ad00457d30c9a8046658b4e8d60d9c845e184
+Author: Gian Mario Tagliaretti <gianmt@gnome.org>
+Date:	Mon Aug 17 20:57:05 2009 +0200
+
+    set_mark_category_icon_from_stock should accept None for stock
+
+ gtksourceview2.defs |	  2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit 9f657875f76e1a28441f2fe12c0df93b8614b4e7
+Author: Gian Mario Tagliaretti <gianmt@gnome.org>
+Date:	Mon Aug 17 20:56:16 2009 +0200
+
+    set_mark_category_icon_from_pixbuf should accept None for pixbuf
+
+ gtksourceview2.defs |	  2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit 213ee09935b2837f37cb580a08dae4110b6c01ce
+Author: Gian Mario Tagliaretti <gianmt@gnome.org>
+Date:	Mon Aug 17 18:11:18 2009 +0200
+
+    set_mark_category_icon_from_icon_name() should accept None for name
+
+ gtksourceview2.defs |	  2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit d0cbdd9a75c8ff87162ca7239a6b02ec30a0c765
+Author: Gian Mario Tagliaretti <gianmt@gnome.org>
+Date:	Sun Aug 16 13:29:27 2009 +0200
+
+    Fix in-module definition in .defs
+
+ gtksourceview2.defs |	  6 +++---
+ 1 files changed, 3 insertions(+), 3 deletions(-)
+
+commit a91e5f252d7bfeef4d70304aecc4a0f44b096294
+Author: Gian Mario Tagliaretti <gianmt@gnome.org>
+Date:	Sat Aug 15 14:54:31 2009 +0200
+
+    Add docs for the gtksourceview2.Gutter class
+
+ docs/Makefile.am				   |   30 +-
+ docs/reference/gtksourceview2-gtksourcegutter.xml |  511
+ +++++++++++++++++++++
+ docs/reference/gtksourceview2-ref.xml		   |	1 +
+ 3 files changed, 528 insertions(+), 14 deletions(-)
+
+commit 00ab85b8f058024a9a0bcade1f9e83b1b6530c5b
+Author: Gian Mario Tagliaretti <gianmt@gnome.org>
+Date:	Sat Aug 15 11:07:03 2009 +0200
+
+    Manually wrap gtksourceview2.View methods
+
+    *_func methods needs to be manually wrapped
+    (gtk_source_view_set_mark_category_tooltip_func)
+    (gtk_source_view_set_mark_category_tooltip_markup_func)
+
+ gtksourceview2.override |  159
+ +++++++++++++++++++++++++++++++++++++++--------
+ 1 files changed, 133 insertions(+), 26 deletions(-)
+
+commit 9e95e912d7dcad839a8c4a527e587e5a523a7a01
+Author: Gian Mario Tagliaretti <gianmt@gnome.org>
+Date:	Sat Aug 15 10:01:21 2009 +0200
+
+    Manually wrap gtksourceview2.Gutter methods
+
+    *_data_func methods needs to be manually wrapped
+    (gtk_source_gutter_set_cell_data_func)
+    (gtk_source_gutter_set_cell_size_func)
+
+    add pygtksourceview-private.h
+
+    include pygtksourceview-private.h into Makefile
+
+ Makefile.am		   |	2 +-
+ gtksourceview2.override   |  172
+ +++++++++++++++++++++++++++++++++++++++++++++
+ pygtksourceview-private.h |   31 ++++++++
+ 3 files changed, 204 insertions(+), 1 deletions(-)
+
+commit 2026259fb840aa68d743ac585f7a663e65b74918
+Author: Gian Mario Tagliaretti <gianmt@gnome.org>
+Date:	Fri Aug 14 16:03:52 2009 +0200
+
+    Update the bindings with the latest GtkSourceView API addition
+
+    Add gtksourceview2.Gutter class and some misc functions
+
+ gtksourceview2.defs	 |  170
+ +++++++++++++++++++++++++++++++++++++++++++++++
+ gtksourceview2.override |    3 +
+ 2 files changed, 173 insertions(+), 0 deletions(-)
+
+commit eac01e00f0434f527be0b10a8c4e75645698815f
+Author: Gian Mario Tagliaretti <gianmt@gnome.org>
+Date:	Wed Jun 10 00:08:12 2009 +0200
+
+    Bug 563093 – Unportable test(1) construct
+
+    Revove the == check which is not portable
+
+ configure.ac |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit f37d1a27c3fa0ccee73149e5c53499787a24888a
+Author: Gian Mario Tagliaretti <gianmt@gnome.org>
+Date:	Wed Jun 10 00:04:09 2009 +0200
+
+    Bug 501431 – Cygwin does not use .pyd extension
+
+ Makefile.am |	  2 ++
+ 1 files changed, 2 insertions(+), 0 deletions(-)
+
+commit a46c84ef09327871e45795680eb0d788219920d5
+Author: Gian Mario Tagliaretti <gianmt@gnome.org>
+Date:	Tue Jun 9 22:41:28 2009 +0200
+
+    Bug 529642 – docs/Makefile.am statically assumes /usr prefix
+    for location
+    of gtk-doc/pygtk documentation
+
+    Do not hardcode the path of pygtk docs
+
+ docs/Makefile.am |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit 5fca34fa54989e53fab2bdb59ca77854700b7d81
+Author: Gian Mario Tagliaretti <gianmt@gnome.org>
+Date:	Tue Jun 9 22:40:57 2009 +0200
+
+    Ignore more files generated building the docs
+
+ .gitignore |	 7 ++++++-
+ 1 files changed, 6 insertions(+), 1 deletions(-)
+
+commit b12c1b61e349adcf7fed24fe3f160afdac08687c
+Author: Gian Mario Tagliaretti <gianmt@gnome.org>
+Date:	Tue Jun 9 13:49:57 2009 +0200
+
+    Bug 583217 – Solaris find doesn't have -path
+
+    Remove CVS reference from autogen.sh
+
+ autogen.sh |	 2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit a574326e8fbf9ec3db67c89bc1b0f2f0d2be44c7
+Author: Gian Mario Tagliaretti <gianmt@gnome.org>
+Date:	Tue Jun 9 13:42:43 2009 +0200
+
+    Bug 564545 – libtool-2.2 compatibility patch
+
+    Fix build with libtool 2.x.
+
+ configure.ac |    3 +++
+ 1 files changed, 3 insertions(+), 0 deletions(-)
+
+commit f73aed89064e9ba1bf77f27675920ccea90c9351
+Author: Gian Mario Tagliaretti <gianmt@gnome.org>
+Date:	Sun May 10 16:46:03 2009 +0200
+
+    Version bump to 2.7.0
+
+ configure.ac |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit 8e038b21b8bf2cd68c70e95d495816a535235088
+Author: Gian Mario Tagliaretti <gianmt@gnome.org>
+Date:	Sun May 10 16:45:23 2009 +0200
+
+    Add .gitignore
+
+ .gitignore |	42 ++++++++++++++++++++++++++++++++++++++++++
+ 1 files changed, 42 insertions(+), 0 deletions(-)
+
+commit 61788f6fe62dbb5b73d05e9992894230200ae1fd
+Author: Gian Mario Tagliaretti <gianmt@gnome.org>
+Date:	Sun May 10 16:35:11 2009 +0200
+
+    Autogenerate ChangeLog from git logs
+
+ Makefile.am |	 53 +++++++++++++++++++++++++++++++++++++++++------------
+ 1 files changed, 41 insertions(+), 12 deletions(-)
+
+commit 27c43fa9ecffb7a022fce3df17e49e7fc1c5edad
+Author: Gian Mario Tagliaretti <gianmt@gnome.org>
+Date:	Sun May 10 16:34:38 2009 +0200
+
+    Move ChangeLog to ChangeLog-pre-git
+
+ ChangeLog	   |  473
+ -----------------------------------------------------
+ ChangeLog-pre-git |  473
+ +++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 473 insertions(+), 473 deletions(-)
+
+commit c9219fa941edc2cc4485c8a7aefe8b4b5ace558c
+Author: Gian Mario Tagliaretti <gianmt@gnome.org>
+Date:	Sun May 10 16:33:54 2009 +0200
+
+    Mark the ChangeLog as retired
+
+ ChangeLog |	3 +++
+ 1 files changed, 3 insertions(+), 0 deletions(-)
+
+commit b64467446865a9a25e6b55ba3ae458831155beb9
+Author: Gian Mario Tagliaretti <gianmt@gnome.org>
+Date:	Sun Apr 26 20:51:21 2009 +0200
+
+    Fix pygtksourceview.doap with the correct mbox syntax
+
+ pygtksourceview.doap |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+commit 6ef81e205435647b423606b529a4d251bf53d064
+Author: Jesse van den Kieboom <jesse@icecrew.nl>
+Date:	Sun Apr 26 11:16:41 2009 +0200
+
+    Fixed crasher in show_completion (invalid cast)
+
+ gtksourceview2.override |   10 ++++++----
+ 1 files changed, 6 insertions(+), 4 deletions(-)
+
+commit 0b4ace28a6388a49a20158fd146987bff529d868
+Author: Jesse van den Kieboom <jesse@icecrew.nl>
+Date:	Sat Apr 25 00:13:39 2009 +0200
+
+    Updated for new API
+
+ gtksourceview2.defs	 |   38 +++++++++++++++++++++++++++-----------
+ gtksourceview2.override |   42 ++++++++++++++++++++++++++++++------------
+ 2 files changed, 57 insertions(+), 23 deletions(-)
+
+commit b8a6baaefc5a18be207e03a394f856ed2fa28ecc
+Author: Jesse van den Kieboom <jesse@icecrew.nl>
+Date:	Sun Apr 19 13:14:49 2009 +0200
+
+    Fixed reference counting problem with get_info_widget
+
+ gtksourceview2.defs	 |    2 +
+ gtksourceview2.override |   73
+ +++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 75 insertions(+), 0 deletions(-)
+
+commit 6213a930c8cfec3bc9434d13a40c1436c73e0556
+Author: Jesse van den Kieboom <jesse@icecrew.nl>
+Date:	Sun Apr 19 13:14:31 2009 +0200
+
+    Added bindings for new API
+
+    Bindings for gtk_source_completion_get_from_provider and
+    gtk_source_completion_get_view. Also moved activation of proposal
+    from proposal to provider as in the new API
+
+ gtksourceview2.defs |	 42 +++++++++++++++++++++++++++++-------------
+ 1 files changed, 29 insertions(+), 13 deletions(-)
+
+commit e3e5a5195d7235409fabff70fac95bea94be2a6d
+Author: Gian Mario Tagliaretti <gianmt@gnome.org>
+Date:	Sun Apr 19 09:48:45 2009 +0200
+
+    Add doap file
+
+    Add pygtksourceview.doap file
+
+ pygtksourceview.doap |   30 ++++++++++++++++++++++++++++++
+ 1 files changed, 30 insertions(+), 0 deletions(-)
+
+commit 414c93b6faa2f08274a54c1d10392c47bd32d91e
+Author: Jesse van den Kieboom <jesse@icecrew.nl>
+Date:	Sat Apr 18 13:37:06 2009 +0200
+
+    Added bindings for GtkSourceCompletion
+
+    Binding should work correctly and all methods should be bound. A
+    simple test provider was added to the test
+
+ gtksourceview2.defs	 |  345
+ +++++++++++++++++++++++++++++++++++++++++++++++
+ gtksourceview2.override |  212 ++++++++++++++++++++++++++++-
+ test/test-widget.py	 |   28 ++++
+ 3 files changed, 582 insertions(+), 3 deletions(-)
+
+commit dc6e8415b91c8250265dae736128b3f93af0a9d9
+Author: Gian Mario Tagliaretti <gianmt@gnome.org>
+Date:	Sat Mar 21 20:34:31 2009 +0000
+
+    bump version 2.6.0 updated
+
+    2009-03-04	Gian Mario Tagliaretti	<gianmt@gnome.org>
+
+	* configure.ac: bump version 2.6.0
+	* NEWS: updated
+
+    2009-03-04	Gian Mario Tagliaretti	<gianmt@gnome.org>
+
+	* configure.ac: bump version 2.5.1
+
+
+    svn path=/trunk/; revision=98
+
+ ChangeLog    |    7 +++++++
+ NEWS	      |    5 +++++
+ configure.ac |    2 +-
+ 3 files changed, 13 insertions(+), 1 deletions(-)
+
+commit bac5fb45ee362cf7039244e2f24bc88180747a64
+Author: Gian Mario Tagliaretti <gianmt@gnome.org>
+Date:	Wed Mar 4 21:39:36 2009 +0000
+
+    bump version 2.5.1
+
+    2009-03-04	Gian Mario Tagliaretti	<gianmt@gnome.org>
+
+	* configure.ac: bump version 2.5.1
+
+
+    svn path=/trunk/; revision=97
+
+ ChangeLog |	6 ++++++
+ 1 files changed, 6 insertions(+), 0 deletions(-)
