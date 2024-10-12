@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2"
 '''Menu
 
 This example demonstrates the use of various menu types in gtk.  It

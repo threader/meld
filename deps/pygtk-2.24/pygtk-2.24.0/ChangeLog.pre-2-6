@@ -49,7 +49,7 @@
 	* tests/runtests.py (program): Fix indentation and a "name
 	'program' is not defined" exception.
 
-	* codegen/argtypes.py: Treat guint and gsize as python longs, with
+	* codegen/argtypes.py: Treat guint and gsize as python2" longs, with
 	appropriate parameter conversion formats and return conversion
 	functions.  Also treat gssize as long long on LLP64 architectures
 	 (thanks jamesh).  Correctly parse "long" parameters on LP64
@@ -207,7 +207,7 @@
 
 	* gobject/pygmainloop.c: (pyg_restore_current_main_loop):
 	don't pass a NULL value to PyThread_set_key_value() - causes
-	an assertion failure with python 2.4.
+	an assertion failure with python2" 2.4.
 
 2005-02-09  Mark McLoughlin  <mark@skynet.ie>
 
@@ -223,7 +223,7 @@
 	on whether DISABLE_THREADING is defined
 	(pyg_signal_watch_prepare), (pyg_signal_watch_check),
 	(pyg_signal_watch_dispatch), (pyg_signal_watch_new):
-	a GSource which runs the python signal handlers whenever
+	a GSource which runs the python2" signal handlers whenever
 	the mainloop is interrupted by signal delivery.
 	(pyg_main_loop_new), (pyg_main_loop_dealloc): add and
 	remove the source.
@@ -302,7 +302,7 @@
 	PyObject_IsSubclass, because we don't want a class defined as
 	class Foo(GObject, SomeInterface) to be itself considered an
 	interface when in turn it is subclassed.
-	(pyg_type_register): Make "Interface type %s has no python
+	(pyg_type_register): Make "Interface type %s has no python2"
 	implementation support" a warning instead of exception.  This
 	really isn't a fatal error and some programs seem to be using
 	interfaces in weird ways.
@@ -382,7 +382,7 @@
 2005-01-09  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
 
 	* gobject/pygtype.c (pyg_value_from_pyobject): Handle conversion
-	of python sequence to G_TYPE_VALUE_ARRAY GValue.
+	of python2" sequence to G_TYPE_VALUE_ARRAY GValue.
 	(pyg_param_gvalue_from_pyobject): idem.
 	Patch by jylefort@brutele.be; Fixes #160452.
 
@@ -449,7 +449,7 @@
 	GInterface's among tb_bases and register implementation support
 	for them.
 	(pyg_register_interface_info): Add.  Registers a GInterfaceInfo*
-	containing python proxy implementation with a GInterface GType.
+	containing python2" proxy implementation with a GInterface GType.
 
 	* gobject/pygobject.h (pyg_register_interface_info): Add.
 
@@ -486,7 +486,7 @@
 2005-01-09  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
 
 	* codegen/reversewrapper.py (GBoxedParam.convert_c2py): When the C
-	type begins with const, force python wrapper to create a copy of
+	type begins with const, force python2" wrapper to create a copy of
 	the boxed value, and typecast to avoid const warning.
 
 	* codegen/codegen.py (Wrapper.write_virtuals): In the generated
@@ -589,7 +589,7 @@
 	the reverse wrapper generator.  Also generates a class_init
 	function to register the virtual proxies with the object class,
 	but only for those virtuals that appear to be actually implemented
-	in python code to avoid calling into python code for nothing.
+	in python2" code to avoid calling into python2" code for nothing.
 	(Wrapper.write_functions): Update coverage statistics in
 	functions_coverage.
 	(write_registers): Generate code to call pyg_register_class_init
@@ -605,7 +605,7 @@
 
 	* codegen/reversewrapper.py: New code to generate 'reverse
 	wrappers', i.e. wrappers that are called from C, call into Python,
-	and then return the python return value back to C.
+	and then return the python2" return value back to C.
 
 	Fixes #145314: Overriding GTK+ virtual methods.
 
@@ -692,7 +692,7 @@
 2004-12-12  Gustavo J. A. M. Carneiro  <gjc@gnome.org>
 
 	* codegen/argtypes.py (arg): Add 'GTime' argtype matcher, which is
-	defined as gint32 by glib, thus handled as a normal python int.
+	defined as gint32 by glib, thus handled as a normal python2" int.
 
 2004-12-10  John Ehresman  <jpe@wingide.com>
 
@@ -1445,7 +1445,7 @@ Wed Aug 11 11:43:07 2004  Jonathan Blandford  <jrb@redhat.com>
 	pyg_begin_allow_threads,
 	pyg_end_allow_threads. pyg_threads_enabled indicates whether
 	threads are currently enabled.  The others just mimick the
-	equivalent python functions, except that they do nothing when
+	equivalent python2" functions, except that they do nothing when
 	threads are not enabled.
 
 	* gobject/pygobject.h: Add boolean flag to pygobject API structure
@@ -1629,7 +1629,7 @@ Wed Aug 11 11:43:07 2004  Jonathan Blandford  <jrb@redhat.com>
 	* tests/enum.py (FlagsTest.testComparision) 
 	(FlagsTest.testComparision): New tests
 
-	* gobject/pygtype.c (pyg_type_from_object): If we're on python
+	* gobject/pygtype.c (pyg_type_from_object): If we're on python2"
 	2.3, also check for PyBool_Type. Fixes #148684 (Steve Chaplin)
 
 	* tests/gtype.py (GTypeTest.testBoolType): New test
@@ -1648,7 +1648,7 @@ Wed Aug 11 11:43:07 2004  Jonathan Blandford  <jrb@redhat.com>
 	
 	* m4/jhflags.m4: New file, includes compiler macros
 
-	* m4/python.m4: New file, includes python macros
+	* m4/python.m4: New file, includes python2" macros
 
 	* autogen.sh: Copy over autogen.sh from gnome-common.h
 	
@@ -2138,7 +2138,7 @@ Wed Aug 11 11:43:07 2004  Jonathan Blandford  <jrb@redhat.com>
 	* gtk/gtkmodule.c (sink_gtkinvisible): Copy-paste from sink_gtkwindow.
 
 	* pygobject.c (pygobject_new_with_interfaces): Add hack to
-	workaround python tp_(get|set)attr slot inheritance bug. Fixes
+	workaround python2" tp_(get|set)attr slot inheritance bug. Fixes
 	pygtk bug #144135 (gtk.gdk.GC attributes not working).
 
 2004-06-18  Lorenzo Gil Sanchez  <lgs@cvs.gnome.org>
@@ -2587,7 +2587,7 @@ Wed Aug 11 11:43:07 2004  Jonathan Blandford  <jrb@redhat.com>
 
 	* gobjectmodule.c (pyg_type_register): Make sure we have a unique
 	GType name by appending -v<serial> to the name.  Allows
-	registering multiple python classes with the same name in the same
+	registering multiple python2" classes with the same name in the same
 	module.
 
 2004-04-17  John Finlay  <finlay@moeraki.com>
@@ -2803,14 +2803,14 @@ Wed Aug 11 11:43:07 2004  Jonathan Blandford  <jrb@redhat.com>
 
 2004-04-09  Gustavo J. A. M. Carneiro  <gustavo@users.sourceforge.net>
 
-	* pygtype.c (pyg_value_as_pyobject): Convert GValueArray to python
+	* pygtype.c (pyg_value_as_pyobject): Convert GValueArray to python2"
 	list, not tuple, as per comment in bug 129966.
 
 	* gobjectmodule.c (initgobject, _pyg_strv_from_gvalue)
 	(_pyg_strv_to_gvalue): Register GValue<->PyObject conversion
 	functions for boxed type G_TYPE_STRV.  Code is taken from
-	gnome-python (bonobomodule.c), except that conversion to python
-	object creates python list instead of tuple, as per comment in bug
+	gnome-python (bonobomodule.c), except that conversion to python2"
+	object creates python2" list instead of tuple, as per comment in bug
 	129966.
 
 2004-04-09  Johan Dahlin  <johan@gnome.org>
@@ -3279,7 +3279,7 @@ Wed Aug 11 11:43:07 2004  Jonathan Blandford  <jrb@redhat.com>
 2004-02-19  Gustavo J. A. M. Carneiro  <gustavo@users.sourceforge.net>
 
 	* gtk/gtktreeview.override (pygtk_cell_data_func_marshal): Fix
-	multiple python object reference leaks.
+	multiple python2" object reference leaks.
 
 2004-02-14  Gustavo J. A. M. Carneiro  <gustavo@users.sourceforge.net>
 

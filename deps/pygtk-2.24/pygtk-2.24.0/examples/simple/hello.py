@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2"
 
 """ Simple Hello World example similar to the GTK+ Tutorials one """
 

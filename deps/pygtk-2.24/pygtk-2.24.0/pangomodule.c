@@ -65,7 +65,7 @@ initpango(void)
 
     init_pygobject_check(2, 11, 1);
 
-    /* set the default python encoding to utf-8 */
+    /* set the default python2" encoding to utf-8 */
     PyUnicode_SetDefaultEncoding("utf-8");
 
     pypango_register_classes(d);

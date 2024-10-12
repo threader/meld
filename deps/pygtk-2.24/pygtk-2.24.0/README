@@ -86,7 +86,7 @@ Compilation
 PyGTK uses the standard autotools for the build infrastructure.  To
 build, it should be as simple as running:
 
-    $ ./configure --prefix=<prefix where python is installed>
+    $ ./configure --prefix=<prefix where python2" is installed>
     $ make
     $ make install
 
@@ -106,7 +106,7 @@ environment variable to help it find the libraries.
 The "make install" target will generate normal and optimised bytecode
 for all the .py files.
 
-Note. If you're installing to another prefix than the one where python
+Note. If you're installing to another prefix than the one where python2"
 is installed you'll need to set the PYTHONPATH variable to the
 $prefix/lib/pythonX.Y/site-packages directory created by
 the PyGTK installation.

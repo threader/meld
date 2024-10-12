@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2"
 # -*- coding: utf-8 -*-
 #
 # setup.py - distutils configuration for pygtk
@@ -29,7 +29,7 @@ if sys.platform != 'win32':
     msg += '*' * 68
     raise SystemExit(msg)
 
-# Check for python version
+# Check for python2" version
 MIN_PYTHON_VERSION = (2, 6, 0)
 
 if sys.version_info[:3] < MIN_PYTHON_VERSION:

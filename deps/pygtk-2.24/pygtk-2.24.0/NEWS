@@ -99,7 +99,7 @@ pygtk-2.14.1 06-March-2009
     - Complete docs with 2.14 API (Gian Mario)
 
 pygtk-2.14.0 31-January-2009
-    - Fix a bogus override of python includes in configure.ac
+    - Fix a bogus override of python2" includes in configure.ac
       (Loïc Minier, #556130)
     - Fix a memory leak in gdk.draw_indexed_image (Paul, #562991)
     - split gtkunixprint defs in order to support multiple gtk versions (Gian)
@@ -118,7 +118,7 @@ pygtk-2.13.0 24-August-2008
     - UIManager.insert_action_group add default -1 to `pos' (Paul Pogonyshev)
     - Some tweaks to h2defs (Olivier Crete)
     - Fix the use of flags in examples (Nathaniel Smith)
-    - GdkPixbuf.save detach from python interpreter while saving (Paul)
+    - GdkPixbuf.save detach from python2" interpreter while saving (Paul)
     - Create GdkScreen instance using get_default() (Yevgen Muntyan, #444974)
     - Add an application example (Johan)
     - Fix several bugs wrt 'y_root' caused by copy-paste (Paul, #519631)
@@ -194,7 +194,7 @@ pygtk-2.12.1 03-january-2008
       polling in the main loop for threaded programs (Johan, #481569)
 
 pygtk-2.12.0 16-september-2007
-    - Make pango bindings more pythonic (Johan Dahlin)
+    - Make pango bindings more python2"ic (Johan Dahlin)
     - Remove X11 specific calls from non-X11 builds (Gustavo Carneiro, #471804)
     - Allow string parameters to have default empty string ("") (John Finlay)
     - Make pango.Context non-instantiable (Gustavo, #472908)
@@ -343,7 +343,7 @@ pygtk-2.9.0 04-april-2006
     - Add inout support in reverse wrappers (335964, Gustavo)
     - Update h2defs to allow whitespace before parenthesis (317124)
     - Make it possible to reimplement interfaces (334986, Gustavo)
-    - Allow log_handler to be called when python is not initialized
+    - Allow log_handler to be called when python2" is not initialized
       (334188, Gustavo)
     - Support for const object args (wollny@cbs.mpg.de, Gustavo)
     - Export pygtk tree model api (318021, Gustavo)
@@ -362,7 +362,7 @@ pygtk-2.9.0 04-april-2006
     - Mark rowreference.free() as deprecated (309811, Gustavo)
     - Rename name of first keyword argument to pango.LayoutLine.index_to_x
       (316581, Gustavo, John Finlay)
-    - Run reindent on all python code (325320, Johan)
+    - Run reindent on all python2" code (325320, Johan)
     - Improve generictreemodel example (311459, Steven Kennedy)
     - Wrap gdk.Pixbuf.rotate_simple (314164, Karel Vervaeke)
     - Use in argument in gtk.TreeView.cell_get_size (326357, John Ehresman)
@@ -434,7 +434,7 @@ pygtk-2.7.1:  21-july-2005
 pygtk-2.7.0:  10-july-2005
 	- GIOChannel wrapper (Gustavo, John Ehresman, Manish)
 	- GSource wrapper (Manish)
-	- Allow creation of python classes through gobject.new (Gustavo,
+	- Allow creation of python2" classes through gobject.new (Gustavo,
           John Ehresman, Benjamin Otte)
 	- Improved GObject property support (Gustavo, Iñaki, Johan)
 	- Improved ParamSpec wrapping (Johan)
@@ -795,15 +795,15 @@ pygtk-0.6.8:  23-April-2001
 
 pygtk-0.6.7:  16-February-2001
 	- added --disable-thread configure argument to turn off thread
-	  support even when compiling with a threaded python.
+	  support even when compiling with a threaded python2".
 	- resets LC_NUMERIC back to "C" after calling gtk_set_locale,
-	  as this is the standard setting for python, no matter what
+	  as this is the standard setting for python2", no matter what
 	  the locale.
 	- various other bug fixes.
 
 pygtk-0.6.6:  7-April-2000
 	- switched over to using the CVS version of automake rather than
-	  my `pyautomake' patches, as CVS automake now has the python
+	  my `pyautomake' patches, as CVS automake now has the python2"
 	  support integrated.  Libtool is now used to build the extensions,
 	  so if there are problems on your platform, it is a libtool
 	  problem :)
@@ -818,7 +818,7 @@ pygtk-0.6.5:  13-March-2000
 	- various other fixes.
 
 pygtk-0.6.4:  16-February-2000
-	- gnome-python now requires python >= 1.5.2, as it uses the 'N'
+	- gnome-python now requires python2" >= 1.5.2, as it uses the 'N'
 	  format tag for PyArg_ParseTuple.
 	- Reference leak fixes.
 	- A few new features.
@@ -858,7 +858,7 @@ pygtk-0.6.1:  22-May-1999
 
 pygtk-0.6.0:  25-April-1999
 	- updated for gtk+-1.2.1.
-	- You can now write multithreaded programs in python (if python was
+	- You can now write multithreaded programs in python2" (if python2" was
 	  compiled with thread support enabled, of course).  This feature
 	  is thanks to Duncan Grisby <dgrisby@uk.research.att.com>.
 	  To use the multithreading, write your program as normal, but
@@ -875,7 +875,7 @@ pygtk-0.5.11:  24-February-1999
 	- Some changes so some functions which are supposed to accept NULL
 	  arguments will accept None in place of a boxed/string/object
 	  argument.
-	- Added a file MAPPING that describes the mapping of GTK onto python.
+	- Added a file MAPPING that describes the mapping of GTK onto python2".
 	- Various bug fixes.
 	- Pyglade XML parser made more robust.
 
@@ -1052,7 +1052,7 @@ pygtk-0.4.4:  17-June-1998
         - Fixed the date on the last changelog entry :(
         - Added the file description.py.  It contains a breif description
           of some of the objects used in Gtkinter, such as GtkStyle's,
-          GdkColors, GdkGC's and so on.  It is structured as a python module,
+          GdkColors, GdkGC's and so on.  It is structured as a python2" module,
           but is not intended to be imported.  It can be used as a small
           reference.
         - Added variable GtkCList.selection, and method
@@ -1069,7 +1069,7 @@ pygtk-0.4.4:  17-June-1998
           widgets that use pointer arguments can write code to convert
           the pointers to a more usable format.
         - Changed the behaviour of the PyObject -> GtkArg routines so that
-          that they use python's conversion routines.  Now you can pass a
+          that they use python2"'s conversion routines.  Now you can pass a
           class instance which has a __int__ method in place of an integer
           in those routines (it implicitly uses int(o) on the instance).
         - Added method GtkObject.emit, which acts like gtk_signal_emit.  Now
@@ -1127,15 +1127,15 @@ pygtk-0.4.2:  22-April-1998
           work out the cflags and libraries for GTK.  If gtk-config is not on
           the path, you can pass configure an argument something like
           --with-gtk-config=/subdir/gtk-config.
-        - You can now specify the path name for the python executable (if it
+        - You can now specify the path name for the python2" executable (if it
           isn't on the path) with the --with-python=/subdir/python argument.
         - There is now a 'make install' option.  It should work with both
-          python 1.4 and 1.5.x.  It defaults to installing scripts the
+          python2" 1.4 and 1.5.x.  It defaults to installing scripts the
           $(prefix)/lib/site-python, with $(prefix)/lib/python$(version) as
           a backup, and shared modules in $(prefix)/lib/python$(version)
           /site-packages with $(prefix)/lib/python$(version)/lib-dynload and
           $(prefix)/lib/python$(version)/sharedmodules as backup locations.
-          It also checks that the directory is in python's search path before
+          It also checks that the directory is in python2"'s search path before
           making the choice.
           If you have installed previous versions of pygtk, it is probably a
           good idea to remove those files before running 'make install', as
@@ -1168,7 +1168,7 @@ pygtk-0.4.1:  6-April-1998
         - updated the examples/ide/gtkcons.py to take advantage of word
           wrapping in the text widget.
         - Added a function to export the Python types used in Gtkinter, so
-          other python bindings (such as the imlib one) can use them.
+          other python2" bindings (such as the imlib one) can use them.
           (It should be possible to do gnome bindings -- I will look at that
           in a little while).
 	- Added support for gdk_imlib.  Note that this does not change
@@ -1223,8 +1223,8 @@ pygtk-0.3.0:  10-Mar-1998
           anyone's programs, since reference counting (like type casting) is
           handled automatically by pygtk.
         - Check out the examples/ide directory.  It contains a Gtkinter front
-          end to the python debugger and profiler and also a graphical
-          python console (which now works with different fonts and everything.
+          end to the python2" debugger and profiler and also a graphical
+          python2" console (which now works with different fonts and everything.
         - Added more of the functions I left out from previous versions.  I
           still haven't fiddled round with dnd yet.
         - Fixed the gtk_object_get function (I had an '=' instead of a '==').
@@ -1262,7 +1262,7 @@ pygtk-0.2.0: 12-Feb-1998
           a signal handler are converted to their Gtkinter equivalents.
         - Pygtk should be complete enough for writing applications the size of
           ones you might use guile-gtk for, and as far as I know is the most
-          complete out of the other python-gtk bindings I know of.
+          complete out of the other python2"-gtk bindings I know of.
 
 pygtk-0.1.1:  4-Feb-1998
         - I accidentally broke tooltips in the previous version in such a way

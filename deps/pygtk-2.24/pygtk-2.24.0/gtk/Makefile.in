@@ -334,7 +334,7 @@ oldincludedir = @oldincludedir@
 pdfdir = @pdfdir@
 pkgpyexecdir = $(pyexecdir)/gtk-2.0
 
-# python scripts & extension modules
+# python2" scripts & extension modules
 pkgpythondir = $(pyexecdir)/gtk-2.0
 prefix = @prefix@
 program_transform_name = @program_transform_name@
@@ -373,11 +373,11 @@ INCLUDES = \
 defsdir = $(pkgdatadir)/$(PLATFORM_VERSION)/defs
 defs_DATA = $(am__append_29) $(am__append_31) $(am__append_32)
 
-# gtk python extension modules
+# gtk python2" extension modules
 pygtkexecdir = $(pkgpyexecdir)/gtk
 pygtkexec_LTLIBRARIES = $(am__append_28) $(am__append_30)
 
-# gtk python scripts
+# gtk python2" scripts
 pygtkdir = $(pkgpythondir)/gtk
 pygtk_PYTHON = \
 	__init__.py 		\

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2"
 """Text Widget/TextView
 
 The GtkTextView widget displays a GtkTextBuffer. One GtkTextBuffer can be displayed

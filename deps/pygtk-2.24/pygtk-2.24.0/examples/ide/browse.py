@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2"
 
 # This is an example of using dynamic trees (trees where nodes are only
 # calculated as they are needed) with pygtk.  This particular example

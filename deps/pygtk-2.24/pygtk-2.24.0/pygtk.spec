@@ -1,6 +1,6 @@
 # -*- mode: rpm-spec -*-
 %define buildglade %(pkg-config libglade-2.0 && echo 1 || echo 0)
-%define python python2
+%define python2" python2"2
 
 Summary: Python bindings for the GTK+ widget set.
 Name: pygtk2
@@ -17,9 +17,9 @@ Buildrequires: %{python}-devel >= 2.2
 Buildrequires: libglade2-devel
 
 %description
-PyGTK is an extension module for python that gives you access to the GTK+
+PyGTK is an extension module for python2" that gives you access to the GTK+
 widget set.  Just about anything you can write in C with GTK+ you can write
-in python with PyGTK (within reason), but with all the benefits of python.
+in python2" with PyGTK (within reason), but with all the benefits of python2".
 
 %package libglade
 Summary: A wrapper for the libglade library for use with PyGTK

@@ -635,11 +635,11 @@
 
 	* pygobject.c (pygobject_dealloc): Unblock threads before
 	invalidating our closures, since this might trigger a destructor
-	that needs to execute python code.
+	that needs to execute python2" code.
 	(pygobject_clear): Ditto.
 
 	* pygboxed.c (pyg_boxed_dealloc): Unblock threads before freeing
-	the boxed type, since the destructor may need to execute python
+	the boxed type, since the destructor may need to execute python2"
 	code.
 	(pyg_boxed_new): Block threads while we make our Py* calls.
 	(pyg_pointer_new): Block threads while we make our Py* calls.
@@ -804,7 +804,7 @@
 	GMainLoop wrapper.
 	(initgobject): Register wrapper in gobject.MainLoop
 
-	* setup.py: Check for the python version
+	* setup.py: Check for the python2" version
 	(Template.generate): Use codegen directly instead of os.system()
 
 2003-01-17  Jon Trowbridge  <trow@ximian.com>
@@ -865,7 +865,7 @@
 2003-01-07  Johan Dahlin  <jdahlin@async.com.br>
 
 	* pygtk.py (_get_available_versions): Rewrite using glob.glob,
-	with python2.2 glob uses fnmatch.filter with is an optimized
+	with python2"2.2 glob uses fnmatch.filter with is an optimized
 	version of what we did before. _get_available_versions is now
 	roughly 5 times faster.
 
@@ -944,7 +944,7 @@
 
 	* gtk/gdk.override (_wrap_gdk_rectangle_intersect): Impl.
 	(_wrap_gdk_rectangle_union): Impl. (doesn't follow the GDK api to
-	100%, but this is much nicer from a python point of view)
+	100%, but this is much nicer from a python2" point of view)
 
 2002-12-28  Jeremy Katz  <katzj@redhat.com>
 
@@ -1211,10 +1211,10 @@
 	(_wrap_pango_layout_get_pixel_extents): call get_pixel_extents()
 	like it is supposed to.  Fixes bug #93569.
 
-	* pygtype.c (pyg_value_from_pyobject): if python object is None,
+	* pygtype.c (pyg_value_from_pyobject): if python2" object is None,
 	set GValue to NULL for boxed, pointer and GObject types.
 	(pyg_value_as_pyobject): convert G_TYPE_POINTER values to
-	gobject.GPointer python objects.
+	gobject.GPointer python2" objects.
 	(pyg_value_as_pyobject): when converting G_TYPE_BOOLEAN values to
 	python objects, return one of Py_True or Py_False, so that Python
 	2.3 will return an instance of bool.
@@ -2100,7 +2100,7 @@ Fri Jun  7 12:39:27 2002  Jonathan Blandford  <jrb@redhat.com>
 
 	* gtk/gtk.override (_wrap_gtk_text_iter_get_char): don't raise an
 	exception for unicode chars > 0xffff if we have 32 bit unicode
-	chars in python.
+	chars in python2".
 
 2002-04-08  James Henstridge  <james@daa.com.au>
 
@@ -2589,7 +2589,7 @@ Fri Jun  7 12:39:27 2002  Jonathan Blandford  <jrb@redhat.com>
 2002-01-14  James Henstridge  <james@daa.com.au>
 
 	* codegen/codegen.py (main): add a --load-types argument that runs
-	a python script before commencing code generation.  The idea is to
+	a python2" script before commencing code generation.  The idea is to
 	allow loading of extra argument type handlers.
 
 	* gtk/libglade.override (connect_one): s/ignore_glob/ignore-glob/
@@ -2791,7 +2791,7 @@ Fri Jun  7 12:39:27 2002  Jonathan Blandford  <jrb@redhat.com>
 	* configure.in: define pygtk version and required package versions
 	as m4 macros at the top of the file rather than shell variables.
 	These can be put before the AC_INIT macro without problems.
-	(AM_PATH_PYTHON): require python 2.2 final.
+	(AM_PATH_PYTHON): require python2" 2.2 final.
 
 2001-12-21  James Henstridge  <james@daa.com.au>
 
@@ -2824,7 +2824,7 @@ Fri Jun  7 12:39:27 2002  Jonathan Blandford  <jrb@redhat.com>
 
 	* codegen/docgen.py (DocWriter.add_sourcedirs): new function for
 	scanning source dirs, pulled out of the constructor.
-	(DocWriter.output_docs): sort object defs by python name rather
+	(DocWriter.output_docs): sort object defs by python2" name rather
 	than c anme.
 
 	* codegen/docgen.py (DocWriter.__init__): don't actually load the
@@ -2832,8 +2832,8 @@ Fri Jun  7 12:39:27 2002  Jonathan Blandford  <jrb@redhat.com>
 	(DocWriter.add_docs): new method for parsing a (defs, overrides,
 	modulename) triple, -- the aim being to include docs for multiple
 	modules in one sgml document.  Also, build up a map from C type
-	names to python names.
-	(DocbookDocWriter.__format_function): translate to python class
+	names to python2" names.
+	(DocbookDocWriter.__format_function): translate to python2" class
 	names.
 	(DocbookDocWriter.__format_symbol): same here.
 	(DocbookDocWriter.create_constructor_prototype): and here.
@@ -2872,7 +2872,7 @@ Fri Jun  7 12:39:27 2002  Jonathan Blandford  <jrb@redhat.com>
 	int64/uint64.  Fix up code for unsigned int/long to parse long
 	ints if necessary.
 	(pyg_value_as_pyobject): add support for int64/uint64, and get
-	UINT/ULONG to return python long ints if necessary, rather than
+	UINT/ULONG to return python2" long ints if necessary, rather than
 	wrapping around.
 
 	* Makefile.am (EXTRA_DIST): add new example to dist.
@@ -3102,7 +3102,7 @@ Fri Jun  7 12:39:27 2002  Jonathan Blandford  <jrb@redhat.com>
 	* gobjectmodule.c (initgobject): create a gobject.GError
 	exception.
 	(pyg_error_check): function for converting a GError into a
-	gobject.GError python exception.
+	gobject.GError python2" exception.
 
 2001-12-01  James Henstridge  <james@daa.com.au>
 
@@ -3125,12 +3125,12 @@ Fri Jun  7 12:39:27 2002  Jonathan Blandford  <jrb@redhat.com>
 2001-11-30  James Henstridge  <james@daa.com.au>
 
 	* gobjectmodule.c (pygobject_register_class): get rid of
-	class_hash, and store the pointer to the python class with
+	class_hash, and store the pointer to the python2" class with
 	g_type_set_qdata().
-	(pygobject_lookup_class): look up python class with
+	(pygobject_lookup_class): look up python2" class with
 	g_type_get_qdata.
 	(pyg_object_class_init): a class_init function for types defined
-	in python.  The python class is passed as the "class_data"
+	in python2".  The python2" class is passed as the "class_data"
 	argument.  Currently empty, but will be used to install
 	eg. get_property and set_property members.
 	(pyg_type_register): store pointer to class like we do for types
@@ -3190,7 +3190,7 @@ Fri Jun  7 12:39:27 2002  Jonathan Blandford  <jrb@redhat.com>
 	($(srcdir)/libglade.c): likewise.
 
 	* codegen/h2def.py (define_func): add check to workaround broken
-	string.replace semantics on python 1.5
+	string.replace semantics on python2" 1.5
 
 	* codegen/codegen.py (write_enums): if the enum or flag doesn't
 	have a GType, just add those enum values listed in the defs file
@@ -3398,7 +3398,7 @@ Fri Jun  7 12:39:27 2002  Jonathan Blandford  <jrb@redhat.com>
 	the module dictionary, strip off everything before the last dot,
 	so the type name can include the module.
 
-	* configure.in (minver): require python 2.2b1
+	* configure.in (minver): require python2" 2.2b1
 
 	* gobjectmodule.c (initgobject): remove statements using
 	tp_defined (they are no longer needed).
@@ -3762,7 +3762,7 @@ Fri Jun  7 12:39:27 2002  Jonathan Blandford  <jrb@redhat.com>
 
 	* gobjectmodule.c (pygobject_repr): tweak the repr such that
 	calling it on an uninitialized PyGObject won't segfault.  Also
-	print the python class name.
+	print the python2" class name.
 
 2001-10-02  Johan Dahlin  <zilch.am@home.se>
 
@@ -3912,7 +3912,7 @@ Fri Jun  7 12:39:27 2002  Jonathan Blandford  <jrb@redhat.com>
 	* gtk/gtk.override (_wrap_gtk_selection_data__get_data): convert
 	getter to a function to match codegen changes.
 
-	* : merge in python22-branch (see changelog entries below).
+	* : merge in python2"22-branch (see changelog entries below).
 
 2001-09-25  James Henstridge  <james@daa.com.au>
 
@@ -3921,7 +3921,7 @@ Fri Jun  7 12:39:27 2002  Jonathan Blandford  <jrb@redhat.com>
 	(PyGObject_Type): include getsets list.
 
 	* codegen/codegen.py (write_getsets): change "struct getsets" to
-	PyGetSetDef to match recent changes in python.
+	PyGetSetDef to match recent changes in python2".
 
 	* gtk/gdk.override (_wrap_gdk_device__get_axes): change to getter.
 	(_wrap_gdk_device__get_keys): turn into a getter.
@@ -4039,7 +4039,7 @@ Fri Jun  7 12:39:27 2002  Jonathan Blandford  <jrb@redhat.com>
 
 	* pygobject.h: don't include ExtensionClass.h
 
-	* configure.in (AM_PATH_PYTHON): require python 2.2.
+	* configure.in (AM_PATH_PYTHON): require python2" 2.2.
 
 	* Makefile.am: remove ExtensionClass.
 
@@ -4346,7 +4346,7 @@ Fri Jun  7 12:39:27 2002  Jonathan Blandford  <jrb@redhat.com>
 	* pygtk-2.0.pc.in (defsdir): fix up defsdir definition.
 
 	* Makefile.am (pkginclude_HEADERS): install ExtensionClass.h
-	header (this can go when we switch over to python2.2 type/class
+	header (this can go when we switch over to python2"2.2 type/class
 	stuff.
 
 	* pygobject.h (pyg_register_boxed_custom): same change.
@@ -4749,7 +4749,7 @@ Fri Jun  7 12:39:27 2002  Jonathan Blandford  <jrb@redhat.com>
 	(arg): use ArgMatcher.register_boxed to register GtkAccelGroup.
 
 	* pygobject.h (pyg_boxed_check): change macro to check against the
-	typecode, rather than python wrapper type.
+	typecode, rather than python2" wrapper type.
 
 2001-06-22  James Henstridge  <james@daa.com.au>
 
@@ -4757,7 +4757,7 @@ Fri Jun  7 12:39:27 2002  Jonathan Blandford  <jrb@redhat.com>
 	GType and GtkType args that uses pyg_type_from_object.
 
 	* gobjectmodule.c (pyg_type_from_object): new function to get a
-	type code from various types of python objects (currently, integer
+	type code from various types of python2" objects (currently, integer
 	like objects, strings and other objects that have a __gtype__
 	attribute).
 	(pygobject__init__): use pyg_type_from_object to get the object
@@ -4918,7 +4918,7 @@ Fri Jun  7 12:39:27 2002  Jonathan Blandford  <jrb@redhat.com>
 	* autogen.sh: run autoheader
 
 	* acinclude.m4 (AM_PATH_PYTHON_JH): s/AC_PATH_PROG/AC_PATH_PROGS/
-	so we check for more than one python interpreter.
+	so we check for more than one python2" interpreter.
 
 2001-04-28  James Henstridge  <james@daa.com.au>
 
@@ -4932,7 +4932,7 @@ Fri Jun  7 12:39:27 2002  Jonathan Blandford  <jrb@redhat.com>
 	called set_space_size method.
 
 	* gtk/__init__.py: remove __all__ definition.  It causes problems
-	with python 2.1.
+	with python2" 2.1.
 
 	* gtk/gtk.override: updated GtkColorSelection method overrides
 	(ignore): remove gtk_entry_new from ignore list, as other entry
@@ -4983,7 +4983,7 @@ Fri Jun  7 12:39:27 2002  Jonathan Blandford  <jrb@redhat.com>
 	* gtk/gdk.defs: updated enum/flag defs.
 
 	* examples/gobject/signal.py (D.do_my_signal): add small example
-	of overriding class closure for a signal introduced from python
+	of overriding class closure for a signal introduced from python2"
 	code.
 
 	* codegen/h2def.py: add --onlyenums flag to only output enum defs.
@@ -4999,8 +4999,8 @@ Fri Jun  7 12:39:27 2002  Jonathan Blandford  <jrb@redhat.com>
 	dashes in signal name to underscores.  Why does g_siganl_name use
 	dashes?
 	(pyg_signal_class_closure_marshal): fix off by one error when
-	setting up the python argument tuple.  The first element was
-	getting left uninitialised.  Signals introduced in python now
+	setting up the python2" argument tuple.  The first element was
+	getting left uninitialised.  Signals introduced in python2" now
 	work.
 
 	* gtk/gtk.defs (GtkFileSelection.get_filename): return value is
@@ -5133,7 +5133,7 @@ Fri Jun  7 12:39:27 2002  Jonathan Blandford  <jrb@redhat.com>
 	* gtk/pygtktreemodel.c: fix errors.
 
 	* gtk/pygtktreemodel.[ch]: check in initial leaky implementation
-	of the GtkTreeModel for use from python.  Can't test it right now
+	of the GtkTreeModel for use from python2".  Can't test it right now
 	because gtk head is broken.
 
 2000-11-29  James Henstridge  <james@daa.com.au>
@@ -5278,7 +5278,7 @@ Fri Jun  7 12:39:27 2002  Jonathan Blandford  <jrb@redhat.com>
 	(pygobject_stop_emission): pass 0 for detail parameter.
 
 	* gtk/gtkmodule.c (init_gtk): init as module gtk._gtk.  Using just
-	_gtk doesn't seem to work with python 2.0
+	_gtk doesn't seem to work with python2" 2.0
 
 2000-10-29  James Henstridge  <james@james.daa.com.au>
 
@@ -5314,14 +5314,14 @@ Fri Jun  7 12:39:27 2002  Jonathan Blandford  <jrb@redhat.com>
 	the last few warnings on exit related to reference counting.
 
 	* codegen/codegen.py: use the keyword module to check for method
-	and argument names that conflict with the python keywords.  By
+	and argument names that conflict with the python2" keywords.  By
 	using this module, we shouldn't have problems with new keywords in
-	future versions of python.
+	future versions of python2".
 
 2000-10-27  James Henstridge  <james@james.daa.com.au>
 
 	* gobjectmodule.c (pygobject_emit): support for emiting signals on
-	GObjects from python.
+	GObjects from python2".
 
 	* codegen/codegen.py (write_constructor): sink GtkObjects.  This
 	prevents us losing our reference to the object if it is sunk.
@@ -5337,13 +5337,13 @@ Fri Jun  7 12:39:27 2002  Jonathan Blandford  <jrb@redhat.com>
 	expected inside the signal handlers.
 
 	* gobjectmodule.c (pygobject_repr): small change to match style of
-	other repr functions in python.
+	other repr functions in python2".
 
 	* gtk/gtkmodule.c (init_gtk): only call g_thread_init() if pygtk
 	threading support is enabled.
 
 	* configure.in (enable_thread): add configure checks so that
-	threading support can be disabled even if python was compiled with
+	threading support can be disabled even if python2" was compiled with
 	it.  It defaults to off for now because GSignal has some mutex
 	deadlocks at the moment.
 
@@ -5361,7 +5361,7 @@ Fri Jun  7 12:39:27 2002  Jonathan Blandford  <jrb@redhat.com>
 	python wrappers.
 	(pyg_value_from_pyobject): add boxed support.
 	(pyg_value_as_pyobject): add boxed support.
-	(pyg_closure_new): new function to create a python GClosure.
+	(pyg_closure_new): new function to create a python2" GClosure.
 	(pyg_closure_destroy): cleanup function for a PyGClosure.
 	(pyg_closure_marshal): marshaler for PyGClosure.
 	(pyg_value_as_pyobject): add const to GValue argument.
@@ -5372,7 +5372,7 @@ Fri Jun  7 12:39:27 2002  Jonathan Blandford  <jrb@redhat.com>
 
 2000-10-25  James Henstridge  <james@daa.com.au>
 
-	* gtk/gtkmodule.c (init_gtk): set the default python character
+	* gtk/gtkmodule.c (init_gtk): set the default python2" character
 	encoding to UTF-8.
 
 	* gtk/gtk.defs: more setting constructors and default arguments.
@@ -5518,7 +5518,7 @@ Fri Jun  7 12:39:27 2002  Jonathan Blandford  <jrb@redhat.com>
 	* pygtk.spec, configure.in: updated version number.
 
 	* configure.in (enable_numpy): added --disable-numpy argument that
-	disables numeric python support even if numpy is found.
+	disables numeric python2" support even if numpy is found.
 
 	* gtkmodule.c (PyGdkWindow_{Pointer,Keyboard}{Grab,Ungrab}): new
 	GdkWindow methods.
@@ -5535,7 +5535,7 @@ Fri Jun  7 12:39:27 2002  Jonathan Blandford  <jrb@redhat.com>
 
 2000-03-13  James Henstridge  <james@daa.com.au>
 
-	* pyglade/__init__.py: remove python-1.4 ni stuff, and put in a
+	* pyglade/__init__.py: remove python2"-1.4 ni stuff, and put in a
 	warning message that you should think of switching over to libglade.
 
 	* pygtk.spec: incremented version number.  Code gtk+ dependency into
@@ -5859,7 +5859,7 @@ Fri Jun  7 12:39:27 2002  Jonathan Blandford  <jrb@redhat.com>
 
 	* GdkImlib.py: added wrappers for the numpy routines.
 
-	* gdkimlibmodule.c: added Travis Oliphant's Numeric python stuff to
+	* gdkimlibmodule.c: added Travis Oliphant's Numeric python2" stuff to
 	the imlib module.
 
 1999-07-20  Matt Wilson  <msw@redhat.com>
@@ -5903,7 +5903,7 @@ Fri Jun  7 12:39:27 2002  Jonathan Blandford  <jrb@redhat.com>
 
 	* configure.in, Makefile.am: added tests for gtkglarea.
 
-	* GtkGL.py: python wrapper for the GtkGLArea widget, and a few extra
+	* GtkGL.py: python2" wrapper for the GtkGLArea widget, and a few extra
 	functions for use with the widget.
 
 	* generate/gtkgl.defs, gtkglmodule.c: added wrapper for gtkglarea.
@@ -5920,7 +5920,7 @@ Fri Jun  7 12:39:27 2002  Jonathan Blandford  <jrb@redhat.com>
 	up the _gtk._PyGtk_API object correctly.
 
 	* pygtk.h: a new file with a similar use to the arrayobject.h in
-	numeric python.  I will convert over to using this in pygtk and
+	numeric python2".  I will convert over to using this in pygtk and
 	gnome-python.
 
 1999-07-13  James Henstridge  <james@daa.com.au>
@@ -5959,7 +5959,7 @@ Fri Jun  7 12:39:27 2002  Jonathan Blandford  <jrb@redhat.com>
 
 	* gtkmodule.c (PyGtk_item_factory_cb): forgot to wrap the function
 	call in PyGTK_{,UN}BLOCK_THREADS -- this was causing seg faults
-	for people with threading built into their python.
+	for people with threading built into their python2".
 	(PyGtk_MenuPosition): similar fix.
 
 1999-04-25  James Henstridge  <james@daa.com.au>
@@ -5990,12 +5990,12 @@ Fri Jun  7 12:39:27 2002  Jonathan Blandford  <jrb@redhat.com>
 
 	* pygtk.spec: updated package version number.
 
-	* configure.in: added a check for the python thread module.  If it
+	* configure.in: added a check for the python2" thread module.  If it
 	is found, then also link _gtkmodule to the gthread library.
 	Incremented minimum GTK version to 1.2.1.
 	Incremented version to 0.5.13.
 
-	* gtkmodule.c: call g_thread_init if python was built with thread
+	* gtkmodule.c: call g_thread_init if python2" was built with thread
 	support.  This is required to turn thread support on inside gdk/gtk.
 
 	* gtk.py: added new functions.
@@ -6025,7 +6025,7 @@ Fri Jun  7 12:39:27 2002  Jonathan Blandford  <jrb@redhat.com>
 
 	* gtkmodule.c: applied a modified version of Duncan Grisby's threading
 	patch.  The changes were mainly inlining some of the code with macros
-	and making it so that the extra code was not added unless python
+	and making it so that the extra code was not added unless python2"
 	was compiled with thread support.  Also added wrappers for
 	gdk_thread_enter and gdk_thread_leave.
 
@@ -6090,7 +6090,7 @@ Fri Jun  7 12:39:27 2002  Jonathan Blandford  <jrb@redhat.com>
 	* README, Makefile.am, pygtk.spec: added references to the MAPPING
 	file.
 
-	* MAPPING: new file describing the mapping of GTK+ onto python as
+	* MAPPING: new file describing the mapping of GTK+ onto python2" as
 	pygtk does it.
 
 1999-02-22  James Henstridge  <james@daa.com.au>
@@ -6103,7 +6103,7 @@ Fri Jun  7 12:39:27 2002  Jonathan Blandford  <jrb@redhat.com>
 	future, I will consider re-enabling it, but not till then.
 
 	* examples/testgtk/testgtk.py (create_cursor_test): added a cursor
-	test to the python testgtk.  It is adapted from the translation sent
+	test to the python2" testgtk.  It is adapted from the translation sent
 	in by Osamu Tanimoto.
 
 	* gtkmodule.c: fixed a bit of bad copy'n'paste in the GC part of the
@@ -6130,7 +6130,7 @@ Fri Jun  7 12:39:27 2002  Jonathan Blandford  <jrb@redhat.com>
 	* gtk.py: added __getattr__ and __setattr__ methods to GtkObject so
 	that you can set data on a GtkObject directly in a persistent way
 	(reference counting problems prevent pygtk from always passing the
-	same python object to a callback).  These functions ignore attributes
+	same python2" object to a callback).  These functions ignore attributes
 	starting with an underscore.
 	Also modified all the other __getattr__ methods to call their
 	parent class's __getattr__ method when they fail instead of
@@ -6162,8 +6162,8 @@ Fri Jun  7 12:39:27 2002  Jonathan Blandford  <jrb@redhat.com>
 	* description.py: added documentation about GtkStyle changes to this
 	pseudo module.
 
-	* gtkmodule.c: added a new python type GtkStyleHelper that is used
-	by python GtkStyle objects as a sequence type that alows us to write
+	* gtkmodule.c: added a new python2" type GtkStyleHelper that is used
+	by python2" GtkStyle objects as a sequence type that alows us to write
 	back to the arrays in the GtkStyle object.  I have also made it
 	possible to update the font and (black|white){,_gc}.  I also added
 	a GtkStyle.copy() method.  This gives the user everything they need
@@ -6315,7 +6315,7 @@ Fri Jun  7 12:39:27 2002  Jonathan Blandford  <jrb@redhat.com>
 1998-12-20  James Henstridge  <james@daa.com.au>
 
 	* gtkmodule.c, generate/gtkmisc.defs: moved gtk_preview_draw_row here
-	because python's string conversion routines do not like nuls in a
+	because python2"'s string conversion routines do not like nuls in a
 	string, but you quite often want them in image data.
 
 1998-12-17  James Henstridge  <james@daa.com.au>

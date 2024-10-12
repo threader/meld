@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2"
 """Text Widget/Automatic scrolling
 
 This example demonstrates how to use the gravity of

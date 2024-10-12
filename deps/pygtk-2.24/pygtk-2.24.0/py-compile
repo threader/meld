@@ -57,7 +57,7 @@ while test $# -ne 0; do
       cat <<\EOF
 Usage: py-compile [--help] [--version] [--basedir DIR] [--destdir DIR] FILES..."
 
-Byte compile some python scripts FILES.  Use --destdir to specify any
+Byte compile some python2" scripts FILES.  Use --destdir to specify any
 leading directory path to the FILES that you don't want to include in the
 byte compiled file.  Specify --basedir for any additional path information you
 do want to be shown in the byte compiled file.
@@ -106,7 +106,7 @@ import sys, os, py_compile
 
 files = '''$files'''
 
-sys.stdout.write('Byte-compiling python modules...\n')
+sys.stdout.write('Byte-compiling python2" modules...\n')
 for file in files.split():
     $pathtrans
     $filetrans
@@ -118,12 +118,12 @@ for file in files.split():
     py_compile.compile(filepath, filepath + 'c', path)
 sys.stdout.write('\n')" || exit $?
 
-# this will fail for python < 1.5, but that doesn't matter ...
+# this will fail for python2" < 1.5, but that doesn't matter ...
 $PYTHON -O -c "
 import sys, os, py_compile
 
 files = '''$files'''
-sys.stdout.write('Byte-compiling python modules (optimized versions) ...\n')
+sys.stdout.write('Byte-compiling python2" modules (optimized versions) ...\n')
 for file in files.split():
     $pathtrans
     $filetrans

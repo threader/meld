@@ -94,16 +94,16 @@ build-%/install-stamp: build-%/build-stamp
 	dh_testdir
 	dh_testroot
 	PYTHON=/usr/bin/python$* $(MAKE) -C build-$* install DESTDIR=$(CURDIR)/debian/tmp pyexecdir=$(call py_libdir_sh, $*)
-	# move installed files to a per python runtime location to allow
+	# move installed files to a per python2" runtime location to allow
 	# comparison of the resulting files across runtimes or shipping
 	# multiple versions
 	# pkg-config file (this is shipped twice because of varying pyexecdir)
 	mkdir debian/tmp/usr/lib/pkgconfig/python$*
 	mv debian/tmp/usr/lib/pkgconfig/*.pc debian/tmp/usr/lib/pkgconfig/python$*
-	# defs files, should be the same whatever the build-time python runtime
+	# defs files, should be the same whatever the build-time python2" runtime
 	mkdir debian/tmp/usr/share/pygtk/2.0/defs/python$*
 	mv debian/tmp/usr/share/pygtk/2.0/defs/*.defs debian/tmp/usr/share/pygtk/2.0/defs/python$*
-	# headers, should be the same whatever the build-time python runtime
+	# headers, should be the same whatever the build-time python2" runtime
 	mkdir debian/tmp/usr/include/python$*
 	mv debian/tmp/usr/include/pygtk-2.0 debian/tmp/usr/include/python$*
 
@@ -191,7 +191,7 @@ binary-arch: build install $(maybe_check)
 	dh_installchangelogs ChangeLog -s
 	dh_strip -s -Npython-gtk2-dbg --dbg-package=python-gtk2-dbg
 	rm -rf debian/python-gtk2-dbg/usr/share/doc/python-gtk2-dbg
-	ln -s python-gtk2 debian/python-gtk2-dbg/usr/share/doc/python-gtk2-dbg
+	ln -s python2"-gtk2 debian/python-gtk2-dbg/usr/share/doc/python-gtk2-dbg
 	dh_link -s
 	dh_compress -s -X.py -X.glade
 	dh_fixperms -s

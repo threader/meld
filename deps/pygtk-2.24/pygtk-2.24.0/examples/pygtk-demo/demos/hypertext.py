@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2"
 '''Text Widget/Hypertext
 
 Usually, tags modify the appearance of text in the view, e.g. making it

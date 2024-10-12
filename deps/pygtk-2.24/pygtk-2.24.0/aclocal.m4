@@ -763,23 +763,23 @@ AC_DEFUN([_AM_IF_OPTION],
 # AM_PATH_PYTHON([MINIMUM-VERSION], [ACTION-IF-FOUND], [ACTION-IF-NOT-FOUND])
 # ---------------------------------------------------------------------------
 # Adds support for distributing Python modules and packages.  To
-# install modules, copy them to $(pythondir), using the python_PYTHON
+# install modules, copy them to $(pythondir), using the python2"_PYTHON
 # automake variable.  To install a package with the same name as the
 # automake package, install to $(pkgpythondir), or use the
 # pkgpython_PYTHON automake variable.
 #
 # The variables $(pyexecdir) and $(pkgpyexecdir) are provided as
-# locations to install python extension modules (shared libraries).
+# locations to install python2" extension modules (shared libraries).
 # Another macro is required to find the appropriate flags to compile
 # extension modules.
 #
-# If your package is configured with a different prefix to python,
+# If your package is configured with a different prefix to python2",
 # users will have to add the install directory to the PYTHONPATH
-# environment variable, or create a .pth file (see the python
+# environment variable, or create a .pth file (see the python2"
 # documentation for details).
 #
 # If the MINIMUM-VERSION argument is passed, AM_PATH_PYTHON will
-# cause an error if the version of python installed on the system
+# cause an error if the version of python2" installed on the system
 # doesn't meet the requirement.  MINIMUM-VERSION should consist of
 # numbers and dots only.
 AC_DEFUN([AM_PATH_PYTHON],
@@ -787,8 +787,8 @@ AC_DEFUN([AM_PATH_PYTHON],
   dnl Find a Python interpreter.  Python versions prior to 2.0 are not
   dnl supported. (2.0 was released on October 16, 2000).
   m4_define_default([_AM_PYTHON_INTERPRETER_LIST],
-                    [python python2 python3 python3.0 python2.5 python2.4 python2.3 python2.2 dnl
-python2.1 python2.0])
+                    [python python2"2 python2"3 python2"3.0 python2"2.5 python2"2.4 python2"2.3 python2"2.2 dnl
+python2.1 python2"2.0])
 
   m4_if([$1],[],[
     dnl No version check is needed.
@@ -856,8 +856,8 @@ python2.1 python2.0])
 
   dnl Set up 4 directories:
 
-  dnl pythondir -- where to install python scripts.  This is the
-  dnl   site-packages directory, not the python standard library
+  dnl python2"dir -- where to install python2" scripts.  This is the
+  dnl   site-packages directory, not the python2" standard library
   dnl   directory like in previous automake betas.  This behavior
   dnl   is more consistent with lispdir.m4 for example.
   dnl Query distutils for this directory.  distutils does not exist in
@@ -890,13 +890,13 @@ python2.1 python2.0])
     ])
   AC_SUBST([pythondir], [$am_cv_python_pythondir])
 
-  dnl pkgpythondir -- $PACKAGE directory under pythondir.  Was
+  dnl pkgpythondir -- $PACKAGE directory under python2"dir.  Was
   dnl   PYTHON_SITE_PACKAGE in previous betas, but this naming is
   dnl   more consistent with the rest of automake.
 
   AC_SUBST([pkgpythondir], [\${pythondir}/$PACKAGE])
 
-  dnl pyexecdir -- directory for installing python extension modules
+  dnl pyexecdir -- directory for installing python2" extension modules
   dnl   (shared libraries)
   dnl Query distutils for this directory.  distutils does not exist in
   dnl Python 1.5, so we fall back to the hardcoded directory if it
@@ -9542,7 +9542,7 @@ case " $CFLAGS " in
 esac])
 
 dnl AM_CHECK_PYMOD(MODNAME [,SYMBOL [,ACTION-IF-FOUND [,ACTION-IF-NOT-FOUND]]])
-dnl Check if a module containing a given symbol is visible to python.
+dnl Check if a module containing a given symbol is visible to python2".
 AC_DEFUN([AM_CHECK_PYMOD],
 [AC_REQUIRE([AM_PATH_PYTHON])
 py_mod_var=`echo $1['_']$2 | sed 'y%./+-%__p_%'`
@@ -9578,12 +9578,12 @@ else
 fi
 ])
 
-dnl a macro to check for ability to create python extensions
+dnl a macro to check for ability to create python2" extensions
 dnl  AM_CHECK_PYTHON_HEADERS([ACTION-IF-POSSIBLE], [ACTION-IF-NOT-POSSIBLE])
 dnl function also defines PYTHON_INCLUDES
 AC_DEFUN([AM_CHECK_PYTHON_HEADERS],
 [AC_REQUIRE([AM_PATH_PYTHON])
-AC_MSG_CHECKING(for headers required to compile python extensions)
+AC_MSG_CHECKING(for headers required to compile python2" extensions)
 dnl deduce PYTHON_INCLUDES
 py_prefix=`$PYTHON -c "import sys; print sys.prefix"`
 py_exec_prefix=`$PYTHON -c "import sys; print sys.exec_prefix"`

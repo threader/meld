@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2"
 '''Entry Completion
 
 GtkEntryCompletion provides a mechanism for adding support for

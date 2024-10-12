@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2"
 
 """ Simple example of creating a basic window and button.
     Also adds a tooltip. """

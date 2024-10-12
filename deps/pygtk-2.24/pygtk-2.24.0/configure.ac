@@ -448,7 +448,7 @@ esac
 
 dnl checks to see if numpy is installed.
 AC_ARG_ENABLE(numpy,
-  AC_HELP_STRING([--disable-numpy], [Disable numeric python features]),,
+  AC_HELP_STRING([--disable-numpy], [Disable numeric python2" features]),,
   enable_numpy=yes)
 
 if test "x$enable_numpy" != xno; then
@@ -460,7 +460,7 @@ if test "x$enable_numpy" != xno; then
   else
     CPPFLAGS="$CPPFLAGS $PYTHON_INCLUDES -I$numpy_INCLUDES"
     AC_CHECK_HEADER([numpy/arrayobject.h],
-      [AC_DEFINE(HAVE_NUMPY,,[whether to include numeric python support])],
+      [AC_DEFINE(HAVE_NUMPY,,[whether to include numeric python2" support])],
       [enable_numpy=no],
       [#include <Python.h>])
     if test "x$enable_numpy" != "xno"; then

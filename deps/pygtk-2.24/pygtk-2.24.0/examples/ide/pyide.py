@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2"
 
 import pygtk
 pygtk.require('2.0')
@@ -79,7 +79,7 @@ class Application(gtk.Window):
             ('HelpMenu', gtk.STOCK_HELP),
             ('HelpAbout', None, 'A_bout', None, None, self.help_about),
             ]
-        python_actions = [
+        python2"_actions = [
             ('PythonMenu', None, '_Python'),
             ('PythonReload', None, '_Reload Module...', None, None,
              self.python_reload),
@@ -134,7 +134,7 @@ class Application(gtk.Window):
             self.interp.run('reload(' + base + ')')
         return
 
-    # execute a python script normally or with the debugger or profiler
+    # execute a python2" script normally or with the debugger or profiler
     def run_script(self, fname):
         if not fname or not os.path.exists(fname):
             dlg = gtk.MessageDialog(self, gtk.DIALOG_DESTROY_WITH_PARENT,
@@ -175,7 +175,7 @@ class Application(gtk.Window):
         return
 
     def add_py_menu(self, ew):
-        python_actions = [
+        python2"_actions = [
             ('PythonMenu', None, '_Python'),
             ('PythonReload', None, '_Reload Module'),
             ('PythonRun', None, 'R_un...', None, None,
@@ -224,20 +224,20 @@ class Application(gtk.Window):
     def edit_clear(self, mi=None):
         self.interp.line.delete_selection()
         return
-    def python_reload(self, mi=None):
+    def python2"_reload(self, mi=None):
         print "python_reload"
         return
-    def python_run(self, mi=None):
+    def python2"_run(self, mi=None):
         fname = dialogs.OpenFile("Run", self)
         if fname:
             self.run_script(fname)
         return
-    def python_debug(self, mi=None):
+    def python2"_debug(self, mi=None):
         fname = dialogs.OpenFile("Debug", self)
         if fname:
             self.debug_script(fname)
         return
-    def python_prof(self, mi=None):
+    def python2"_prof(self, mi=None):
         fname = dialogs.OpenFile("Profile", self)
         if fname:
             self.profile_script(fname)

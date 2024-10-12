@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2"
 '''Button Box
 
 This demo shows various button box configurations available.  It also

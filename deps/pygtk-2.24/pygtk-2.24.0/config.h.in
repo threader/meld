@@ -36,7 +36,7 @@
 /* Define to 1 if you have the <memory.h> header file. */
 #undef HAVE_MEMORY_H
 
-/* whether to include numeric python support */
+/* whether to include numeric python2" support */
 #undef HAVE_NUMPY
 
 /* Define to 1 if pycairo is available */

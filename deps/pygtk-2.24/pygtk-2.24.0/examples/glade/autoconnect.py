@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2"
 #
 # Small test to demonstrate glade.XML.signal_autoconnect on an instance
 #

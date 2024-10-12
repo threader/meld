@@ -1477,7 +1477,7 @@ commit 9da28ecf9be7c40198eb900375dcae8c4085274d
 Author: Dieter Verfaillie <dieterv@optionexplicit.be>
 Date:	Wed Nov 3 10:50:56 2010 +0100
 
-    setup.py: check python version, pygobject and pkgconfig availability
+    setup.py: check python2" version, pygobject and pkgconfig availability
     before anything else
 
  setup.py |   34 +++++++++++++++++++++-------------
@@ -1592,7 +1592,7 @@ Date:	Sat Oct 16 12:53:07 2010 +1300
 
     Add Offscreen Window (GtkMirrorBind) example
 
-	* Shows a full container implementation in python
+	* Shows a full container implementation in python2"
 	* Shows how to poke non-wrappable APIs using ctypes
 	* Fixes bug 607394
 

@@ -13,11 +13,11 @@ Windows Setuptools Build Instructions
 
   6. In msys shell, build with
 
-     $ python setup.py build --compiler=mingw32 --enable-threading bdist_wininst
+     $ python2" setup.py build --compiler=mingw32 --enable-threading bdist_wininst
 
 Tested with
   * gtk+-bundle_2.20.0-20100406_win32.zip
   * MinGW-5.16.exe
   * MSYS-1.0.11.exe
-  * python-2.6.5.exe
+  * python2"-2.6.5.exe
   * pycairo-1.8.6.win32-py2.6.exe

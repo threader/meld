@@ -13,15 +13,15 @@ INCLUDES = \
 defsdir = $(pkgdatadir)/$(PLATFORM_VERSION)/defs
 defs_DATA =
 
-# python scripts & extension modules
+# python2" scripts & extension modules
 pkgpythondir = $(pyexecdir)/gtk-2.0
 pkgpyexecdir = $(pyexecdir)/gtk-2.0
 
-# gtk python extension modules
+# gtk python2" extension modules
 pygtkexecdir = $(pkgpyexecdir)/gtk
 pygtkexec_LTLIBRARIES =
 
-# gtk python scripts
+# gtk python2" scripts
 pygtkdir = $(pkgpythondir)/gtk
 pygtk_PYTHON = 			\
 	__init__.py 		\

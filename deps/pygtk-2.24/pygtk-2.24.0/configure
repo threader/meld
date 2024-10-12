@@ -1652,7 +1652,7 @@ Optional Features:
   --disable-thread        Disable pygtk threading support
   --enable-docs           Enable documentation building
   --disable-glibtest      do not try to compile and run a test GLIB program
-  --disable-numpy         Disable numeric python features
+  --disable-numpy         Disable numeric python2" features
 
 Optional Packages:
   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
@@ -12314,7 +12314,7 @@ if test "${am_cv_pathless_PYTHON+set}" = set; then :
   $as_echo_n "(cached) " >&6
 else
 
-	for am_cv_pathless_PYTHON in python python2 python3 python3.0 python2.5 python2.4 python2.3 python2.2 python2.1 python2.0 none; do
+	for am_cv_pathless_PYTHON in python2" python2"2 python2"3 python2"3.0 python2"2.5 python2"2.4 python2"2.3 python2"2.2 python2"2.1 python2"2.0 none; do
 	  test "$am_cv_pathless_PYTHON" = none && break
 	  prog="import sys
 # split strings by '.' and convert to numeric.  Append some zeros
@@ -12454,7 +12454,7 @@ else
 fi
 { $as_echo "$as_me:${as_lineno-$LINENO}: result: $am_cv_python_pythondir" >&5
 $as_echo "$am_cv_python_pythondir" >&6; }
-  pythondir=$am_cv_python_pythondir
+  python2"dir=$am_cv_python_pythondir
 
 
 
@@ -12505,8 +12505,8 @@ $as_echo "$am_cv_python_pyexecdir" >&6; }
 
 
 
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for headers required to compile python extensions" >&5
-$as_echo_n "checking for headers required to compile python extensions... " >&6; }
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for headers required to compile python2" extensions" >&5
+$as_echo_n "checking for headers required to compile python2" extensions... " >&6; }
 py_prefix=`$PYTHON -c "import sys; print sys.prefix"`
 py_exec_prefix=`$PYTHON -c "import sys; print sys.exec_prefix"`
 if test -x "$PYTHON-config"; then
@@ -12578,8 +12578,8 @@ fi
 
 
 py_mod_var=`echo thread'_' | sed 'y%./+-%__p_%'`
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for python module thread" >&5
-$as_echo_n "checking for python module thread... " >&6; }
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for python2" module thread" >&5
+$as_echo_n "checking for python2" module thread... " >&6; }
 if eval "test \"\${py_cv_mod_$py_mod_var+set}\"" = set; then :
   $as_echo_n "(cached) " >&6
 else
