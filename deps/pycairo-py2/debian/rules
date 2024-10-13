@@ -1,0 +1,40 @@
+#!/usr/bin/make -f
+DEB_COMPRESS_EXCLUDE= .js .inv
+
+PYTHON=python2
+
+
+%:
+	dh $@ --with python2,sphinxdoc --buildsystem=pybuild --with $(PYTHON) 
+
+	# dh $@  --buildsystem=pybuild --with python2,sphinxdoc
+	#dh $@ --buildsystem=pybuild --with $PYTHON
+
+override_dh_auto_test:
+version=2
+
+override_dh_update_autotools_config:
+	dh_update_autotools_config -O--buildsystem=pybuild 
+
+override_dh_auto_configure:
+	$(PYTHON) setup.py config
+	#dh_auto_configure --builddir=obj-$(PYTHON)
+
+override_dh_auto_install:
+	$(PYTHON) setup.py install --root $(PWD)/debian/tmp/
+	#dh_auto_install --builddir=obj-$(PYTHON) 
+
+override_dh_auto_build:
+	# dh_auto_build --buildsystem=pybuild --builddir=obj-$(PYTHON) --with $(PYTHON) install
+	$(PYTHON) setup.py install --root $(PWD)/debian/tmp/
+
+#	pybuild setup.py install --root $(PWD)/debian/tmp/
+#	sphinx-build -bhtml docs debian/tmp-doc/html
+#	python3 -m sphinx -bhtml docs debian/tmp-doc/html
+	# to fix lintian: privacy-breach-generic
+#	sed -ir 's|src="https:[^"]*|src="|' debian/tmp-doc/html/index.html
+
+
+override_dh_auto_clean:
+	# dh_auto_clean --buildsystem=pybuild
+	rm -rf debian/tmp-doc

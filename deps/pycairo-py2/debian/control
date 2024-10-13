@@ -1,0 +1,53 @@
+Source: pycairo
+Section: python
+Priority: optional
+Maintainer: Debian Python Modules Team <python-modules-team@lists.alioth.debian.org>
+Uploaders: Dave Beckett <dajobe@debian.org>, Torsten Marek <shlomme@debian.org>
+Build-Depends: dh-exec,
+               dh-python,
+               libcairo2-dev (>= 1.13.1),
+               meson,
+               python3-all-dev,
+               python-all-dbg (>= 2.5.4-1~),
+               python-all-dev (>= 2.5.4-1~),
+               python3-sphinx,
+               python3-sphinx-rtd-theme,
+               sphinx-common
+Standards-Version: 4.1.1
+Homepage: http://cairographics.org/pycairo/
+Vcs-Git: https://anonscm.debian.org/git/python-modules/packages/pycairo.git
+Vcs-Browser: https://anonscm.debian.org/cgit/python-modules/packages/pycairo.git
+
+Package: python-cairo
+Architecture: any
+Depends: ${misc:Depends}, ${python:Depends}, ${shlibs:Depends}
+Provides: ${python:Provides}
+Multi-arch: same
+Description: Python bindings for the Cairo vector graphics library
+ This package contains modules that allow you to use the Cairo vector
+ graphics library in Python programs.
+
+Package: python-cairo-dbg
+Section: debug
+Architecture: any
+Depends: python-cairo (= ${binary:Version}),
+         python-dbg,
+         ${misc:Depends},
+         ${shlibs:Depends}
+Provides: ${python:Provides}
+Multi-arch: same
+Description: Python bindings for the Cairo vector graphics library (debug extension)
+ This package contains modules that allow you to use the cairo vector
+ graphics library in Python programs.
+ .
+ This package contains the extension built for the Python debug interpreter.
+
+Package: python-cairo-dev
+Architecture: all
+Depends: libjs-jquery,
+         libjs-underscore,
+         python-cairo (>= ${binary:Version}),
+         ${misc:Depends}
+Description: Python cairo bindings: development files
+ This package contains files that allow you to compile wrappers
+ that interoperate with python-cairo (pycairo).
