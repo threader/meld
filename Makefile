@@ -38,6 +38,16 @@ install: $(addsuffix .install,$(SPECIALS)) meld.desktop meld.xml
 		$(DESTDIR)$(libdir_)/meld/vc \
 		$(DESTDIR)$(sharedir_)/ui \
 		$(DESTDIR)$(sharedir_)/icons \
+		$(DESTDIR)$(sharedir_)/Arrows \
+		$(DESTDIR)$(sharedir_)/Buttons \
+		$(DESTDIR)$(sharedir_)/Check-Radio \
+		$(DESTDIR)$(sharedir_)/Menu-Menubar \
+		$(DESTDIR)$(sharedir_)/Others \
+		$(DESTDIR)$(sharedir_)/Panel \
+		$(DESTDIR)$(sharedir_)/Scrollbars \
+		$(DESTDIR)$(sharedir_)/Shadows \
+		$(DESTDIR)$(sharedir_)/Spin \
+		$(DESTDIR)$(sharedir_)/Tabs \
 		$(DESTDIR)$(docdir_) \
 		$(DESTDIR)$(sharedir)/appdata \
 		$(DESTDIR)$(sharedir)/applications \
@@ -72,6 +82,30 @@ install: $(addsuffix .install,$(SPECIALS)) meld.desktop meld.xml
 	$(PYTHON) -O -c 'import compileall; compileall.compile_dir("$(DESTDIR)$(libdir_)",10,"$(libdir_)")'
 	install -m 644 data/gtkrc \
 		$(DESTDIR)$(sharedir_)
+	install -m 644 data/applications.rc \
+		$(DESTDIR)$(sharedir_)
+	install -m 644 data/panel.rc \
+		$(DESTDIR)$(sharedir_)
+	install -m 644 data/Arrows/* \
+		$(DESTDIR)$(sharedir_)/Arrows
+	install -m 644 data/Buttons/* \
+		$(DESTDIR)$(sharedir_)/Buttons
+	install -m 644 data/Check-Radio/* \
+		$(DESTDIR)$(sharedir_)/Check-Radio
+	install -m 644 data/Menu-Menubar/* \
+		$(DESTDIR)$(sharedir_)/Menu-Menubar
+	install -m 644 data/Others/* \
+		$(DESTDIR)$(sharedir_)/Others
+	install -m 644 data/Panel/* \
+		$(DESTDIR)$(sharedir_)/Panel
+	install -m 644 data/Scrollbars/* \
+		$(DESTDIR)$(sharedir_)/Scrollbars
+	install -m 644 data/Shadows/* \
+		$(DESTDIR)$(sharedir_)/Shadows
+	install -m 644 data/Spin/* \
+		$(DESTDIR)$(sharedir_)/Spin
+	install -m 644 data/Tabs/* \
+		$(DESTDIR)$(sharedir_)/Tabs
 	install -m 644 \
 		data/ui/*.ui \
 		$(DESTDIR)$(sharedir_)/ui
