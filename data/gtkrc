@@ -1,8 +1,15 @@
+ 
 include "panel.rc"
 
 
-style "meld-color-scheme-user"
-{
+gtk-color-scheme = "base_color:#353535\nfg_color:#000000\ntooltip_fg_color:#86ABD9\nselected_bg_color:#4083d5\nselected_fg_color:#262626\ntext_color:#1A1A1A\nbg_color:#191919\ntooltip_bg_color:#E7F3FD\nlink_color:#0000ee\nvisited_link_color:#551a8b"
+
+gtk-auto-mnemonics = 1
+
+style "default" {
+
+
+
     # inserted line(s), also edge color block for added file in dir diff
     color["insert-bg"] = "#006000"
     color["insert-outline"] = shade(1.5, @insert-bg)
@@ -41,16 +48,9 @@ style "meld-color-scheme-user"
     color["syncpoint-outline"] = "Yellow"
     # Currently selected chunk. Note: seems to automatically be blended with underlying color.
     color["current-chunk-highlight"] = "#4A4A4A"
-}
-widget "meldapp.*" style : highest "meld-color-scheme-user"
+   
 
 
-
-gtk-color-scheme = "base_color:#353535\nfg_color:#000000\ntooltip_fg_color:#86ABD9\nselected_bg_color:#4083d5\nselected_fg_color:#262626\ntext_color:#1A1A1A\nbg_color:#191919\ntooltip_bg_color:#E7F3FD\nlink_color:#0000ee\nvisited_link_color:#551a8b"
-
-gtk-auto-mnemonics = 1
-
-style "default" {
 	xthickness = 1
 	ythickness = 1
 
@@ -890,3 +890,8 @@ widget "gtk-tooltip*" style "tooltips"
 ##########################################################################
 
 include "applications.rc"
+
+style "sbstyle" = "default"
+{
+
+}
