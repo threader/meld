@@ -1,0 +1,14 @@
+libpython-all-dbg_2.7.18-3_amd64.deb debug optional
+libpython-all-dev_2.7.18-3_amd64.deb libdevel optional
+libpython2-dbg_2.7.18-3_amd64.deb debug optional
+libpython2-dev_2.7.18-3_amd64.deb libdevel optional
+libpython2-stdlib_2.7.18-3_amd64.deb python optional
+python-all-dbg_2.7.18-3_amd64.deb debug optional
+python-all-dev_2.7.18-3_amd64.deb python optional
+python-all_2.7.18-3_amd64.deb python optional
+python-defaults_2.7.18-3_amd64.buildinfo python optional
+python2-dbg_2.7.18-3_amd64.deb debug optional
+python2-dev_2.7.18-3_amd64.deb python optional
+python2-doc_2.7.18-3_all.deb doc optional
+python2-minimal_2.7.18-3_amd64.deb python optional
+python2_2.7.18-3_amd64.deb python optional

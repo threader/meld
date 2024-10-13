@@ -1,0 +1,73 @@
+Format: 1.8
+Date: Wed, 28 Jul 2021 13:17:06 +0200
+Source: python-defaults
+Binary: libpython-all-dbg libpython-all-dev libpython2-dbg libpython2-dev libpython2-stdlib python-all python-all-dbg python-all-dev python2 python2-dbg python2-dev python2-doc python2-minimal
+Architecture: amd64 all
+Version: 2.7.18-3
+Distribution: unstable
+Urgency: medium
+Maintainer: Matthias Klose <doko@debian.org>
+Changed-By: Piotr Ożarowski <piotr@debian.org>
+Description:
+ libpython-all-dbg - package depending on all supported Python2 debugging packages
+ libpython-all-dev - package depending on all supported Python2 development packages
+ libpython2-dbg - debug build of the Python2 interpreter (version 2.7)
+ libpython2-dev - header files and a static library for Python2
+ libpython2-stdlib - interactive high-level object-oriented language (Python2)
+ python-all - package depending on all supported Python2 runtime versions
+ python-all-dbg - package depending on all supported Python2 debugging packages
+ python-all-dev - package depending on all supported Python2 development packages
+ python2    - interactive high-level object-oriented language (Python2 version)
+ python2-dbg - debug build of the Python2 interpreter (version 2.7)
+ python2-dev - header files and a static library for Python2
+ python2-doc - documentation for the high-level object-oriented language Python2
+ python2-minimal - minimal subset of the Python2 language
+Changes:
+ python-defaults (2.7.18-3) unstable; urgency=medium
+ .
+   * Install pycompile and pyclean accidentally removed in -1
+Checksums-Sha1:
+ 9fa67edd8eefc071b07aae9436e534170301f44c 1188 libpython-all-dbg_2.7.18-3_amd64.deb
+ a716a00deb04ac557ee24d61e05388df97207790 1068 libpython-all-dev_2.7.18-3_amd64.deb
+ 6eba25439108ce86790fc3bfbf5cdde26341cae0 6816 libpython2-dbg_2.7.18-3_amd64.deb
+ 76c42aca4ba6f97626351573cce247c9aead34b1 6880 libpython2-dev_2.7.18-3_amd64.deb
+ c39d33b80d8c533618298c40ac38b03c05d664de 6804 libpython2-stdlib_2.7.18-3_amd64.deb
+ e8201c2dc2fd5d42d57595b19b93b5a85d74cb12 1072 python-all-dbg_2.7.18-3_amd64.deb
+ 8c3daaafb5fc048742821d5e75a55b9be4b11a0b 1068 python-all-dev_2.7.18-3_amd64.deb
+ 59204c6378f95beff296bf05f71ac78b0f572ce8 1044 python-all_2.7.18-3_amd64.deb
+ 63bced35c05298f1654cbe3c96d52329a8344abc 9586 python-defaults_2.7.18-3_amd64.buildinfo
+ 186c1f7c7599ebafdcd907390f45f6413bfc29d8 1272 python2-dbg_2.7.18-3_amd64.deb
+ c3cff876100f74638183d2bc3d1605305899c3b3 1216 python2-dev_2.7.18-3_amd64.deb
+ f590cf829488752ebce124df05f473fe4a2daaec 6948 python2-doc_2.7.18-3_all.deb
+ 446077113b7f076731d60fd899bbcbfddbedb0f6 12948 python2-minimal_2.7.18-3_amd64.deb
+ f39088f0a9c64d1ed750ea3e7bc81b9774b45996 17888 python2_2.7.18-3_amd64.deb
+Checksums-Sha256:
+ 43156f335d9ff3d7ad93809a21a34577531801238a6f905af8dca4c7aadf1b9d 1188 libpython-all-dbg_2.7.18-3_amd64.deb
+ 8f879b4025629147eac33b09adea151cd52b57690e6d37429b34300a605bf971 1068 libpython-all-dev_2.7.18-3_amd64.deb
+ ff1351ac7700121ee33bb9aec22ae1de775e1a93e19a61e36ca4621d88bcd82d 6816 libpython2-dbg_2.7.18-3_amd64.deb
+ 2f8536b2012c0aee805c1203d8587253f518d74f3ac9b258248e0946e810f7b4 6880 libpython2-dev_2.7.18-3_amd64.deb
+ fc4ed08e58046b72eb4b1dcf447cac2933692b7add09d934eaf5742e3328778b 6804 libpython2-stdlib_2.7.18-3_amd64.deb
+ d5422ae9a09cc609bb0973c25cef06e33bcfa3c0ef951e313d49253df44452eb 1072 python-all-dbg_2.7.18-3_amd64.deb
+ e8d005168fbc70885ddad74e21e0a6e7723c4a434eff85d9facb3ebaf740559c 1068 python-all-dev_2.7.18-3_amd64.deb
+ fec8adb3820e6d5564e956ccc1477113620ee71b5d01e1684a2bb8bc0415ad5d 1044 python-all_2.7.18-3_amd64.deb
+ e4b099ac1f22ffbea0f3b31c4c56f08ceb77347a318915dc4bc66b1baa8ba6b3 9586 python-defaults_2.7.18-3_amd64.buildinfo
+ 67f2a0e5a8bd6c3054d357ba99c92c9eb0f414d6c5470fd4abd7072fe84bd003 1272 python2-dbg_2.7.18-3_amd64.deb
+ 57d06ee185406d1f12c22001c6c79a013f7290fe49dcdc381ffaa4b49489d2bd 1216 python2-dev_2.7.18-3_amd64.deb
+ 792946bc33990a910b071097db7dea2f62d3d90fee094fded0c1058e1d195a2e 6948 python2-doc_2.7.18-3_all.deb
+ ca4342f74bd79e8e5830991d52a49345d1e748bf9c5b48226af8a9fb8450502a 12948 python2-minimal_2.7.18-3_amd64.deb
+ 6736cc7b2fe951530aa3e6885c5a00207efdb896fd6681c6307346a40dd1cce8 17888 python2_2.7.18-3_amd64.deb
+Files:
+ 76f4583746de25c46b0521202622be29 1188 debug optional libpython-all-dbg_2.7.18-3_amd64.deb
+ 9e9845439dcc8fe068f0802558674083 1068 libdevel optional libpython-all-dev_2.7.18-3_amd64.deb
+ ca59e8fb693455c37ff84817a4b48035 6816 debug optional libpython2-dbg_2.7.18-3_amd64.deb
+ 34c4e5a61f5a2a1f89b32b9a2a6ab5cd 6880 libdevel optional libpython2-dev_2.7.18-3_amd64.deb
+ 2fa8dda35d25ce65355cf373ab1065b8 6804 python optional libpython2-stdlib_2.7.18-3_amd64.deb
+ 6167c2e52fc88266c65dd982c80875f6 1072 debug optional python-all-dbg_2.7.18-3_amd64.deb
+ 4431ca6ec2a9ac2742bacd0b3ec98d59 1068 python optional python-all-dev_2.7.18-3_amd64.deb
+ b8ddc032793f341e8157038a0b461ecf 1044 python optional python-all_2.7.18-3_amd64.deb
+ f9135884b731f3d54d29adc6182ecbf3 9586 python optional python-defaults_2.7.18-3_amd64.buildinfo
+ 9c50b21ddb19cf759e29a36a445d293a 1272 debug optional python2-dbg_2.7.18-3_amd64.deb
+ 653eaa91e7337b7d8ecbd8eab362c87f 1216 python optional python2-dev_2.7.18-3_amd64.deb
+ 687fb8c11430bd6d83a8d9881b9e998f 6948 doc optional python2-doc_2.7.18-3_all.deb
+ 0d3681f87bc1d0921c73491cebe13903 12948 python optional python2-minimal_2.7.18-3_amd64.deb
+ de8f137fc3f9761f869040bf2c4b0398 17888 python optional python2_2.7.18-3_amd64.deb

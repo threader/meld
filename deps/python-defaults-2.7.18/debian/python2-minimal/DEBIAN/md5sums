@@ -1,0 +1,8 @@
+10e6e8b661e2121534e06b597a0180bd  usr/share/doc/python2-minimal/README.Debian
+af818abfef9a8e9a13d4ee6c35af1c34  usr/share/doc/python2-minimal/changelog.Debian.gz
+3a24f83c0f38bb53108e0400cbe08c9a  usr/share/doc/python2-minimal/copyright
+62c6ff5549041e9741babd01e387d9e7  usr/share/man/man1/pyclean.1.gz
+3c6f4d75febd6f727845e0c96eb3527a  usr/share/man/man1/pycompile.1.gz
+122b661b1b8bd398d2b52f887b835720  usr/share/man/man1/pyversions.1.gz
+0b5816f117c1c0638e7075fb2b1b04d3  usr/share/python/debian_defaults
+4cca8b10587373f611c423fa9fe68305  usr/share/python/pyversions.py
