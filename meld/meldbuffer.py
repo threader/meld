@@ -114,6 +114,10 @@ class MeldBufferData(gobject.GObject):
 
     label = property(get_label, set_label)
 
+    @property
+    def filename(self):
+        return self._filename
+
     def _connect_monitor(self):
         if self._filename:
             monitor = os.path.getmtime(self._filename)
@@ -126,9 +130,6 @@ class MeldBufferData(gobject.GObject):
             monitor.disconnect(handler_id)
             monitor.cancel()
 
-    @property
-    def filename(self):
-        return self._filename
 
     def _query_mtime(self, filename):
         try:

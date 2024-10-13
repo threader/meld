@@ -1626,7 +1626,7 @@ class FileDiff(melddoc.MeldDoc, gnomeglade.Component):
                 return False
 
         if not force_overwrite and not bufdata.current_on_disk():
-            gfile = self._filename
+            gfile = self._filename.decode('utf-8')
             primary = _("File %s has changed on disk since it was opened") 
             secondary = _("If you save it, any external changes will be lost.")
             msgarea = self.msgarea_mgr[pane].new_from_text_and_icon(
