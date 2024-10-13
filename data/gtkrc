@@ -162,6 +162,52 @@ style "default" {
 		hint = "use-hints"
 	}
 }
+style "button" = "default"
+{
+engine "pixmap"
+{
+image
+{
+function	= BOX
+detail	= "buttondefault"
+file		= "Buttons/button-normal.png"
+border	= {2,2,2,2}
+stretch	= TRUE
+}
+image
+{
+function	= BOX
+state		= PRELIGHT
+file		= "Buttons/button-prelight.png"
+border	= {2,2,2,2}
+stretch	= TRUE
+}
+image
+{
+function	= BOX
+state		= ACTIVE
+file		= "Buttons/button-prelight.png"
+border	= {2,2,2,2}
+stretch	= TRUE
+}
+image
+{
+function	= BOX
+state		= INSENSITIVE
+file		= "Buttons/button-insensitive.png"
+border	= {2,2,2,2}
+stretch	= TRUE
+}
+image
+{
+function	= BOX
+file		= "Buttons/button-normal.png"
+border	= {2,2,2,2}
+stretch	= TRUE
+}
+}
+
+}
 
 style "wide" {
 	xthickness = 2
@@ -736,8 +782,3 @@ widget "gtk-tooltip*" style "tooltips"
 # Following are special cases and workarounds for issues in applications.
 #      engine "xfce"
 ##########################################################################
-
-style "sbstyle" = "default"
-{
-
-}
