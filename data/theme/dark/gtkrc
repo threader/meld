@@ -1,6 +1,6 @@
 gtk-color-scheme = "base_color:#353535\nfg_color:#000000\ntooltip_fg_color:#86ABD9\nselected_bg_color:#4083d5\nselected_fg_color:#262626\ntext_color:#1A1A1A\nbg_color:#191919\ntooltip_bg_color:#1c242a\nlink_color:#0000ee\nvisited_link_color:#32144c"
 
-pixmap_path "$PWD/"
+pixmap_path "$PWD/*"
 
 style "meld-color-scheme" {
 
@@ -66,7 +66,7 @@ GtkMenuBar::internal_padding		= 1
 #GtkOptionMenu::indicator_size		= {15,8}
 #GtkOptionMenu::indicator_spacing	= {8,2,0,0}
 GtkStatusbar::shadow_type 		= GTK_SHADOW_NONE
-GtkSpinButton::shadow_type 		= GTK_SHADOW_NONE
+#GtkSpinButton::shadow_type 		= GTK_SHADOW_NONE
 
 xthickness	= 2
 ythickness	= 2
@@ -101,126 +101,9 @@ text[ACTIVE]		= "#ffffff"
 text[SELECTED]		= "#ffffff"
 text[INSENSITIVE]	= "#606060"
 
-engine "pixmap"
-{
-image
-{
-function		= HANDLE
-overlay_file	= "Handles/handle-h.png"
-overlay_stretch	= FALSE
-orientation	= HORIZONTAL
-}
-image
-{
-function		= HANDLE
-overlay_file	= "Handles/handle-v.png"
-overlay_stretch	= FALSE
-orientation	= VERTICAL
 }
 
-image
-{
-function	= SHADOW
-shadow	= IN
-file		= "Shadows/shadow-in.png"
-border	= {2,2,2,2}
-stretch	= TRUE
-}
-image
-{
-function	= SHADOW
-shadow	= OUT
-file		= "Shadows/shadow-out.png"
-stretch	= TRUE
-}
-
-image
-{
-function	= SHADOW
-shadow	= ETCHED_IN
-file		= "Frame-Gap/frame.png"
-border	= {2,2,2,2}
-stretch	= TRUE
-}
-image
-{
-function	= SHADOW
-shadow	= ETCHED_OUT
-file		= "Others/null.png"
-border	= {0,0,0,0}
-stretch	= TRUE
-}
-image
-{
-function			= SHADOW_GAP
-file				= "Frame-Gap/frame.png"
-border			= {2,2,2,2}
-stretch			= TRUE
-gap_start_file		= "Frame-Gap/frame-gap-start.png"
-gap_start_border	= {2,0,2,0}
-gap_end_file		= "Frame-Gap/frame-gap-end.png"
-gap_end_border	= {0,2,2,0}
-gap_side			= TOP
-}
-image
-{
-function	= VLINE
-file		= "Lines/line-v.png"
-border	= {0,0,0,0}
-stretch	= TRUE
-}
-image
-{
-function	= HLINE
-file		= "Lines/line-h.png"
-border	= {0,0,0,0}
-stretch	= TRUE
-}
-
-image
-{
-function		= ARROW
-overlay_file	= "Arrows/arrow-up.png"
-overlay_border	= {0,0,0,0}
-overlay_stretch	= FALSE
-arrow_direction	= UP
-}
-image
-{
-function		= ARROW
-overlay_file	= "Arrows/arrow-down.png"
-overlay_border	= {0,0,0,0}
-overlay_stretch	= FALSE
-arrow_direction	= DOWN
-}
-image
-{
-function		= ARROW
-overlay_file	= "Arrows/arrow-left.png"
-overlay_border	= {0,0,0,0}
-overlay_stretch	= FALSE
-arrow_direction	= LEFT
-}
-image
-{
-function		= ARROW
-overlay_file	= "Arrows/arrow-right.png"
-overlay_border	= {0,0,0,0}
-overlay_stretch	= FALSE
-arrow_direction	= RIGHT
-}
-image
-{
-function	= BOX
-file		= "Toolbar/toolbar.png"
-border	= {2,2,2,2}
-stretch	= TRUE
-}
-}
-
-}
-
-gtk-font-name = "Sans 8"
+#gtk-font-name = "Sans 8"
 
 class "GtkWidget" style "meld-color-scheme"
 
@@ -519,148 +402,6 @@ ythickness = 1
 
 GtkWidget::interior_focus = 0
 
-engine "pixmap"
-{
-image
-{
-function	= FOCUS
-file		= "Shadows/text-entry.png"
-border	= {1,1,1,1}
-stretch	= TRUE
-}
-image
-{
-function	= BOX
-shadow	= IN
-state		= NORMAL
-file		= "Shadows/text-entry.png"
-border	= {1,1,1,1}
-stretch	= TRUE
-}
-image
-{
-function	= BOX
-shadow	= OUT
-state		= NORMAL
-file		= "Shadows/text-entry.png"
-border	= {1,1,1,1}
-stretch	= TRUE
-}
-image
-{
-function	= SHADOW
-detail	= "entry"
-shadow	= IN
-file		= "Shadows/text-entry.png"
-border	= {1,1,1,1}
-stretch	= TRUE
-}
-}
-}
-
-
-style "spinbutton" = "entry"
-{
-
-
-engine "pixmap"
-{
-image
-{
-function = ARROW
-}
-
-image
-{
-function		= BOX
-state 		= NORMAL
-detail		= "spinbutton_up"
-file			= "Others/null.png"
-border		= {0,0,0,0}
-stretch		= TRUE
-overlay_file	= "Spin/spin-up.png"
-overlay_stretch	= FALSE
-}
-image
-{
-function		= BOX
-state 		= PRELIGHT
-detail		= "spinbutton_up"
-file			= "Others/null.png"
-border		= {0,0,0,0}
-stretch		= TRUE
-overlay_file	= "Spin/spin-up-prelight.png"
-overlay_stretch	= FALSE
-}
-image
-{
-function		= BOX
-state 		= INSENSITIVE
-detail		= "spinbutton_up"
-file			= "Others/null.png"
-border		= {0,0,0,0}
-stretch		= TRUE
-overlay_file	= "Spin/spin-up-disable.png"
-overlay_stretch	= FALSE
-}
-image
-{
-function		= BOX
-state 		= ACTIVE
-detail		= "spinbutton_up"
-file			= "Others/null.png"
-border		= {0,0,0,0}
-stretch		= TRUE
-overlay_file	= "Spin/spin-up-prelight.png"
-overlay_stretch	= FALSE
-}
-
-image
-{
-function		= BOX
-state 		= NORMAL
-detail		= "spinbutton_down"
-file			= "Others/null.png"
-border		= {0,0,0,0}
-stretch		= TRUE
-overlay_file	= "Spin/spin-down.png"
-overlay_stretch	= FALSE
-}
-image
-{
-function		= BOX
-state 		= PRELIGHT
-detail		= "spinbutton_down"
-file			= "Others/null.png"
-border		= {0,0,0,0}
-stretch		= TRUE
-overlay_file	= "Spin/spin-down-prelight.png"
-overlay_stretch	= FALSE
-}
-image
-{
-function		= BOX
-state 		= INSENSITIVE
-detail		= "spinbutton_down"
-file			= "Others/null.png"
-border		= {0,0,0,0}
-stretch		= TRUE
-overlay_file	= "Spin/spin-down-disable.png"
-overlay_stretch	= FALSE
-}
-
-image
-{
-function		= BOX
-state 		= ACTIVE
-detail		= "spinbutton_down"
-file			= "Others/null.png"
-border		= {0,0,0,0}
-stretch		= TRUE
-overlay_file	= "Spin/spin-down-prelight.png"
-overlay_stretch	= FALSE
-}
-}
 }
 
 style "scrollbar" = "default"
@@ -1440,63 +1181,6 @@ stretch	= TRUE
 }
 }
 
-style "list-header"
-{
-ythickness = 3
-GtkTreeView::odd_row_color = "#171717"
-GtkTreeView::even_row_color = "#000000"
-
-engine "pixmap"
-{
-image
-{
-function 	= BOX
-state		= NORMAL
-file 		= "ListHeaders/list_header.png"
-border 	= {1,2,1,2}
-stretch 	= TRUE
-}
-
-image
-{
-function 	= BOX
-state		= PRELIGHT
-file 		= "ListHeaders/list_header-prelight.png"
-border 	= {1,2,5,2}
-stretch 	= TRUE
-}
-
-image
-{
-function 	= BOX
-state		= ACTIVE
-file		= "ListHeaders/list_header-pressed.png"
-border 	= {0,0,0,0}
-stretch 	= TRUE
-}
-image
-{
-function 	= BOX
-state		= SELECTED
-file		= "ListHeaders/list_header-prelight.png"
-border 	= {4,5,2,2}
-stretch 	= TRUE
-}
-image
-{
-function 	= BOX
-state		= INSENSITIVE
-file		= "ListHeaders/list_header-insens.png"
-border 	= {1,2,1,2}
-stretch 	= TRUE
-}
-}
-}
-
-widget_class "*List" style "list-header"
-widget_class "*GtkTree*" style "list-header"
-widget_class "*GtkCList*" style "list-header"
-#widget_class "*Tree*" style "list-header"
 
 # Sodipodi bug
 style "unstyle"
@@ -1506,25 +1190,6 @@ engine ""
 }
 }
 class "SPColorSlider" 			style "unstyle"
-
-style "SPbutton"
-{
-engine "pixmap"
-{
-image
-{
-function	= BOX
-shadow	= IN
-file		= "Shadows/shadow-out.png"
-border	= {2,2,2,2}
-stretch	= TRUE
-}
-image
-{
-function	= BOX
-}
-}
-}
 
 style "treecol"
 {
@@ -1541,7 +1206,7 @@ class "GtkCombo*" 			style "optionmenu"
 class "*Font*" 				style "optionmenu"
 class "GtkEntry" 			style "entry"
 class "GtkOldEditable" 		style "entry"
-class "GtkSpinButton" 	 	style "spinbutton"
+#class "GtkSpinButton" 	 	style "spinbutton"
 class "GtkRuler" 			style "ruler"
 class "GtkScrollbar" 			style "scrollbar"
 class "GtkProgressBar" 		style "progressbar"
