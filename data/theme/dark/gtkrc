@@ -1,6 +1,6 @@
 gtk-color-scheme = "base_color:#353535\nfg_color:#000000\ntooltip_fg_color:#86ABD9\nselected_bg_color:#4083d5\nselected_fg_color:#262626\ntext_color:#1A1A1A\nbg_color:#191919\ntooltip_bg_color:#1c242a\nlink_color:#0000ee\nvisited_link_color:#32144c"
 
-pixmap_path "$PWD/*"
+pixmap_path "/usr/local/share/meld/theme/dark/"
 
 style "meld-color-scheme" {
 
@@ -776,11 +776,8 @@ stretch	= TRUE
 }
 }
 }
-#widget_class "*BonoboDockItem" style "toolbar"
-#class "*BonoboDockItem" style "toolbar"
-
-widget_class "*HandleBox" style "toolbar"
-class "*HandleBox" style "toolbar"
+widget_class "*BonoboDockItem" style "toolbar"
+class "*BonoboDockItem" style "toolbar"
 
 widget_class "*Toolbar" style "toolbar"
 class "*Toolbar" style "toolbar"
@@ -1121,29 +1118,6 @@ stretch	= TRUE
 }
 }
 
-style "handlebox" = "default"
-{
-engine "pixmap"
-{
-image
-{
-}
-image
-{
-function		= HANDLE
-overlay_file	= "Handles/handle-v.png"
-overlay_stretch	= FALSE
-orientation	= VERTICAL
-}
-image
-{
-function		= HANDLE
-overlay_file	= "Handles/handle-h.png"
-overlay_stretch 	= FALSE
-orientation	= HORIZONTAL
-}
-}
-}
 
 style "flat" = "default"
 {
@@ -1218,11 +1192,8 @@ class "GtkMenuItem"			style "menuitem"
 class "GtkTearoffMenuItem"	style "menuitem"
 class "GtkNotebook"	 		style "notebook"
 class "GtkToolbar" 			style "flat"
-class "GtkHandleBox" 		style "handlebox"
 class "GtkEventBox" 			style "flat"
-class "GtkPaned" 			style "handlebox"
 class "GtkLayout" 			style "layout"
-class "SPButton" 			style "SPbutton"
 widget "gtk-tooltips" 		style "tooltips"
 
 # colorize ugly white line at the top of the vertical scrollbar in Nautilus
