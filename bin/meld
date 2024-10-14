@@ -153,7 +153,9 @@ except (ImportError, AssertionError) as e:
 
 gobject.threads_init()
 gtk.icon_theme_get_default().append_search_path(meld.paths.icon_dir())
-gtk.rc_parse(meld.paths.share_dir("theme/dark/gtkrc"))
+gtk.rc_get_module_dir(meld.paths.share_dir("theme/dark/"))
+gtk.rc_add_default_file(meld.paths.share_dir("theme/dark/gtkrc"))
+#gtk.rc_parse(meld.paths.share_dir("theme/dark/gtkrc"))
 
 
 def main():

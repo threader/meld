@@ -1,3 +1,19 @@
+2024-xx-xx meld 1.8.6.3-dev
+===================
+	* Revive old meld-1.8 with dependencies see deps/Readme
+		* Deps. built with Debian SID, quite hacky, but works.  
+	* Imprted a few commits 
+	* Added dark theme taken from Audacious - unstable with images.
+	unless i can fix loading images called in the gtkrc and such i 
+	will need to start getting creative. 
+gtk_rc_get_module_dir ()
+
+gchar *
+gtk_rc_get_module_dir (void);
+
+Returns a directory in which GTK+ looks for theme engines. For full information about the search for theme engines, see the docs for GTK_PATH in	
+ maybe gtk_rc_scanner_new 
+ 
 
 2022-xx-xx meld 1.8.6.2-dev
 ====================
