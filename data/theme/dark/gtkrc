@@ -1,5 +1,7 @@
 gtk-color-scheme = "base_color:#353535\nfg_color:#000000\ntooltip_fg_color:#86ABD9\nselected_bg_color:#4083d5\nselected_fg_color:#262626\ntext_color:#1A1A1A\nbg_color:#191919\ntooltip_bg_color:#1c242a\nlink_color:#0000ee\nvisited_link_color:#32144c"
 
+pixmap_path "$PWD/"
+
 style "meld-color-scheme" {
 
     # inserted line(s), also edge color block for added file in dir diff
@@ -99,9 +101,126 @@ text[ACTIVE]		= "#ffffff"
 text[SELECTED]		= "#ffffff"
 text[INSENSITIVE]	= "#606060"
 
+engine "pixmap"
+{
+image
+{
+function		= HANDLE
+overlay_file	= "Handles/handle-h.png"
+overlay_stretch	= FALSE
+orientation	= HORIZONTAL
+}
+image
+{
+function		= HANDLE
+overlay_file	= "Handles/handle-v.png"
+overlay_stretch	= FALSE
+orientation	= VERTICAL
 }
 
-#gtk-font-name = "Sans 8"
+image
+{
+function	= SHADOW
+shadow	= IN
+file		= "Shadows/shadow-in.png"
+border	= {2,2,2,2}
+stretch	= TRUE
+}
+image
+{
+function	= SHADOW
+shadow	= OUT
+file		= "Shadows/shadow-out.png"
+stretch	= TRUE
+}
+
+image
+{
+function	= SHADOW
+shadow	= ETCHED_IN
+file		= "Frame-Gap/frame.png"
+border	= {2,2,2,2}
+stretch	= TRUE
+}
+image
+{
+function	= SHADOW
+shadow	= ETCHED_OUT
+file		= "Others/null.png"
+border	= {0,0,0,0}
+stretch	= TRUE
+}
+image
+{
+function			= SHADOW_GAP
+file				= "Frame-Gap/frame.png"
+border			= {2,2,2,2}
+stretch			= TRUE
+gap_start_file		= "Frame-Gap/frame-gap-start.png"
+gap_start_border	= {2,0,2,0}
+gap_end_file		= "Frame-Gap/frame-gap-end.png"
+gap_end_border	= {0,2,2,0}
+gap_side			= TOP
+}
+image
+{
+function	= VLINE
+file		= "Lines/line-v.png"
+border	= {0,0,0,0}
+stretch	= TRUE
+}
+image
+{
+function	= HLINE
+file		= "Lines/line-h.png"
+border	= {0,0,0,0}
+stretch	= TRUE
+}
+
+image
+{
+function		= ARROW
+overlay_file	= "Arrows/arrow-up.png"
+overlay_border	= {0,0,0,0}
+overlay_stretch	= FALSE
+arrow_direction	= UP
+}
+image
+{
+function		= ARROW
+overlay_file	= "Arrows/arrow-down.png"
+overlay_border	= {0,0,0,0}
+overlay_stretch	= FALSE
+arrow_direction	= DOWN
+}
+image
+{
+function		= ARROW
+overlay_file	= "Arrows/arrow-left.png"
+overlay_border	= {0,0,0,0}
+overlay_stretch	= FALSE
+arrow_direction	= LEFT
+}
+image
+{
+function		= ARROW
+overlay_file	= "Arrows/arrow-right.png"
+overlay_border	= {0,0,0,0}
+overlay_stretch	= FALSE
+arrow_direction	= RIGHT
+}
+image
+{
+function	= BOX
+file		= "Toolbar/toolbar.png"
+border	= {2,2,2,2}
+stretch	= TRUE
+}
+}
+
+}
+
+gtk-font-name = "Sans 8"
 
 class "GtkWidget" style "meld-color-scheme"
 
