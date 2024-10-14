@@ -40,14 +40,16 @@ install: $(addsuffix .install,$(SPECIALS)) meld.desktop meld.xml
 		$(DESTDIR)$(sharedir_)/icons \
 		$(DESTDIR)$(sharedir_)/theme/dark/Arrows \
 		$(DESTDIR)$(sharedir_)/theme/dark/Buttons \
+		$(DESTDIR)$(sharedir_)/theme/dark/Check-Radio \
 		$(DESTDIR)$(sharedir_)/theme/dark/Frame-Gap \
-		$(DESTDIR)$(sharedir_)/theme/dark/Handlers \
+		$(DESTDIR)$(sharedir_)/theme/dark/Handles \
 		$(DESTDIR)$(sharedir_)/theme/dark/Lines \
-		$(DESTDIR)$(sharedir_)/theme/dark/LitHeaders \
+		$(DESTDIR)$(sharedir_)/theme/dark/ListHeaders \
 		$(DESTDIR)$(sharedir_)/theme/dark/Menu-Menubar \
 		$(DESTDIR)$(sharedir_)/theme/dark/Others \
 		$(DESTDIR)$(sharedir_)/theme/dark/Panel \
 		$(DESTDIR)$(sharedir_)/theme/dark/ProgressBar \
+		$(DESTDIR)$(sharedir_)/theme/dark/Range \
 		$(DESTDIR)$(sharedir_)/theme/dark/Scrollbars \
 		$(DESTDIR)$(sharedir_)/theme/dark/Shadows \
 		$(DESTDIR)$(sharedir_)/theme/dark/Spin \
@@ -99,7 +101,7 @@ install: $(addsuffix .install,$(SPECIALS)) meld.desktop meld.xml
 		$(DESTDIR)$(sharedir_)/theme/dark/Check-Radio
 	install -m 644 data/theme/dark/Frame-Gap/* \
 		$(DESTDIR)$(sharedir_)/theme/dark/Frame-Gap
-	install -m 644 data/theme/dark/Handels/* \
+	install -m 644 data/theme/dark/Handles/* \
 		$(DESTDIR)$(sharedir_)/theme/dark/Handels
 	install -m 644 data/theme/dark/Lines/* \
 		$(DESTDIR)$(sharedir_)/theme/dark/Lines
