@@ -54,3 +54,15 @@ def icon_dir(*args):
     else:
         return os.path.join(_share_dir, "icons", *args)
 
+def theme_dir(*args):
+    if os.path.exists(os.path.join(_share_dir, "data")):
+        return os.path.join(_share_dir, "data", "theme", *args)
+    else:
+        return os.path.join(_share_dir, "theme", *args)
+
+def theme_dark_dir(*args):
+    if os.path.exists(os.path.join(_share_dir, "data")):
+        return os.path.join(_share_dir, "data", "theme", "dark", *args)
+    else:
+        return os.path.join(_share_dir, "theme", "dark", *args)
+
