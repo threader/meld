@@ -38,16 +38,21 @@ install: $(addsuffix .install,$(SPECIALS)) meld.desktop meld.xml
 		$(DESTDIR)$(libdir_)/meld/vc \
 		$(DESTDIR)$(sharedir_)/ui \
 		$(DESTDIR)$(sharedir_)/icons \
-		$(DESTDIR)$(sharedir_)/Arrows \
-		$(DESTDIR)$(sharedir_)/Buttons \
-		$(DESTDIR)$(sharedir_)/Check-Radio \
-		$(DESTDIR)$(sharedir_)/Menu-Menubar \
-		$(DESTDIR)$(sharedir_)/Others \
-		$(DESTDIR)$(sharedir_)/Panel \
-		$(DESTDIR)$(sharedir_)/Scrollbars \
-		$(DESTDIR)$(sharedir_)/Shadows \
-		$(DESTDIR)$(sharedir_)/Spin \
-		$(DESTDIR)$(sharedir_)/Tabs \
+		$(DESTDIR)$(sharedir_)/theme/dark/Arrows \
+		$(DESTDIR)$(sharedir_)/theme/dark/Buttons \
+		$(DESTDIR)$(sharedir_)/theme/dark/Frame-Gap \
+		$(DESTDIR)$(sharedir_)/theme/dark/Handlers \
+		$(DESTDIR)$(sharedir_)/theme/dark/Lines \
+		$(DESTDIR)$(sharedir_)/theme/dark/LitHeaders \
+		$(DESTDIR)$(sharedir_)/theme/dark/Menu-Menubar \
+		$(DESTDIR)$(sharedir_)/theme/dark/Others \
+		$(DESTDIR)$(sharedir_)/theme/dark/Panel \
+		$(DESTDIR)$(sharedir_)/theme/dark/ProgressBar \
+		$(DESTDIR)$(sharedir_)/theme/dark/Scrollbars \
+		$(DESTDIR)$(sharedir_)/theme/dark/Shadows \
+		$(DESTDIR)$(sharedir_)/theme/dark/Spin \
+		$(DESTDIR)$(sharedir_)/theme/dark/Tabs \
+		$(DESTDIR)$(sharedir_)/theme/dark/Toolbar \
 		$(DESTDIR)$(docdir_) \
 		$(DESTDIR)$(sharedir)/appdata \
 		$(DESTDIR)$(sharedir)/applications \
@@ -80,32 +85,46 @@ install: $(addsuffix .install,$(SPECIALS)) meld.desktop meld.xml
 		$(DESTDIR)$(sharedir)/mime/packages/
 	$(PYTHON)    -c 'import compileall; compileall.compile_dir("$(DESTDIR)$(libdir_)",10,"$(libdir_)")'
 	$(PYTHON) -O -c 'import compileall; compileall.compile_dir("$(DESTDIR)$(libdir_)",10,"$(libdir_)")'
-	install -m 644 data/gtkrc \
-		$(DESTDIR)$(sharedir_)
-	install -m 644 data/applications.rc \
-		$(DESTDIR)$(sharedir_)
-	install -m 644 data/panel.rc \
-		$(DESTDIR)$(sharedir_)
-	install -m 644 data/Arrows/* \
-		$(DESTDIR)$(sharedir_)/Arrows
-	install -m 644 data/Buttons/* \
-		$(DESTDIR)$(sharedir_)/Buttons
-	install -m 644 data/Check-Radio/* \
-		$(DESTDIR)$(sharedir_)/Check-Radio
-	install -m 644 data/Menu-Menubar/* \
-		$(DESTDIR)$(sharedir_)/Menu-Menubar
-	install -m 644 data/Others/* \
-		$(DESTDIR)$(sharedir_)/Others
-	install -m 644 data/Panel/* \
-		$(DESTDIR)$(sharedir_)/Panel
-	install -m 644 data/Scrollbars/* \
-		$(DESTDIR)$(sharedir_)/Scrollbars
-	install -m 644 data/Shadows/* \
-		$(DESTDIR)$(sharedir_)/Shadows
-	install -m 644 data/Spin/* \
-		$(DESTDIR)$(sharedir_)/Spin
-	install -m 644 data/Tabs/* \
-		$(DESTDIR)$(sharedir_)/Tabs
+	install -m 644 data/theme/dark/gtkrc \
+		$(DESTDIR)$(sharedir_)/theme/dark
+	install -m 644 data/theme/dark/applications.rc \
+		$(DESTDIR)$(sharedir_)/theme/dark
+	install -m 644 data/theme/dark/panel.rc \
+		$(DESTDIR)$(sharedir_)/theme/dark
+	install -m 644 data/theme/dark/Arrows/* \
+		$(DESTDIR)$(sharedir_)/theme/dark/Arrows
+	install -m 644 data/theme/dark/Buttons/* \
+		$(DESTDIR)$(sharedir_)/theme/dark/Buttons
+	install -m 644 data/theme/dark/Check-Radio/* \
+		$(DESTDIR)$(sharedir_)/theme/dark/Check-Radio
+	install -m 644 data/theme/dark/Frame-Gap/* \
+		$(DESTDIR)$(sharedir_)/theme/dark/Frame-Gap
+	install -m 644 data/theme/dark/Handels/* \
+		$(DESTDIR)$(sharedir_)/theme/dark/Handels
+	install -m 644 data/theme/dark/Lines/* \
+		$(DESTDIR)$(sharedir_)/theme/dark/Lines
+	install -m 644 data/theme/dark/ListHeaders/* \
+		$(DESTDIR)$(sharedir_)/theme/dark/ListHeaders
+	install -m 644 data/theme/dark/Menu-Menubar/* \
+		$(DESTDIR)$(sharedir_)/theme/dark/Menu-Menubar
+	install -m 644 data/theme/dark/Others/* \
+		$(DESTDIR)$(sharedir_)/theme/dark/Others
+	install -m 644 data/theme/dark/Panel/* \
+		$(DESTDIR)$(sharedir_)/theme/dark/Panel
+	install -m 644 data/theme/dark/ProgressBar/* \
+		$(DESTDIR)$(sharedir_)/theme/dark/ProgressBar
+	install -m 644 data/theme/dark/Range/* \
+		$(DESTDIR)$(sharedir_)/theme/dark/Range
+	install -m 644 data/theme/dark/Scrollbars/* \
+		$(DESTDIR)$(sharedir_)/theme/dark/Scrollbars
+	install -m 644 data/theme/dark/Shadows/* \
+		$(DESTDIR)$(sharedir_)/theme/dark/Shadows
+	install -m 644 data/theme/dark/Spin/* \
+		$(DESTDIR)$(sharedir_)/theme/dark/Spin
+	install -m 644 data/theme/dark/Tabs/* \
+		$(DESTDIR)$(sharedir_)/theme/dark/Tabs
+	install -m 644 data/theme/dark/Toolbar/* \
+		$(DESTDIR)$(sharedir_)/theme/dark/Toolbar
 	install -m 644 \
 		data/ui/*.ui \
 		$(DESTDIR)$(sharedir_)/ui
