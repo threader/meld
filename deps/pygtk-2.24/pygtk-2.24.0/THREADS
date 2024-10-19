@@ -8,22 +8,22 @@ Python side
 * Python has a global interpreter lock, so no two threads can execute
   code at the same time.
 
-* In order to execute python2" code, you need to hold the interpreter
+* In order to execute python code, you need to hold the interpreter
   lock, and have the correct PyThreadState object set
   (PyThreadState_Swap is used for this).  As a convenience, the
   following functions can be used:
     void PyEval_AcquireThread(PyThreadState *tstate);
     void PyEval_ReleaseThread(PyThreadState *tstate);
 
-* When C functions are called from python2", the global interpreter lock
-  is held.  If the function blocks, then no python2" code can execute in
+* When C functions are called from python, the global interpreter lock
+  is held.  If the function blocks, then no python code can execute in
   other threads during this time.  Python provides two macros to allow
   threads to run while the function executes:
     Py_BEGIN_ALLOW_THREADS
     Py_END_ALLOW_THREADS
   between these two macro calls, the global interpreter lock is
   released, and the current thread state is set to NULL.  This means
-  that in order to execute python2" code, AcquireThread must be called.
+  that in order to execute python code, AcquireThread must be called.
 
 GLib side
 ---------
@@ -41,7 +41,7 @@ GLib side
   ...
   b = gtk.GtkButton("Click me")
   def f(button):
-      ... some python2" code ...
+      ... some python code ...
   b.connect("clicked", f)
   b.clicked()  # the signal handler f is called with the interpreter
                # lock held

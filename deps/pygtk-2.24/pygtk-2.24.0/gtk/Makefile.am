@@ -9,19 +9,24 @@ INCLUDES = \
 	$(PYGOBJECT_CFLAGS) \
 	-I$(srcdir)/gtk
 
+if USE_QUARTZ
+# same as in gtk+/gdk/quartz/Makefile.am
+INCLUDES += "-xobjective-c"
+endif
+
 # defs files
 defsdir = $(pkgdatadir)/$(PLATFORM_VERSION)/defs
 defs_DATA =
 
-# python2" scripts & extension modules
+# python2 scripts & extension modules
 pkgpythondir = $(pyexecdir)/gtk-2.0
 pkgpyexecdir = $(pyexecdir)/gtk-2.0
 
-# gtk python2" extension modules
+# gtk python2 extension modules
 pygtkexecdir = $(pkgpyexecdir)/gtk
 pygtkexec_LTLIBRARIES =
 
-# gtk python2" scripts
+# gtk python2 scripts
 pygtkdir = $(pkgpythondir)/gtk
 pygtk_PYTHON = 			\
 	__init__.py 		\

@@ -1,0 +1,4 @@
+python:Depends=python-numpy (>= 1:1.16.0~rc1), python-numpy-abi9
+shlibs:Depends=libatk1.0-0t64 (>= 1.12.4), libc6 (>= 2.28), libcairo2 (>= 1.2.4), libgdk-pixbuf-2.0-0 (>= 2.22.0), libglade2-0 (>= 1:2.6.4-2~), libglib2.0-0t64 (>= 2.24.0), libgtk2.0-0t64 (>= 2.24.0), libpango-1.0-0 (>= 1.22.0), libpangocairo-1.0-0 (>= 1.21.4)
+misc:Depends=
+misc:Pre-Depends=

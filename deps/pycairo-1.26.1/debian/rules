@@ -1,0 +1,35 @@
+#!/usr/bin/make -f
+
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+%:
+	dh $@ --with python3,sphinxdoc --buildsystem=meson
+
+# Build for all supported python3 versions.
+# for details, see https://bugs.debian.org/1055488
+override_dh_auto_configure:
+	$(foreach PYVERSION,$(shell py3versions -s),dh_auto_configure --builddir=obj-$(PYVERSION) -- -Dpython=$(PYVERSION); )
+
+override_dh_auto_build:
+	$(foreach PYVERSION,$(shell py3versions -s),dh_auto_build --builddir=obj-$(PYVERSION) -- ; )
+
+override_dh_auto_install:
+	$(foreach PYVERSION,$(shell py3versions -s),dh_auto_install --builddir=obj-$(PYVERSION) -- ; )
+
+# Doc-only build does not need tests
+override_dh_auto_test-indep:
+
+override_dh_auto_test:
+	$(foreach PYVERSION,$(shell py3versions -s),dh_auto_test --builddir=obj-$(PYVERSION) -- ; )
+
+execute_after_dh_auto_build-indep:
+	python3 -m sphinx -bhtml docs debian/tmp-doc/html
+	# to fix lintian: privacy-breach-generic
+	sed -ir 's|src="https:[^"]*|src="|' debian/tmp-doc/html/index.html
+
+execute_after_dh_auto_clean:
+	rm -rf debian/tmp-doc
+
+# https://bugs.debian.org/1034520
+override_dh_installchangelogs:
+	dh_installchangelogs -Xchangelog

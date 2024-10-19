@@ -1,0 +1,36 @@
+Format: 1.8
+Date: Thu, 05 Sep 2024 11:33:13 -0400
+Source: pycairo
+Binary: python3-cairo python3-cairo-dbgsym python3-cairo-dev python3-cairo-doc
+Architecture: amd64 all
+Version: 1.26.1-2
+Distribution: unstable
+Urgency: medium
+Maintainer: Debian Python Team <team+python@tracker.debian.org>
+Changed-By: Jeremy Bícha <jbicha@ubuntu.com>
+Description:
+ python3-cairo - Python3 bindings for the Cairo vector graphics library
+ python3-cairo-dev - Python3 cairo bindings: development files
+ python3-cairo-doc - Python 3 cairo bindings: documentation files
+Changes:
+ pycairo (1.26.1-2) unstable; urgency=medium
+ .
+   * Build with cairo 1.18.2 (LP: #2078971)
+Checksums-Sha1:
+ 66ae3e743c211fee3c384d6eb364507190435d3f 11803 pycairo_1.26.1-2_amd64.buildinfo
+ 759bdca6676343ede7b362bd1a9d655fe5bb6ff9 166776 python3-cairo-dbgsym_1.26.1-2_amd64.deb
+ caadd8bd10e426643e3681375b2082e9a5bbd398 14444 python3-cairo-dev_1.26.1-2_all.deb
+ a751079f9cf2a061ffc8d150a737538436ea45ee 639696 python3-cairo-doc_1.26.1-2_all.deb
+ 833bbf04bcc343e6e62de8276010313152e20be9 113660 python3-cairo_1.26.1-2_amd64.deb
+Checksums-Sha256:
+ 892f70acd6fdac2c256e99b56e231112b87fecb8c714f49e8c6bf9b9468b0b44 11803 pycairo_1.26.1-2_amd64.buildinfo
+ f67fb932e892b535cf097ef8b049b5ca9e327888b57dc4f1193c858f37e56cd6 166776 python3-cairo-dbgsym_1.26.1-2_amd64.deb
+ e4cc825c63614aff3dac2f9ebcf6076dc6635724782a8d7ade1cdb578cd13f9d 14444 python3-cairo-dev_1.26.1-2_all.deb
+ 25230d6d485db0e9467b59184379e9f8eab5cc9e4d3e48793873da09023b7156 639696 python3-cairo-doc_1.26.1-2_all.deb
+ 3deec233bd05be0e38ae4613e5c67de033e8106f618085cc9417ac91698d3737 113660 python3-cairo_1.26.1-2_amd64.deb
+Files:
+ 626b1d7c2fdb25e3e6d563f643c301ed 11803 python optional pycairo_1.26.1-2_amd64.buildinfo
+ 8cb8ba77ac876dd82457ea6fa0bd7555 166776 debug optional python3-cairo-dbgsym_1.26.1-2_amd64.deb
+ adde8b2a529159fbb0282693bc560725 14444 python optional python3-cairo-dev_1.26.1-2_all.deb
+ 2cf85d26262c303a9dddc79cd11f5a56 639696 doc optional python3-cairo-doc_1.26.1-2_all.deb
+ 57958e0f7250c828bf2854cad4291c61 113660 python optional python3-cairo_1.26.1-2_amd64.deb

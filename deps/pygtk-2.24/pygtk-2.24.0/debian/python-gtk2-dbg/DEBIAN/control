@@ -1,0 +1,20 @@
+Package: python-gtk2-dbg
+Source: pygtk
+Version: 2.24.0-5.1
+Architecture: amd64
+Maintainer: Sebastien Bacher <seb128@debian.org>
+Installed-Size: 9844
+Depends: python-gtk2 (= 2.24.0-5.1), python-glade2 (= 2.24.0-5.1), python-gobject-2-dbg, libatk1.0-0t64 (>= 1.12.4), libc6 (>= 2.28), libcairo2 (>= 1.2.4), libgdk-pixbuf-2.0-0 (>= 2.22.0), libglade2-0 (>= 1:2.6.4-2~), libglib2.0-0t64 (>= 2.24.0), libgtk2.0-0t64 (>= 2.24.0), libpango-1.0-0 (>= 1.22.0), libpangocairo-1.0-0 (>= 1.21.4), python-numpy (>= 1:1.16.0~rc1), python-numpy-abi9
+Section: debug
+Priority: extra
+Homepage: http://www.pygtk.org/
+Description: Python bindings for the GTK+ widget set (debug extension)
+ This archive contains modules that allow you to use GTK+ in Python
+ programs.
+ .
+ This package contains the extension built for the Python debug interpreter.
+ .
+ This package is deprecated, you should migrate to using
+ gobject-introspection (GIR) based python bindings instead (PyGObject).
+ https://wiki.gnome.org/Projects/PyGObject/IntrospectionPorting
+Build-Ids: 3879061ec4c2888a653449f603dcbb42ef4907a9 45ff84b7462945339af9a44a17a36bec49561247 5c3de388394c88cdabff927d7a5dd54b9be4ca17 9f4489c237820131bcb14a576167c734819dc8c8 bec317ba763376084fc0c97d38e09c99ad6f9aa0 f40317ac33e33bcbdbcfbd8fea651cd8ab8d9d92
