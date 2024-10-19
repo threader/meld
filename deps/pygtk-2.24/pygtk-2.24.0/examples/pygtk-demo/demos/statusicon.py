@@ -1,4 +1,4 @@
-#!/usr/bin/env python2"
+#!/usr/bin/env python2
 '''Status Icon
 
 This is a simple example that shows how to create a status icon that

@@ -1133,7 +1133,7 @@ pygtk_main_watch_prepare(GSource *source,
         return FALSE;
 #endif /* PLATFORM_WIN32 */
 
-    /* If we're using 2.5 or an earlier version of python2" we
+    /* If we're using 2.5 or an earlier version of python2 we
      * will default to a timeout every second, be aware,
      * this will cause unnecessary wakeups, see
      * http://bugzilla.gnome.org/show_bug.cgi?id=481569

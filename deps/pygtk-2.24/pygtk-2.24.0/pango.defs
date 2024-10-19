@@ -1382,7 +1382,6 @@
   )
 )
 
-
 (define-virtual get_glyph_extents
   (of-object "PangoFont")
   (return-type "none")

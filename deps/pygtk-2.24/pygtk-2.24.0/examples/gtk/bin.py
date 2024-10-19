@@ -1,4 +1,4 @@
-# A simple gtk.Conatiner subclassing example reimplementing gtk.Bin in python2"
+# A simple gtk.Conatiner subclassing example reimplementing gtk.Bin in python2
 
 import pygtk
 pygtk.require('2.0')

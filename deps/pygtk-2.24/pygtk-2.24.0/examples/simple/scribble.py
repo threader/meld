@@ -1,4 +1,4 @@
-#!/usr/bin/env python2"
+#!/usr/bin/env python2
 
 #this is a simple translation of the scribble example that comes with GTK+
 

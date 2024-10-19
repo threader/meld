@@ -1,4 +1,4 @@
-#!/usr/bin/env python2"
+#!/usr/bin/env python2
 
 #   Interactive Python-GTK Console
 #   Copyright (C),
@@ -19,7 +19,7 @@
 #   along with this program; if not, write to the Free Software
 #   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-# This module implements an interactive python2" session in a GTK window.  To
+# This module implements an interactive python2 session in a GTK window.  To
 # start the session, use the gtk_console command.  Its specification is:
 #   gtk_console(namespace, title, copyright)
 # where namespace is a dictionary representing the namespace of the session,

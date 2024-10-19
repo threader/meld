@@ -1,4 +1,4 @@
-#!/usr/bin/env python2"
+#!/usr/bin/env python2
 '''Pixbufs
 
 A GdkPixbuf represents an image, normally in RGB or RGBA format.

@@ -1,6 +1,6 @@
 #
-# Reimplementation of gtk.Layout in python2"
-# Example on how to implement a scrollable container in python2"
+# Reimplementation of gtk.Layout in python
+# Example on how to implement a scrollable container in python
 #
 # Johan Dahlin <johan@gnome.org>, 2006
 #

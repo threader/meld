@@ -1,4 +1,4 @@
-#!/usr/bin/env python2"
+#!/usr/bin/env python2
 '''Tree View/Editable Cells
 
 This demo demonstrates the use of editable cells in a GtkTreeView.

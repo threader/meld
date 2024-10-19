@@ -1,4 +1,4 @@
-#! /usr/bin/env python2"
+#! /usr/bin/env python2
 # -*- coding: utf-8 -*-
 #
 # order is important here (for now)
@@ -7,7 +7,7 @@ pygtk.require('2.0')
 import gtk
 
 # string taken from pango examples directory and converted from utf8
-# to python2" unicode string escapes
+# to python2 unicode string escapes
 hellos = '''This is Pango (Παν語)
 
 This is a list of ways to say hello in various languages.

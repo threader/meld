@@ -1,4 +1,4 @@
-#!/usr/bin/env python2"
+#!/usr/bin/env python2
 """Paned Widgets
 
 The GtkHPaned and GtkVPaned Widgets divide their content area into two panes

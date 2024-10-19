@@ -207,7 +207,7 @@
 === PyGTK 2.14.0 ===
 2009-01-28  Gian Mario Tagliaretti  <gianmt@gnome.org>
 
-	Bug 556130 – bogus override of python2" includes in configure.ac
+	Bug 556130 – bogus override of python includes in configure.ac
 
 	* configure.ac: Don't override PYTHON_INCLUDES, it's already set
 	by AM_CHECK_PYTHON_HEADERS patch by Loïc Minier.
@@ -922,7 +922,7 @@
 
 2007-08-29  Johan Dahlin  <jdahlin@async.com.br>
 
-	* pango.override: Make the bindings a bit more python2"ic, implement
+	* pango.override: Make the bindings a bit more pythonic, implement
 	tp_str, tp_hash and tp_compare for a few objects.
 
 	* tests/test_pango.py: Add tests.
@@ -1206,7 +1206,7 @@
 
 2007-06-16  Sebastien Bacher  <seb128@ubuntu.com>
 
-	* m4/python.m4: use python2"-config to get python2" includes
+	* m4/python.m4: use python-config to get python includes
 	(Closes #448176)
 
 2007-06-14  Sébastien Granjoux  <seb.sfo@free.fr>
@@ -2154,7 +2154,7 @@
 	* gtk/Makefile.am:
 	* gtk/__init__.py:
 	* gtk/deprecation.py:
-	Move deprecation related classes to a separate python2" file
+	Move deprecation related classes to a separate python file
 
 2006-06-27  John Finlay  <finlay@moeraki.com>
 
@@ -2208,7 +2208,7 @@
 
 	* codegen/codegen.py (SourceWriter.write_enums): Typecast second
 	 argument of PyModule_AddIntConstant to
-	 (char*) to avoid const warning on python2" < 2.5.
+	 (char*) to avoid const warning on python < 2.5.
 
 2006-06-25  John Finlay  <finlay@moeraki.com>
 
@@ -2672,7 +2672,7 @@
 
 	* pangomodule.c (initpango): idem.
 
-	* examples/gtk/testprint.py: Add a python2" print demonstration,
+	* examples/gtk/testprint.py: Add a python print demonstration,
 	based on testprint.c in gtk+ sources.  It is missing a print
 	dialog, though...
 
@@ -2923,7 +2923,7 @@
 	* tests/test_style.py:
 	* tests/testmodule.py:
 
-	Run reindent.py on all python2" code.
+	Run reindent.py on all python code.
 
 2006-04-02  Johan Dahlin  <johan@gnome.org>
 
@@ -3028,7 +3028,7 @@
 	style improvements and a bug fix.  Fixes #169204.
 
 	* gtk/gtkmodule.c (_pygtk_log_func): Call g_log_default_handler
-	when python2" isn't initialized.  Fixes #334188.
+	when python isn't initialized.  Fixes #334188.
 
 	* examples/Makefile.am (EXTRA_DIST): Ship new editable interface example.
 
@@ -3158,7 +3158,7 @@
 2006-02-20  Gustavo J. A. M. Carneiro  <gjc@inescporto.pt>
 
 	* gtk/gdkcairo.override: Don't raise an exception if pangocairo
-	import fails, since in this case python2" itself had already raised
+	import fails, since in this case python itself had already raised
 	another exception with more information.
 
 2006-02-14  Johan Dahlin  <jdahlin@async.com.br>
@@ -3454,7 +3454,7 @@
 
 	* gobjectmodule.c (initgobject): Add gobject.Warning Warning subclass
 	and redirect all g_log messages for the "GLib", "Glib-GObject", and
-	"GThread" domains to the python2" warning system
+	"GThread" domains to the python warning system
 
 	* pangomodule.c (initpango): Add pango.Warning Warning subclass
 	and redirect all g_log messages for the "Pango" domain to the
@@ -3462,7 +3462,7 @@
 
 	* gtkmodule.c (initgtk): Move gtk Warning subclass from the gdk
 	module to the gtk module and added redirections for g_log messages
-	for the "Gdk" and "GdkPixbuf" domains to the python2" warning system
+	for the "Gdk" and "GdkPixbuf" domains to the python warning system
 
 	* gtk/__init__.py: Set gdk.Warning = gtk.Warning for backward
 	compatibility
@@ -3519,7 +3519,7 @@
 2005-09-02  Johan Dahlin  <jdahlin@async.com.br>
 
 	* gobject/pygparamspec.c (pyg_param_spec_getattr): Sort all attributes
-	alphabetically, like python2" does. Set default value to None
+	alphabetically, like python does. Set default value to None
 	(pyg_param_spec_getattr): Add default_values fallback, for backwards
 	compatibility.
 

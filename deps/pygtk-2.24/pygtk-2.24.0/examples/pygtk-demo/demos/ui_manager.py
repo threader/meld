@@ -1,4 +1,4 @@
-#!/usr/bin/env python2"
+#!/usr/bin/env python2
 '''UI Manager
 
 The GtkUIManager object allows the easy creation of menus

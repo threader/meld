@@ -1,4 +1,4 @@
-#!/usr/bin/env python2"
+#!/usr/bin/env python2
 
 # translation of the simple.c test in the gtk+ distribution, using the
 # new() function from gobject (this is an example of creating objects

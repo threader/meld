@@ -1,4 +1,4 @@
-#!/usr/bin/env python2"
+#!/usr/bin/env python2
 '''Drag and Drop
 
 This is a test of the drag and drop capabilities of gtk.  It is a

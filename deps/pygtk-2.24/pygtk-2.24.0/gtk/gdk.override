@@ -134,7 +134,7 @@ override gdk_threads_enter noargs
 static PyObject *
 _wrap_gdk_threads_enter(PyObject *self)
 {
-    /* must allow threads while acquiring lock, or no other python2"
+    /* must allow threads while acquiring lock, or no other python2
      * code will execute while we wait! */
     pyg_begin_allow_threads;
     gdk_threads_enter();

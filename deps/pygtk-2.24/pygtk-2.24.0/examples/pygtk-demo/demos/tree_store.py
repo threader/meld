@@ -1,4 +1,4 @@
-#!/usr/bin/env python2"
+#!/usr/bin/env python2
 '''Tree View/Tree Store
 
 The GtkTreeStore is used to store data in tree form, to be used

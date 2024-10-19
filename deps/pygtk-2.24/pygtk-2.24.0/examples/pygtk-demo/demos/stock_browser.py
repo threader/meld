@@ -1,4 +1,4 @@
-#!/usr/bin/env python2"
+#!/usr/bin/env python2
 '''Stock Item and Icon Browser
 
 This source code for this demo doesn't demonstrate anything particularly

@@ -1,4 +1,4 @@
-#!/usr/bin/env python2"
+#!/usr/bin/env python2
 '''Expander
 
 GtkExpander allows to provide additional content that is initially hidden.

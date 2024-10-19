@@ -1,4 +1,4 @@
-#!/usr/bin/env python2"
+#!/usr/bin/env python2
 """Size Group
 
 GtkSizeGroup provides a mechanism for grouping a number of widgets together so

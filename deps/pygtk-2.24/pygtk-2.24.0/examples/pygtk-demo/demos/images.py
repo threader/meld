@@ -1,4 +1,4 @@
-#!/usr/bin/env python2"
+#!/usr/bin/env python2
 '''Images
 
 GtkImage is used to display an image; the image can be in a number of formats.

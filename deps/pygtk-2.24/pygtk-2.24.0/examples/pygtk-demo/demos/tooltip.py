@@ -1,4 +1,4 @@
-#!/usr/bin/env python2"
+#!/usr/bin/env python2
 '''Tooltip
 
 This is a test of the new gtk tooltip system.  It is a

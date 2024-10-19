@@ -1,20 +1,20 @@
-#!/usr/bin/env python2"
+#!/usr/bin/env python2
 '''Tree View/Generic Tree Model
 
 This test is designed to demonstrate creating a new type of tree model
-in python2" for use with the new tree widget in gtk 2.0.'''
+in python2 for use with the new tree widget in gtk 2.0.'''
 
 import pygtk
 pygtk.require('2.0')
 import gtk
 import gobject
 
-# to create a new GtkTreeModel from python2", you must derive from
+# to create a new GtkTreeModel from python2, you must derive from
 # TreeModel.
 class MyTreeModel(gtk.GenericTreeModel):
     '''This class represents the model of a tree.  The iterators used
-    to represent positions are converted to python2" objects when passed
-    to the on_* methods.  This means you can use any python2" object to
+    to represent positions are converted to python2 objects when passed
+    to the on_* methods.  This means you can use any python2 object to
     represent a node in the tree.  The None object represents a NULL
     iterator.
 
