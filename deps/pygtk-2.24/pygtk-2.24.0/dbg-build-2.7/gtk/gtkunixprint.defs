@@ -1,0 +1,5 @@
+;; -*- scheme -*-
+;; THIS FILE IS GENERATED - DO NOT EDIT
+(include "gtkunixprint-base.defs")
+(include "gtkunixprint-2.12.defs")
+(include "gtkunixprint-2.14.defs")
