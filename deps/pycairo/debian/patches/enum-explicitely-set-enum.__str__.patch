@@ -1,0 +1,28 @@
+From: Christoph Reiter <reiter.christoph@gmail.com>
+Date: Sat, 15 Jun 2019 16:07:00 +0200
+Subject: enum: explicitely set enum.__str__
+
+Python 3.8 has removed the int.__str__ implementation. So we don't fall
+back to object.__str__ and thus enum.__repr__ set __str__ to int.__repr__
+instead. This gives us the same behaviour with all python versions.
+
+See https://github.com/python/cpython/commit/96aeaec64738b730
+
+Origin: upstream, 1.18.2, commit:71c81741495cdce132b6f45a0f596d70909c1e4d
+Bug-Debian: https://bugs.debian.org/942666
+---
+ cairo/enums.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/cairo/enums.c b/cairo/enums.c
+index f703e06..da49944 100644
+--- a/cairo/enums.c
++++ b/cairo/enums.c
+@@ -250,6 +250,7 @@ init_enums (PyObject *module) {
+     PyObject *ev;
+ 
+     Pycairo_IntEnum_Type.tp_repr = (reprfunc)int_enum_repr;
++    Pycairo_IntEnum_Type.tp_str = PYCAIRO_PyLong_Type.tp_repr;
+     Pycairo_IntEnum_Type.tp_flags = Py_TPFLAGS_DEFAULT | Py_TPFLAGS_BASETYPE;
+     Pycairo_IntEnum_Type.tp_methods = int_enum_methods;
+     Pycairo_IntEnum_Type.tp_base = &PYCAIRO_PyLong_Type;

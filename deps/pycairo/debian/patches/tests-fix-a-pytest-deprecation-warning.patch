@@ -1,0 +1,26 @@
+From: Christoph Reiter <reiter.christoph@gmail.com>
+Date: Wed, 13 Feb 2019 17:02:09 +0100
+Subject: tests: fix a pytest deprecation warning
+
+https://docs.pytest.org/en/latest/deprecations.html#raises-warns-exec
+
+Origin: upstream, 1.18.1, commit:a54e7dbcd40194754045f75994938e91e5872892
+Bug-Debian: https://bugs.debian.org/942666
+---
+ tests/test_api.py | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/tests/test_api.py b/tests/test_api.py
+index 31f5cbc..bf2a251 100644
+--- a/tests/test_api.py
++++ b/tests/test_api.py
+@@ -80,7 +80,8 @@ def test_context():
+ 
+ def test_surface():
+     # TypeError: The Surface type cannot be instantiated
+-    pytest.raises(TypeError, "s = cairo.Surface()")
++    with pytest.raises(TypeError):
++        cairo.Surface()
+ 
+     f, w, h = cairo.FORMAT_ARGB32, 100, 100
+     s = cairo.ImageSurface(f, w, h)
