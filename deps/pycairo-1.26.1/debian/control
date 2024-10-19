@@ -1,0 +1,48 @@
+Source: pycairo
+Section: python
+Priority: optional
+Maintainer: Debian Python Team <team+python@tracker.debian.org>
+Uploaders: Torsten Marek <shlomme@debian.org>
+Build-Depends: debhelper-compat (= 13),
+               dh-exec,
+               dh-python,
+               libcairo2-dev (>= 1.18.2),
+               meson,
+               python3-all-dev,
+               python3-pytest <!nocheck>,
+               python3-sphinx,
+               python3-sphinx-rtd-theme,
+               sphinx-common
+Standards-Version: 4.6.2
+Homepage: https://cairographics.org/pycairo/
+Vcs-Git: https://salsa.debian.org/python-team/packages/pycairo.git
+Vcs-Browser: https://salsa.debian.org/python-team/packages/pycairo
+Rules-Requires-Root: no
+
+Package: python3-cairo
+Architecture: any
+Depends: ${misc:Depends}, ${python3:Depends}, ${shlibs:Depends}
+Provides: ${python3:Provides}
+Description: Python3 bindings for the Cairo vector graphics library
+ This package contains modules that allow you to use the Cairo vector
+ graphics library in Python3 programs.
+
+Package: python3-cairo-dev
+Architecture: all
+Depends: python3-cairo (>= ${binary:Version}), ${misc:Depends}
+Suggests: python3-cairo-doc
+Description: Python3 cairo bindings: development files
+ This package contains files that allow you to compile wrappers
+ that interoperate with python3-cairo (pycairo).
+
+Package: python3-cairo-doc
+Architecture: all
+Section: doc
+Depends: ${misc:Depends}, ${sphinxdoc:Depends}
+Built-Using: ${sphinxdoc:Built-Using}
+Multi-Arch: foreign
+Description: Python 3 cairo bindings: documentation files
+ Cairo is a multi-platform library providing anti-aliased vector-based
+ rendering for multiple target backends.
+ .
+ This package contains documentation files of python3-cairo (py3cairo).
