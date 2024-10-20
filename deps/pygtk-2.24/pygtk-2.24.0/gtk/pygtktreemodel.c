@@ -207,7 +207,7 @@ pygtk_generic_tree_model_new(void)
 
 
 /* format of GtkTreeIter's for PyGtkGenericTreeModel:
- *  user_data == python2" object
+ *  user_data == python2 object
  *  user_data2 == floating reference?
  *
  * I haven't worked out how everything should work.  For now I will

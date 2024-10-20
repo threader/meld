@@ -4,7 +4,7 @@ AC_PREREQ(2.52)
 dnl the pygtk version number
 m4_define(pygtk_major_version, 2)
 m4_define(pygtk_minor_version, 24)
-m4_define(pygtk_micro_version, 0)
+m4_define(pygtk_micro_version, 1)
 m4_define(pygtk_version, pygtk_major_version.pygtk_minor_version.pygtk_micro_version)
 
 dnl versions of packages we require ...
@@ -445,10 +445,15 @@ case $gdk_target in
         ;;
 esac
 
+if test "x$gdk_target" = "xquartz"; then
+  AM_CONDITIONAL(USE_QUARTZ, true)
+else
+  AM_CONDITIONAL(USE_QUARTZ, false)
+fi
 
 dnl checks to see if numpy is installed.
 AC_ARG_ENABLE(numpy,
-  AC_HELP_STRING([--disable-numpy], [Disable numeric python2" features]),,
+  AC_HELP_STRING([--disable-numpy], [Disable numeric python2 features]),,
   enable_numpy=yes)
 
 if test "x$enable_numpy" != xno; then
@@ -460,7 +465,7 @@ if test "x$enable_numpy" != xno; then
   else
     CPPFLAGS="$CPPFLAGS $PYTHON_INCLUDES -I$numpy_INCLUDES"
     AC_CHECK_HEADER([numpy/arrayobject.h],
-      [AC_DEFINE(HAVE_NUMPY,,[whether to include numeric python2" support])],
+      [AC_DEFINE(HAVE_NUMPY,,[whether to include numeric python2 support])],
       [enable_numpy=no],
       [#include <Python.h>])
     if test "x$enable_numpy" != "xno"; then

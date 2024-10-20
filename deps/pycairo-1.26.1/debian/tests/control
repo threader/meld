@@ -1,0 +1,2 @@
+Tests: pycairo
+Depends: python3-cairo, python3-pytest

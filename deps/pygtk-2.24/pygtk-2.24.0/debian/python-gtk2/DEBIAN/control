@@ -1,0 +1,19 @@
+Package: python-gtk2
+Source: pygtk
+Version: 2.24.0-5.1
+Architecture: amd64
+Maintainer: Sebastien Bacher <seb128@debian.org>
+Installed-Size: 3126
+Depends: python-numpy (>= 1:1.16.0~rc1), python-numpy-abi9, libatk1.0-0t64 (>= 1.12.4), libc6 (>= 2.28), libcairo2 (>= 1.2.4), libgdk-pixbuf-2.0-0 (>= 2.22.0), libglib2.0-0t64 (>= 2.24.0), libgtk2.0-0t64 (>= 2.24.0), libpango-1.0-0 (>= 1.22.0), libpangocairo-1.0-0 (>= 1.21.4), python-cairo (>= 1.0.2-1.1), python-gobject-2 (>= 2.21.3)
+Suggests: python-gtk2-doc
+Breaks: python-gtkglext1 (<< 1.1.0-7~)
+Section: python
+Priority: optional
+Homepage: http://www.pygtk.org/
+Description: Python bindings for the GTK+ widget set
+ This archive contains modules that allow you to use GTK+ in Python
+ programs.
+ .
+ This package is deprecated, you should migrate to using
+ gobject-introspection (GIR) based python bindings instead (PyGObject).
+ https://wiki.gnome.org/Projects/PyGObject/IntrospectionPorting

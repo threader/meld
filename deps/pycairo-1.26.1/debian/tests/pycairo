@@ -1,0 +1,9 @@
+#!/bin/sh -e
+
+# copy the tests to ensure cairo lib in the src dir is not used
+cp -r tests $AUTOPKGTEST_TMP
+cd $AUTOPKGTEST_TMP
+# delete a test which requires a test module to be compiled
+rm tests/test_cmod.py
+# run the tests
+python3 -m pytest

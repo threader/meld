@@ -1,0 +1,20 @@
+Package: python-glade2
+Source: pygtk
+Version: 2.24.0-5.1
+Architecture: amd64
+Maintainer: Sebastien Bacher <seb128@debian.org>
+Installed-Size: 65
+Depends: python-numpy (>= 1:1.16.0~rc1), python-numpy-abi9, libc6 (>= 2.2.5), libglade2-0 (>= 1:2.6.4-2~), libglib2.0-0t64 (>= 2.12.0), python-gtk2 (= 2.24.0-5.1)
+Suggests: python-gtk2-doc
+Section: python
+Priority: optional
+Homepage: http://www.pygtk.org/
+Description: GTK+ bindings: Glade support
+ Contains bindings for the glade library from use within Python. Glade
+ makes it very easy to create a user interface. In the target
+ application you just need to load the interface description from
+ the .glade file instead of constructing the GUI at runtime.
+ .
+ This package is deprecated, you should migrate to using
+ gobject-introspection (GIR) based python bindings instead (PyGObject).
+ https://wiki.gnome.org/Projects/PyGObject/IntrospectionPorting
