@@ -30,7 +30,7 @@ PREVVER := 2.7.18~
 ma_allowed	= yes
 
 ifeq (,$(filter $(distrelease),lenny etch squeeze wheezy lucid maverick natty oneiric precise quantal raring saucy trusty))
-  bd_i586 = dpkg-dev (>= 1.17.11), python2.7:any (>= 2.7.18~)
+  bd_i586 = dpkg-dev (>= 1.17.11), dh-python
 endif
 
 
@@ -114,8 +114,8 @@ stamp-install: stamp-build control-file stamp-control
 #	dh_installdirs -ppython usr/share/doc/python
 	dh_install
 	-make 
+	DESTDIR=debian/python2-minimal PREFIX=/usr make install-runtime
 	DESTDIR=debian/python2 PREFIX=/usr make install-dev
-#	DESTDIR=debian/python2-minimal PREFIX=/usr make install-runtime
 	touch $@
 
 	touch stamp-install
@@ -177,24 +177,24 @@ binary-arch: build install
 		debian/python2-minimal/usr/share/man/man1/python2.1.gz
 
 	: # 
-	mkdir -p debian/python2-minimal/usr/share/python
+	mkdir -p debian/python2-minimal/usr/share/python2
 	cp -p debian/debian_defaults \
-		debian/python2-minimal/usr/share/python/
+		debian/python2-minimal/usr/share/python2/
 
 	install -m 755 debian/pyversions.py \
-		debian/python2-minimal/usr/share/python/
+		debian/python2-minimal/usr/share/python2/
 	install -m 644 debian/pyversions.1 \
 		debian/python2-minimal/usr/share/man/man1/
-	dh_link -ppython2-minimal /usr/share/python/pyversions.py /usr/bin/pyversions
+	dh_link -ppython2-minimal /usr/share/python2/pyversions.py /usr/bin/pyversions
 
 	mkdir -p debian/python2/usr/bin
 	ln -sf pydoc$(VER) debian/python2/usr/bin/pydoc2
 	ln -sf pygettext$(VER) debian/python2/usr/bin/pygettext2
 	ln -sf pdb$(VER) debian/python2/usr/bin/pdb2
 
-	mkdir -p debian/python2/usr/share/python
+	mkdir -p debian/python2/usr/share/python2
 	install -m 644 debian/python.mk \
-		debian/python2/usr/share/python/
+		debian/python2/usr/share/python2/
 
 	mkdir -p debian/python2/usr/share/man/man1
 	ln -sf pydoc$(VER).1.gz \
@@ -208,7 +208,7 @@ binary-arch: build install
 	ln -sf python$(VER).xpm debian/python2/usr/share/pixmaps/python2.xpm
 
 	mkdir -p debian/python2/usr/share/apps/konsole
-	cp -p debian/python2.desktop debian/python2/usr/share/apps/konsole/
+	#cp -p debian/python2.desktop debian/python2/usr/share/apps/konsole/
 
 	: # provide the python2-config default
 	mkdir -p debian/python2-dev/usr/bin
@@ -270,7 +270,7 @@ ifneq ($(DEB_HOST_MULTIARCH),$(DEB_HOST_GNU_TYPE))
 endif
 
 	dh_lintian -a
-	dh_installdocs -a $(NOPKGS) --all debian/README.Debian
+	#dh_installdocs -a $(NOPKGS) --all debian/README.Debian
 	dh_installchangelogs -a $(NOPKGS)
 
 	for p in dbg dev; do \
