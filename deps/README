@@ -36,8 +36,7 @@ include /usr/share/python/python.mk
 dpkg-buildpackage -us -uc -nc --no-post-clean 
 ---
 pycairo: 
-needed python2.pm - so i hacked together a version using the buster sources and edited the build rules and makefile
-python2: as i said 
+ deps: needed python2.pm - so i hacked together a python2 version using the buster sources and edited the build rules and makefile
 
 
 My source.list file has these entries: 
