@@ -123,7 +123,7 @@ image
 {
 function	= BOX
 state		= PRELIGHT
-file		= "Buttons/button-prelight.png"
+file		= "Buttons/button-prelight-2.png"
 border	= {2,2,2,2}
 stretch	= TRUE
 }
@@ -131,7 +131,7 @@ image
 {
 function	= BOX
 state		= ACTIVE
-file		= "Buttons/button-prelight.png"
+file		= "Buttons/button-prelight-2.png"
 border	= {2,2,2,2}
 stretch	= TRUE
 }
@@ -176,7 +176,7 @@ image
 {
 function	= BOX
 state		= PRELIGHT
-file		= "Buttons/button-prelight.png"
+file		= "Buttons/button-prelight-2.png"
 border	= {2,2,2,2}
 stretch	= TRUE
 }
@@ -194,7 +194,7 @@ image
 {
 function	= BOX
 state		= ACTIVE
-file		= "Buttons/button-prelight.png"
+file		= "Buttons/button-prelight-2.png"
 border	= {2,2,2,2}
 stretch	= TRUE
 }
@@ -803,7 +803,7 @@ image
 {
 function 	= BOX
 state		= PRELIGHT
-file 		= "Buttons/button-prelight.png"
+file 		= "Buttons/button-prelight-2.png"
 border	= {2,2,2,2}
 stretch 	= TRUE
 }
@@ -811,7 +811,7 @@ image
 {
 function 	= BOX
 state		= ACTIVE
-file 		= "Buttons/button-prelight.png"
+file 		= "Buttons/button-prelight-2.png"
 border	= {2,2,2,2}
 stretch 	= TRUE
 }
@@ -993,7 +993,7 @@ gap_side	= LEFT
 image
 {
 function	= EXTENSION
-file		= "Tabs/tab-top-active.png"
+file		= "Tabs/tab-top-active-2.png"
 border	= {3,3,3,1}
 stretch	= TRUE
 gap_side	= BOTTOM
