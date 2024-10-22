@@ -122,22 +122,14 @@ class DiffMap(gtk.DrawingArea):
             cache_ctx = cairo.Context(surface)
             cache_ctx.set_line_width(1)
 
-            tagged_diffs = collections.defaultdict(list)
-            for c, y0, y1 in self._difffunc():
-                tagged_diffs[c].append((y0, y1))
-
-            for tag, diffs in tagged_diffs.items():
-                cache_ctx.set_source_rgba(*self.fill_colors[tag])
-                for y0, y1 in diffs:
-                    y0, y1 = round(y0 * height) - 0.5, round(y1 * height) - 0.5
-                    cache_ctx.rectangle(x0, y0, x1, y1 - y0)
-                cache_ctx.fill_preserve()
-                cache_ctx.set_source_rgba(*self.line_colors[tag])
-                cache_ctx.stroke()
-            self._cached_map = surface
-
-        context.set_source_surface(self._cached_map, 0., 0.)
-        context.paint()
+        for tag, diffs in tagged_diffs.items():
+            context.set_source_color(self.fill_colors[tag])
+            for y0, y1 in diffs:
+                y0, y1 = round(y0 * height) - 0.5, round(y1 * height) - 0.5
+                context.rectangle(x0, y0, x1, y1 - y0)
+            context.fill_preserve()
+            context.set_source_color(self.line_colors[tag])
+            context.stroke()
 
         page_color = (0., 0., 0., 0.1)
         page_outline_color = (0.0, 0.0, 0.0, 0.3)
