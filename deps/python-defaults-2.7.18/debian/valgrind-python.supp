@@ -360,7 +360,7 @@
    Memcheck:Param
    write(buf)
    fun:write
-   obj:/usr/lib/libcrypto.so.0.9.8
+   obj:/usr/lib/libcrypto.so.0.9.7
 }
 
 {
@@ -390,13 +390,13 @@
 {
    from test_socket_ssl
    Memcheck:Cond
-   obj:/usr/lib/libssl.so.0.9.8
+   obj:/usr/lib/libssl.so.0.9.7
 }
 
 {
    from test_socket_ssl
    Memcheck:Value4
-   obj:/usr/lib/libssl.so.0.9.8
+   obj:/usr/lib/libssl.so.0.9.7
 }
 
 {

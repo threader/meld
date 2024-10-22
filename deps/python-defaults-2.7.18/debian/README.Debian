@@ -11,7 +11,7 @@ of the python-doc package in the directory
 A draft of the "Debian Python Policy", mostly needed for Debian package
 maintainers can be found in
 
-        /usr/share/doc/python3
+        /usr/share/doc/python2
 
 Sometime it will be moved to /usr/share/doc/debian-policy in the
 debian-policy package.
