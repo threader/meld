@@ -1,4 +1,4 @@
-2024-xx-xx meld 1.8.6.3-dev
+2024-xx-xx meld 1.8.6.3
 ===================
 	* Revive old meld-1.8 with dependencies see deps/Readme
 		* Deps. built with Debian SID, quite hacky, but works.  
@@ -7,6 +7,9 @@
 	unless i can fix loading images called in the gtkrc and such i 
 	will need to start getting creative. 
 gtk_rc_get_module_dir ()
+	* Finally found the 'Search and replace' fix commit and got 
+	around to a few other things.
+	* Added a branch to git with theme ideas, currently red and green
 
 gchar *
 gtk_rc_get_module_dir (void);
