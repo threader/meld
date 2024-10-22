@@ -122,6 +122,10 @@ class DiffMap(gtk.DrawingArea):
             cache_ctx = cairo.Context(surface)
             cache_ctx.set_line_width(1)
 
+        tagged_diffs = collections.defaultdict(list)
+        for c, y0, y1 in self._difffunc():
+            tagged_diffs[c].append((y0, y1))
+
         for tag, diffs in tagged_diffs.items():
             context.set_source_color(self.fill_colors[tag])
             for y0, y1 in diffs:

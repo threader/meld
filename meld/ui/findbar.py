@@ -155,8 +155,7 @@ class FindBar(gnomeglade.Component):
         else:
             self.wrap_box.set_visible(False)
             if not backwards:
-                match = pattern.search(text,
-                                       insert.get_offset() + start_offset)
+                match = pattern.search(text, insert.get_offset() + start_offset)
                 if match is None and wrap:
                     self.wrap_box.show()
                     match = pattern.search(text, 0)

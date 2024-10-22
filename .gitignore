@@ -1,6 +1,17 @@
-*.pyc
 *.orig
 *.rej
+
+# Byte compiled Python files
+__pycache__/
+*.pyc
+
+.pytest_cache/
+
+# Build & distribution artifacts
+build/
+dist/
+MANIFEST 
+
 *.desktop
 *.install
 data/appdata.xml
