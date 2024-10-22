@@ -1,12 +1,7 @@
-<<<<<<< HEAD
-### Copyright (C) 2002-2008 Stephen Kennedy <stevek@gnome.org>
-### Copyright (C) 2010 Kai Willadsen <kai.willadsen@gmail.com>
 
-=======
 # Copyright (C) 2002-2008 Stephen Kennedy <stevek@gnome.org>
 # Copyright (C) 2010, 2013 Kai Willadsen <kai.willadsen@gmail.com>
 #
->>>>>>> 82d69cc9 (Update copyright authors and years for all modules except meld.vc)
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 2 of the License, or (at

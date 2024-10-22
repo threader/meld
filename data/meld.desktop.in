@@ -1,5 +1,5 @@
 [Desktop Entry]
-_Name=Meld
+_Name=Meld-1.8
 _GenericName=Diff Viewer
 _X-GNOME-FullName=Meld Diff Viewer
 _Comment=Compare and merge your files
@@ -11,5 +11,5 @@ MimeType=application/x-meld-comparison;
 StartupNotify=true
 Categories=GTK;Development;
 X-GNOME-Bugzilla-Bugzilla=GNOME
-X-GNOME-Bugzilla-Product=meld
+X-GNOME-Bugzilla-Product=meld-1.8
 X-GNOME-Bugzilla-Component=general
