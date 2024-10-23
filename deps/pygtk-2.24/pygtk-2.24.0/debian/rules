@@ -3,7 +3,7 @@
 include /usr/share/gnome-pkg-tools/1/rules/uploaders.mk
 -include /usr/share/gnome-pkg-tools/1/rules/gnome-get-source.mk
 
-include /usr/share/python/python.mk
+include /usr/share/python2/python.mk
 
 CFLAGS += -Wall -g -O$(if $(findstring noopt,$(DEB_BUILD_OPTIONS)),0,2)
 
@@ -142,8 +142,8 @@ install-stamp:
 	# finally, install files from DESTDIR in the per-package dirs
 	dh_install
 	# install rtupdate script to handle Python default runtime change
-	install -d debian/python-gtk2-dev/usr/share/python/runtime.d
-	install debian/python-gtk2-dev.rtupdate debian/python-gtk2-dev/usr/share/python/runtime.d
+	install -d debian/python-gtk2-dev/usr/share/python2/runtime.d
+	install debian/python-gtk2-dev.rtupdate debian/python-gtk2-dev/usr/share/python2/runtime.d
 	for i in $$(find debian/python-*-dbg -name '*.so'); do \
 	  b=$$(basename $$i .so); \
 	  mv $$i $$(dirname $$i)/$${b}_d.so; \

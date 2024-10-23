@@ -9,15 +9,15 @@ Build-Depends: debhelper (>= 8),
                cdbs,
                dh-autoreconf,
                xvfb (>= 2:1.6.0), xauth, xfonts-base,
-               python-all-dev (>= 2.6.6-3~),
-               python-all-dbg,
+               python2-all-dev (>= 2.6.6-3~),
+               python2-all-dbg,
                libgtk2.0-dev (>= 2.18.0),
                libglib2.0-dev (>= 2.8.0),
                libpango1.0-dev (>= 1.21.4),
                libatk1.0-dev (>= 1.12.0),
                libglade2-dev (>= 1:2.5.0),
-               python-cairo-dev (>= 1.0.2),
-               python-gobject-2-dev (>= 2.21.3),
+               python2-cairo-dev (>= 1.0.2),
+               python2-gobject-2-dev (>= 2.21.3),
                xsltproc,
                docbook-xsl,
                gnome-icon-theme
@@ -27,15 +27,15 @@ Vcs-Browser: http://svn.debian.org/viewsvn/pkg-gnome/attic/pygtk/
 Vcs-Svn: svn://svn.debian.org/svn/pkg-gnome/attic/pygtk/
 Homepage: http://www.pygtk.org/
 
-Package: python-gtk2
+Package: python2-gtk2
 Architecture: any
 Depends: ${python:Depends},
          ${shlibs:Depends},
          ${misc:Depends},
-         python-cairo (>= 1.0.2-1.1),
-         python-gobject-2 (>= 2.21.3)
-Suggests: python-gtk2-doc
-Breaks: python-gtkglext1 (<< 1.1.0-7~)
+         python2-cairo (>= 1.0.2-1.1),
+         python2-gobject-2 (>= 2.21.3)
+Suggests: python2-gtk2-doc
+Breaks: python2-gtkglext1 (<< 1.1.0-7~)
 Description: Python bindings for the GTK+ widget set
  This archive contains modules that allow you to use GTK+ in Python
  programs.
@@ -44,13 +44,13 @@ Description: Python bindings for the GTK+ widget set
  gobject-introspection (GIR) based python bindings instead (PyGObject).
  https://wiki.gnome.org/Projects/PyGObject/IntrospectionPorting
 
-Package: python-gtk2-dbg
+Package: python2-gtk2-dbg
 Architecture: any
 Priority: extra
 Section: debug
-Depends: python-gtk2 (= ${binary:Version}),
-         python-glade2 (= ${binary:Version}),
-         python-gobject-2-dbg,
+Depends: python2-gtk2 (= ${binary:Version}),
+         python2-glade2 (= ${binary:Version}),
+         python2-gobject-2-dbg,
          ${shlibs:Depends},
          ${misc:Depends},
          ${python:Depends}
@@ -64,32 +64,32 @@ Description: Python bindings for the GTK+ widget set (debug extension)
  gobject-introspection (GIR) based python bindings instead (PyGObject).
  https://wiki.gnome.org/Projects/PyGObject/IntrospectionPorting
 
-Package: python-gtk2-dev
+Package: python2-gtk2-dev
 Architecture: all
 Depends: ${python:Depends},
          ${misc:Depends},
-         python-gtk2 (>= ${source:Version}),
-         python-gtk2 (<< ${source:Version}.1~),
+         python2-gtk2 (>= ${source:Version}),
+         python2-gtk2 (<< ${source:Version}.1~),
          libglib2.0-dev (>= 2.8),
          libgtk2.0-dev (>= 2.18.0),
          python2-dev,
-         python-gobject-2-dev (>= 2.21.3)
-Recommends: python-gtk2-doc
+         python2-gobject-2-dev (>= 2.21.3)
+Recommends: python2-gtk2-doc
 Description: GTK+ bindings: devel files
  This archive contains files that allow you to build wrappers for addons
- that interoperate with python-gtk2 (pygtk).
+ that interoperate with python2-gtk2 (pygtk).
  .
  This package is deprecated, you should migrate to using
  gobject-introspection (GIR) based python bindings instead (PyGObject).
  https://wiki.gnome.org/Projects/PyGObject/IntrospectionPorting
 
-Package: python-glade2
+Package: python2-glade2
 Architecture: any
 Depends: ${python:Depends},
          ${shlibs:Depends},
          ${misc:Depends},
-         python-gtk2 (= ${binary:Version})
-Suggests: python-gtk2-doc
+         python2-gtk2 (= ${binary:Version})
+Suggests: python2-gtk2-doc
 Description: GTK+ bindings: Glade support
  Contains bindings for the glade library from use within Python. Glade
  makes it very easy to create a user interface. In the target
@@ -100,14 +100,14 @@ Description: GTK+ bindings: Glade support
  gobject-introspection (GIR) based python bindings instead (PyGObject).
  https://wiki.gnome.org/Projects/PyGObject/IntrospectionPorting
 
-Package: python-gtk2-doc
+Package: python2-gtk2-doc
 Architecture: all
 Section: doc
 Depends: ${misc:Depends},
          ${python:Depends},
-         python-gtk2,
-Recommends: python-gobject-2,
-            python-cairo,
+         python2-gtk2,
+Recommends: python2-gobject-2,
+            python2-cairo,
             python-glade2
 Suggests: devhelp
 Description: Python bindings for the GTK+ widget set - documentation
