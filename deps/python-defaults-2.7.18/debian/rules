@@ -125,8 +125,8 @@ stamp-dh_python:
 	dh_testroot
 	dh_installdirs
 	-make check_versions
-	DESTDIR=debian/python2 PREFIX=/usr make install-dev
 	DESTDIR=debian/python2-minimal PREFIX=/usr make install-runtime
+	DESTDIR=debian/python2 PREFIX=/usr make install-dev
 	# disabled by default, run manually if you want to update it
 	# (requires apt-file and network connection)
 	#make -C pydist dist_fallback
@@ -153,7 +153,7 @@ endif
 #	dh_installdebconf -i $(NOPKGS)
 	dh_lintian -i
 	dh_installdocs -i $(NOPKGS) --all debian/README.Debian
-	rm -f debian/python2-doc/usr/share/doc/python2/README.Debian
+#	rm -f debian/python2-doc/usr/share/doc/python2/README.Debian
 	dh_installchangelogs -i $(NOPKGS)
 
 	dh_compress -i $(NOPKGS)
@@ -270,7 +270,7 @@ ifneq ($(DEB_HOST_MULTIARCH),$(DEB_HOST_GNU_TYPE))
 endif
 
 	dh_lintian -a
-	#dh_installdocs -a $(NOPKGS) --all debian/README.Debian
+	dh_installdocs -a $(NOPKGS) --all debian/README.Debian
 	dh_installchangelogs -a $(NOPKGS)
 
 	for p in dbg dev; do \
@@ -279,7 +279,7 @@ endif
 	  ln -sf python2 debian/$$p/usr/share/doc/$$p; \
 	done
 	for p in all all-dev all-dbg; do \
-	  p=python-$$p; \
+	  p=python2-$$p; \
 	  rm -rf debian/$$p/usr/share/doc/$$p; \
 	  ln -sf python2 debian/$$p/usr/share/doc/$$p; \
 	done
