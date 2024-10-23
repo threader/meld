@@ -126,7 +126,6 @@ stamp-dh_python:
 	dh_installdirs
 	-make check_versions
 	DESTDIR=debian/python2-minimal PREFIX=/usr make install-runtime
-	rm DESTDIR=debian/python2-minimal/usr/bin/pyclean
 	DESTDIR=debian/python2 PREFIX=/usr make install-dev
 	DESTDIR=debian/python2 PREFIX=/usr make install-runtime
 	# disabled by default, run manually if you want to update it
