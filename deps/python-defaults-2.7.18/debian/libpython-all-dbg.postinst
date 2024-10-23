@@ -2,8 +2,8 @@
 set -e
 
 
-DOCDIR=/usr/share/doc/libpython-all-dbg
-DOCLINK=libpython-dbg
+DOCDIR=/usr/share/doc/libpython2-all-dbg
+DOCLINK=libpython2-dbg
 
 if [ -d $DOCDIR ] && [ ! -L $DOCDIR ]; then
     rmdir $DOCDIR

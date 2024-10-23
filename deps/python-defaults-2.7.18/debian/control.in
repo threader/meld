@@ -1,4 +1,4 @@
-Source: python2-defaults
+Source: python-defaults
 Section: python
 Priority: optional
 Maintainer: Matthias Klose <doko@debian.org>
@@ -7,8 +7,8 @@ Build-Depends: debhelper (>= 11~), dh-python, @bd_i586@,
   lsb-release,
 Standards-Version: 4.5.0
 Homepage: https://www.python.org/
-Vcs-Git: https://salsa.debian.org/cpython2-team/python2-defaults.git
-Vcs-Browser: https://salsa.debian.org/cpython2-team/python2-defaults
+Vcs-Git: https://salsa.debian.org/cpython-team/python-defaults.git
+Vcs-Browser: https://salsa.debian.org/cpython-team/python-defaults
 
 Package: python2-all
 Architecture: any

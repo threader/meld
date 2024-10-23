@@ -1,5 +1,5 @@
 # this is the only package that can depend on it
-python binary: depends-on-python-minimal
+python binary: depends-on-python2-minimal
 
 # we rely on our patched python library, don't pick up a local version
 python binary: command-with-path-in-maintainer-script
