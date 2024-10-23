@@ -139,7 +139,7 @@ binary-indep: build install
 	dh_installman -i
 
 ifeq ($(with_doc),yes)
-	dh_installdocs -ppython2-doc debian/README.Debian
+#	dh_installdocs -ppython2-doc debian/README.Debian
 	dh_installchangelogs -ppython2-doc
 
 	mkdir -p debian/python2-doc/usr/share/doc/python2
@@ -152,7 +152,7 @@ endif
 
 #	dh_installdebconf -i $(NOPKGS)
 	dh_lintian -i
-	dh_installdocs -i $(NOPKGS) --all debian/README.Debian
+#	dh_installdocs -i $(NOPKGS) --all debian/README.Debian
 #	rm -f debian/python2-doc/usr/share/doc/python2/README.Debian
 	dh_installchangelogs -i $(NOPKGS)
 

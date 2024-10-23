@@ -44,10 +44,10 @@ case "$1" in
             if [ "$DEBIAN_FRONTEND" != noninteractive ]; then
 		echo "Linking and byte-compiling packages for runtime python2.7..."
             fi
-            version=$(dpkg -s python2.7-minimal | awk '/^Version:/ {print $2}')
+            version=$(dpkg -s python2-minimal | awk '/^Version:/ {print $2}')
             for hook in /usr/share/python2/runtime.d/*.rtinstall; do
 		[ -x $hook ] || continue
-		$hook rtinstall python2.7 "$2" "$version"
+		$hook rtinstall python2 "$2" "$version"
             done
 	fi
 

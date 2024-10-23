@@ -1,6 +1,6 @@
 #! /bin/sh
 set -e
 
-python@VER@ -m compileall /usr/share/python2/ >/dev/null
+python2 -m compileall /usr/share/python2/ >/dev/null
 
 #DEBHELPER#
