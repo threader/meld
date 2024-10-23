@@ -1,0 +1,317 @@
+python-stdlib-extensions (2.7.17-2) unstable; urgency=medium
+
+  * Depend on python2 instead of python.
+
+ -- Matthias Klose <doko@debian.org>  Sat, 26 Oct 2019 16:21:59 +0200
+
+python-stdlib-extensions (2.7.17-1) unstable; urgency=medium
+
+  * Python 2.7.17 release (no changes).
+
+ -- Matthias Klose <doko@debian.org>  Sun, 20 Oct 2019 11:26:32 +0200
+
+python-stdlib-extensions (2.7.17~rc1-1) unstable; urgency=medium
+
+  * Python 2.7.17 release candidate 1.
+  * Bump standards version.
+
+ -- Matthias Klose <doko@debian.org>  Thu, 10 Oct 2019 12:59:47 +0200
+
+python-stdlib-extensions (2.7.16-2) unstable; urgency=medium
+
+  * Re-pack the orig tarball without the VCS repo.
+
+ -- Matthias Klose <doko@debian.org>  Mon, 18 Mar 2019 13:19:16 +0100
+
+python-stdlib-extensions (2.7.16-1) unstable; urgency=medium
+
+  * Python 2.7.16 release.
+
+ -- Matthias Klose <doko@debian.org>  Mon, 04 Mar 2019 16:41:09 +0100
+
+python-stdlib-extensions (2.7.16~rc1-1) unstable; urgency=medium
+
+  * Python 2.7.16 release candidate.
+  * Bump standards version.
+  * Fix FTCBFS (Helmut Grohne). Closes: #913417.
+    + Multiarchify Build-Depends.
+    + Set up PYTHONPATH for cross compilation.
+    + cross.patch: Don't import built modules.
+
+ -- Matthias Klose <doko@debian.org>  Fri, 22 Feb 2019 16:52:18 +0100
+
+python-stdlib-extensions (2.7.15-1) unstable; urgency=medium
+
+  * Python 2.7.15 release.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 02 May 2018 10:47:10 +0200
+
+python-stdlib-extensions (2.7.15~rc1-1) unstable; urgency=medium
+
+  * Python 2.7.15 release candidate 1.
+
+ -- Matthias Klose <doko@debian.org>  Mon, 16 Apr 2018 16:23:00 +0200
+
+python-stdlib-extensions (2.7.14-3) unstable; urgency=medium
+
+  * Update from the 2.7 branch.
+
+ -- Matthias Klose <doko@debian.org>  Mon, 02 Apr 2018 07:57:32 +0200
+
+python-stdlib-extensions (2.7.14-2) unstable; urgency=medium
+
+  * Bump standards version, do the extra/optional dance.
+
+ -- Matthias Klose <doko@debian.org>  Thu, 01 Feb 2018 10:41:22 +0100
+
+python-stdlib-extensions (2.7.14-1) unstable; urgency=medium
+
+  * Python 2.7.14 release.
+  * Bump standards version.
+
+ -- Matthias Klose <doko@debian.org>  Sun, 17 Sep 2017 13:24:42 +0200
+
+python-stdlib-extensions (2.7.14~rc1-1) unstable; urgency=medium
+
+  * Python 2.7.14 release candidate 1.
+
+ -- Matthias Klose <doko@debian.org>  Tue, 05 Sep 2017 09:32:19 +0200
+
+python-stdlib-extensions (2.7.13-1) unstable; urgency=medium
+
+  * Python 2.7.13 release.
+
+ -- Matthias Klose <doko@debian.org>  Sun, 18 Dec 2016 21:39:54 +0100
+
+python-stdlib-extensions (2.7.12-1) unstable; urgency=medium
+
+  * Python 2.7.12 release.
+  * Bump standards and debhelper versions.
+
+ -- Matthias Klose <doko@debian.org>  Fri, 16 Dec 2016 11:19:18 +0100
+
+python-stdlib-extensions (2.7.11-2) unstable; urgency=medium
+
+  * Python 2.7.11 release.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 09 Dec 2015 13:30:24 +0100
+
+python-stdlib-extensions (2.7.9-1) unstable; urgency=medium
+
+  * Bump version to 2.7.9 (no changes).
+
+ -- Matthias Klose <doko@debian.org>  Thu, 11 Dec 2014 09:41:00 +0100
+
+python-stdlib-extensions (2.7.8-2) unstable; urgency=medium
+
+  * Update from the 2.7 branch.
+
+ -- Matthias Klose <doko@debian.org>  Fri, 03 Oct 2014 17:08:19 +0200
+
+python-stdlib-extensions (2.7.8-1) unstable; urgency=medium
+
+  * Bump version to 2.7.8.
+  * Rebuild for blt 2.5. Closes: #753901.
+
+ -- Matthias Klose <doko@debian.org>  Tue, 08 Jul 2014 10:58:36 +0200
+
+python-stdlib-extensions (2.7.7-2) unstable; urgency=medium
+
+  * Build for Tcl/Tk 8.6.
+
+ -- Matthias Klose <doko@debian.org>  Fri, 13 Jun 2014 13:17:07 +0200
+
+python-stdlib-extensions (2.7.7-1) unstable; urgency=medium
+
+  * Bump version to 2.7.7.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 04 Jun 2014 10:18:23 +0200
+
+python-stdlib-extensions (2.7.5-1) unstable; urgency=low
+
+  * Bump version to 2.7.5.
+  * Stop building for Python 2.6.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 15 May 2013 19:33:20 +0200
+
+python-stdlib-extensions (2.7.3-1) unstable; urgency=low
+
+  * Bump version to 2.7.3.
+    - Remove uses of the C tolower()/toupper() which could break with
+      a Turkish locale.
+  * Set standards version to 3.9.3.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 21 Mar 2012 15:48:52 +0100
+
+python-stdlib-extensions (2.7.1-3) unstable; urgency=low
+
+  * Fix FTBFS with multiarch locations.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 04 May 2011 12:17:28 +0200
+
+python-stdlib-extensions (2.7.1-2) unstable; urgency=low
+
+  * Stop building for python2.5.
+
+ -- Matthias Klose <doko@debian.org>  Tue, 19 Apr 2011 21:17:39 +0200
+
+python-stdlib-extensions (2.7.1-1) unstable; urgency=low
+
+  * Bump version to 2.7.1.
+
+ -- Matthias Klose <doko@debian.org>  Tue, 15 Mar 2011 05:01:10 +0100
+
+python-stdlib-extensions (2.7-2) experimental; urgency=low
+
+  * Update extensions from the 2.6 and 2.7 branches.
+
+ -- Matthias Klose <doko@debian.org>  Tue, 12 Oct 2010 21:14:04 +0200
+
+python-stdlib-extensions (2.7-1) experimental; urgency=low
+
+  * Bump version to 2.7.
+
+ -- Matthias Klose <doko@debian.org>  Sun, 11 Jul 2010 11:34:55 +0200
+
+python-stdlib-extensions (2.6.5-0ubuntu2) lucid; urgency=low
+
+  * Fix build dependencies (remove 2.4).
+
+ -- Matthias Klose <doko@ubuntu.com>  Sat, 20 Mar 2010 06:12:32 +0100
+
+python-stdlib-extensions (2.6.5-0ubuntu1) lucid; urgency=low
+
+  * Bump version to 2.6.5.
+  * Remove files for 2.4 and 2.5.
+
+ -- Matthias Klose <doko@ubuntu.com>  Sat, 20 Mar 2010 05:12:57 +0100
+
+python-stdlib-extensions (2.6.4-0ubuntu1) karmic-proposed; urgency=low
+
+  * Bump version to 2.6.4. LP: #464668.
+
+ -- Matthias Klose <doko@ubuntu.com>  Fri, 30 Oct 2009 13:06:25 +0100
+
+python-stdlib-extensions (2.6.3-0ubuntu1) karmic; urgency=low
+
+  * Bump version to 2.6.3.
+
+ -- Matthias Klose <doko@ubuntu.com>  Sat, 03 Oct 2009 19:48:52 +0200
+
+python-stdlib-extensions (2.6.2-0ubuntu1) jaunty; urgency=low
+
+  * Bump version to 2.6.2.
+
+ -- Matthias Klose <doko@ubuntu.com>  Sat, 18 Apr 2009 10:53:31 +0200
+
+python-stdlib-extensions (2.6.1-0ubuntu2) jaunty; urgency=low
+
+  * Update _tkinter.c to 2009-03-19, addresses issues #1581476, #1731706,
+    #5193, #4792, apply fixes for 2.5 as well.
+
+ -- Matthias Klose <doko@ubuntu.com>  Thu, 19 Mar 2009 11:39:48 +0100
+
+python-stdlib-extensions (2.6.1-0ubuntu1) jaunty; urgency=low
+
+  * Bump version to 2.6.1.
+
+ -- Matthias Klose <doko@ubuntu.com>  Mon, 02 Mar 2009 14:46:01 +0100
+
+python-stdlib-extensions (2.5.4-1) experimental; urgency=low
+
+  * Build extensions for 2.6.
+
+ -- Matthias Klose <doko@debian.org>  Sun, 01 Mar 2009 13:58:20 +0100
+
+python-stdlib-extensions (2.5.2-1) unstable; urgency=low
+
+  * Bump the package version to 2.5.2.
+
+ -- Matthias Klose <doko@debian.org>  Thu, 17 Apr 2008 21:27:50 +0000
+
+python-stdlib-extensions (2.5.2-0ubuntu2) hardy; urgency=low
+
+  * python-tk-dbg: Depend on python-tk, python-gdbm-dbg: Depend on python-gdbm.
+
+ -- Matthias Klose <doko@ubuntu.com>  Mon, 10 Mar 2008 18:00:36 +0000
+
+python-stdlib-extensions (2.5.2-0ubuntu1) hardy; urgency=low
+
+  * New upstream bugfix version.
+
+ -- Matthias Klose <doko@ubuntu.com>  Tue, 26 Feb 2008 11:27:59 +0000
+
+python-stdlib-extensions (2.5.1-1ubuntu2) hardy; urgency=low
+
+  * Build separate python-tk-dbg and python-gdbm-dbg packages. LP: #154020.
+
+ -- Matthias Klose <doko@ubuntu.com>  Thu, 03 Jan 2008 20:32:58 +0100
+
+python-stdlib-extensions (2.5.1-1ubuntu1) gutsy; urgency=low
+
+  * Bump the package version to 2.5.1 (no code change).
+
+ -- Matthias Klose <doko@ubuntu.com>  Thu, 26 Apr 2007 10:38:47 +0200
+
+python-stdlib-extensions (2.5-0ubuntu1) feisty; urgency=low
+
+  * Bump the package version to 2.5.
+  * Set Ubuntu maintainer address.
+
+ -- Matthias Klose <doko@ubuntu.com>  Mon,  5 Mar 2007 19:30:55 +0100
+
+python-stdlib-extensions (2.4.4-3) unstable; urgency=low
+
+  * python-*-dbg: Add dependency to the python-* package.
+
+ -- Matthias Klose <doko@ubuntu.com>  Thu, 31 Jan 2008 01:00:21 +0100
+
+python-stdlib-extensions (2.4.4-2) unstable; urgency=low
+
+  * Build separate python-tk-dbg and python-gdbm-dbg packages.
+
+ -- Matthias Klose <doko@debian.org>  Tue, 01 Jan 2008 20:41:45 +0100
+
+python-stdlib-extensions (2.4.4-1) unstable; urgency=low
+
+  * Update modules to the 2.4.4 and 2.5 releases.
+
+ -- Matthias Klose <doko@debian.org>  Fri, 20 Oct 2006 00:33:37 +0200
+
+python-stdlib-extensions (2.4.3-4) unstable; urgency=low
+
+  * Update 2.5 extensions, taken from the 2.5c1 release.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 30 Aug 2006 16:42:16 +0000
+
+python-stdlib-extensions (2-2) unstable; urgency=high
+
+  * Remove the conflicts with the python2.x versions; now the python2.x
+    packages conflict with python-tk (<< 2.3.4-2). Closes: #380597.
+
+ -- Matthias Klose <doko@debian.org>  Mon, 31 Jul 2006 16:58:23 +0000
+
+python-stdlib-extensions (2-1) unstable; urgency=low
+
+  * Add 2.5 extensions, taken from the 2.5beta2 release.
+  * Build the extensions for python2.5 as well. Closes: #380125.
+  * Remove lib-tk from the package, moved to python2.x.
+
+ -- Matthias Klose <doko@debian.org>  Sun, 30 Jul 2006 17:58:40 +0200
+
+python-stdlib-extensions (1-1ubuntu1) edgy; urgency=low
+
+  * Do build the extensions for the supported Python versions only.
+
+ -- Matthias Klose <doko@ubuntu.com>  Wed,  5 Jul 2006 04:49:33 +0000
+
+python-stdlib-extensions (1-1) unstable; urgency=low
+
+  * Build python-tk and python-gdbm from a separate source to
+    include the extensions for all supported python versions into
+    one binary package.
+  * Initial release, split out from the python2.x packages.
+    - 2.4 taken from the 2.4 branch (20060607).
+    - 2.3 taken from the 2.3.5 release.
+
+ -- Matthias Klose <doko@debian.org>  Wed,  7 Jun 2006 03:02:31 +0200

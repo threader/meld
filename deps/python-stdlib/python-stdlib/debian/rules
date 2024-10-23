@@ -1,0 +1,135 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+# Sample debian/rules that uses debhelper.
+# This file was originally written by Joey Hess and Craig Small.
+# As a special exception, when this file is copied by dh-make into a
+# dh-make output file, you may use that output file without restriction.
+# This special exception was added by Craig Small in version 0.37 of dh-make.
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+#rel_ext	= $(strip $(shell dpkg-parsechangelog | awk -F- '/^Version:/ {print $$NF}'))
+#pkgver	= 2.4.3-$(shell expr $(rel_ext) + 0)
+#pkgver	= 2.4.3-3ubuntu1
+
+include /usr/share/dpkg/architecture.mk
+
+PYVERS	= $(shell pyversions -vs)
+export PYTHONPATH:=/usr/lib/python2.7/plat-$(DEB_HOST_MULTIARCH)$(if $(PYTHONPATH),:$(PYTHONPATH))
+
+p_tk	= python-tk
+p_gdbm	= python-gdbm
+d_tk	= debian/$(p_tk)
+d_gdbm	= debian/$(p_gdbm)
+
+build-arch: build
+build-indep: build
+build: build-stamp
+build-stamp: $(PYVERS:%=build-stamp-py%) $(PYVERS:%=dbg-stamp-py%)
+	touch $@
+
+build-stamp-py%:
+	dh_testdir
+	ln -sf /usr/lib/libBLT.2.4.so.8.6 $*/libBLT85.so
+	ln -sf /usr/lib/libBLT.2.4.so.8.6 $*/libBLT85.so.8.6
+	cd $* && python$* setup.py build
+	touch $@
+
+dbg-stamp-py%:
+	dh_testdir
+	ln -sf /usr/lib/libBLT.2.4.so.8.6 $*/libBLT85.so
+	ln -sf /usr/lib/libBLT.2.4.so.8.6 $*/libBLT85.so.8.6
+	cd $* && python$*-dbg setup.py build
+	touch $@
+
+clean:
+	dh_testdir
+	dh_testroot
+	rm -f *stamp*
+	rm -rf 2.?/build
+	rm -rf 2.?/libBLT*
+	dh_clean 
+
+install: build install-prereq $(PYVERS:%=install-stamp-py%) $(PYVERS:%=dbg-install-py%)
+
+install-prereq:
+	dh_testdir
+	dh_testroot
+	dh_prep
+
+install-stamp-py%: build-stamp-py%
+	cd $* && python$* setup.py install \
+		--root=$(CURDIR)/$(d_tk) --install-layout=deb
+	mkdir -p $(d_tk)/usr/lib/python$*/lib-dynload
+	mv $(d_tk)/usr/lib/python$*/*-packages/_tkinter.so \
+		$(d_tk)/usr/lib/python$*/lib-dynload/
+	mkdir -p $(d_gdbm)/usr/lib/python$*/lib-dynload
+	mv $(d_tk)/usr/lib/python$*/*-packages/gdbm.so \
+		$(d_gdbm)/usr/lib/python$*/lib-dynload/
+	rm -rf $(d_tk)/usr/lib/python$*/*-packages
+#	cp -a $*/Lib/lib-tk $(d_tk)/usr/lib/python$*/
+
+dbg-install-py%: dbg-stamp-py%
+	cd $* && python$*-dbg setup.py install \
+		--root=$(CURDIR)/$(d_tk)-dbg --install-layout=deb
+	mkdir -p $(d_tk)-dbg/usr/lib/python$*/lib-dynload
+	mv $(d_tk)-dbg/usr/lib/python$*/*-packages/_tkinter_d.so \
+		$(d_tk)-dbg/usr/lib/python$*/lib-dynload/
+	mkdir -p $(d_gdbm)-dbg/usr/lib/python$*/lib-dynload
+	mv $(d_tk)-dbg/usr/lib/python$*/*-packages/gdbm_d.so \
+		$(d_gdbm)-dbg/usr/lib/python$*/lib-dynload/
+	rm -rf $(d_tk)-dbg/usr/lib/python$*/*-packages
+
+# Build architecture-independent files here.
+binary-indep: build install
+# We have nothing to do by default.
+
+# Build architecture-dependent files here.
+binary-arch: build install
+	dh_testdir
+	dh_testroot
+	dh_installchangelogs
+	for p in $(p_gdbm) $(p_gdbm)-dbg $(p_tk) $(p_tk)-dbg; do \
+	  mkdir -p debian/$$p/usr/share/lintian/overrides; \
+	  cp debian/$$p.overrides debian/$$p/usr/share/lintian/overrides/$$p; \
+	done
+	dh_installdocs -p$(p_gdbm) debian/README.Debian
+	dh_installdocs -p$(p_tk) debian/README.Tk
+	rm -rf $(d_gdbm)-dbg/usr/share/doc/$(p_gdbm)-dbg
+	ln -s $(p_gdbm) $(d_gdbm)-dbg/usr/share/doc/$(p_gdbm)-dbg
+	rm -rf $(d_tk)-dbg/usr/share/doc/$(p_tk)-dbg
+	ln -s $(p_tk) $(d_tk)-dbg/usr/share/doc/$(p_tk)-dbg
+	dh_strip -p$(p_gdbm) --dbg-package=$(p_gdbm)-dbg
+	dh_strip -p$(p_tk) --dbg-package=$(p_tk)-dbg
+	( \
+	  echo 'python:Depends=python2 (>= 2.7), python2 (<< 2.8)'; \
+	  echo 'python:Provides=python2.7-gdbm'; \
+	  echo 'python:Versions=2.7'; \
+	) >> debian/$(p_gdbm).substvars
+	( \
+	  echo 'python:Depends=python2-dbg (>= 2.7), python2-dbg (<< 2.8)'; \
+	  echo 'python:Provides=python2.7-gdbm-dbg'; \
+	  echo 'python:Versions=2.7'; \
+	) >> debian/$(p_gdbm)-dbg.substvars
+	( \
+	  echo 'python:Depends=python2 (>= 2.7), python2 (<< 2.8)'; \
+	  echo 'python:Provides=python2.7-tk'; \
+	  echo 'python:Versions=2.7'; \
+	) >> debian/$(p_tk).substvars
+	( \
+	  echo 'python:Depends=python2-dbg (>= 2.7), python2-dbg (<< 2.8)'; \
+	  echo 'python:Provides=python2.7-tk-dbg'; \
+	  echo 'python:Versions=2.7'; \
+	) >> debian/$(p_tk)-dbg.substvars
+	dh_compress
+	dh_fixperms
+	dh_installdeb
+	dh_shlibdeps
+#	dh_gencontrol -u-v$(pkgver)
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+binary: binary-indep binary-arch
+.PHONY: build clean binary-indep binary-arch binary install

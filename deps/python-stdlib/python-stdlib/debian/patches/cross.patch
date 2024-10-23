@@ -1,0 +1,11 @@
+--- python-stdlib-extensions-2.7.15.orig/2.7/setup.py
++++ python-stdlib-extensions-2.7.15/2.7/setup.py
+@@ -288,6 +288,8 @@
+         ext_filename = os.path.join(
+             self.build_lib,
+             self.get_ext_filename(self.get_ext_fullname(ext.name)))
++        if "/plat-" in os.environ.get("PYTHONPATH", ""):
++            return # cross compiling
+         try:
+             imp.load_dynamic(ext.name, ext_filename)
+         except ImportError, why:

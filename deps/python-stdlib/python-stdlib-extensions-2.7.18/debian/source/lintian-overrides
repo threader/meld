@@ -1,0 +1,5 @@
+# lintian gets it wrong ...
+python-stdlib-extensions source: missing-python-build-dependency
+
+# packaged separately
+python-stdlib-extensions source: python-foo-but-no-python3-foo
