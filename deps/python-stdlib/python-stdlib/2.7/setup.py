@@ -288,6 +288,8 @@ class PyBuildExt(build_ext):
         ext_filename = os.path.join(
             self.build_lib,
             self.get_ext_filename(self.get_ext_fullname(ext.name)))
+        if "/plat-" in os.environ.get("PYTHONPATH", ""):
+            return # cross compiling
         try:
             imp.load_dynamic(ext.name, ext_filename)
         except ImportError, why:

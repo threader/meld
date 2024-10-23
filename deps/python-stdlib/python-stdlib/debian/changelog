@@ -1,3 +1,10 @@
+python-stdlib-extensions (2.7.18-1) unstable; urgency=medium
+
+  * Python 2.7.18 release (no changes).
+  * Bump standards version.
+
+ -- Matthias Klose <doko@debian.org>  Tue, 07 Apr 2020 12:33:30 +0200
+
 python-stdlib-extensions (2.7.17-2) unstable; urgency=medium
 
   * Depend on python2 instead of python.
