@@ -18,7 +18,7 @@ def isCarbonAquaTk(root):
                         DeprecationWarning, stacklevel=2)
     return isCarbonTk()
 
-_tk_type = None
+_tk_type = "other"
 
 def _initializeTkVariantTests(root):
     """

@@ -511,8 +511,16 @@ then
 fi
 AC_MSG_RESULT($MACHDEP)
 
+MULTIARCH=$($CC --print-multiarch 2>/dev/null)
+AC_SUBST(MULTIARCH)
+
+
 AC_SUBST(PLATDIR)
-PLATDIR=plat-$MACHDEP
+if test -n "$MULTIARCH"; then
+  PLATDIR=plat-$MULTIARCH
+else
+  PLATDIR=plat-$MACHDEP
+fi
 
 # And add extra plat-mac for darwin
 AC_SUBST(EXTRAPLATDIR)
@@ -647,14 +655,13 @@ if test "$MACHDEP" = "irix6" && test "$CC" != "gcc"; then
     fi
 fi
 
-# If the user set CFLAGS, use this instead of the automatically
-# determined setting
-preset_cflags="$CFLAGS"
-AC_PROG_CC
-if test ! -z "$preset_cflags"
-then
-	CFLAGS=$preset_cflags
+# Don't let AC_PROG_CC set the default CFLAGS. It normally sets -g -O2
+# when the compiler supports them, but we don't always want -O2, and
+# we set -g later.
+if test -z "$CFLAGS"; then
+        CFLAGS=
 fi
+AC_PROG_CC
 
 AC_SUBST(CXX)
 AC_SUBST(MAINCC)
@@ -778,7 +785,7 @@ AC_SUBST(LIBRARY)
 AC_MSG_CHECKING(LIBRARY)
 if test -z "$LIBRARY"
 then
-	LIBRARY='libpython$(VERSION).a'
+	LIBRARY='libpython$(VERSION)$(DEBUG_EXT).a'
 fi
 AC_MSG_RESULT($LIBRARY)
 
@@ -908,6 +915,7 @@ fi
 
 # Other platforms follow
 if test $enable_shared = "yes"; then
+  PY_ENABLE_SHARED=1
   AC_DEFINE(Py_ENABLE_SHARED, 1, [Defined if Python is built as a shared library.])
   case $ac_sys_system in
     BeOS*)
@@ -924,8 +932,8 @@ if test $enable_shared = "yes"; then
 	  INSTSONAME="$LDLIBRARY".$SOVERSION
           ;;
     Linux*|GNU*|NetBSD*|FreeBSD*|DragonFly*|OpenBSD*)
-	  LDLIBRARY='libpython$(VERSION).so'
-	  BLDLIBRARY='-L. -lpython$(VERSION)'
+	  LDLIBRARY='libpython$(VERSION)$(DEBUG_EXT).so'
+	  BLDLIBRARY='-L. -lpython$(VERSION)$(DEBUG_EXT)'
 	  RUNSHARED=LD_LIBRARY_PATH=`pwd`${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 	  case $ac_sys_system in
 	      FreeBSD*)
@@ -968,6 +976,7 @@ if test $enable_shared = "yes"; then
 
   esac
 else # shared is disabled
+  PY_ENABLE_SHARED=0
   case $ac_sys_system in
     CYGWIN*)
           BLDLIBRARY='$(LIBRARY)'
@@ -975,6 +984,7 @@ else # shared is disabled
           ;;
   esac
 fi
+AC_SUBST(PY_ENABLE_SHARED)
 
 if test "$cross_compiling" = yes; then
 	RUNSHARED=
@@ -1050,6 +1060,12 @@ then
 else AC_MSG_RESULT(no); Py_DEBUG='false'
 fi],
 [AC_MSG_RESULT(no)])
+
+if test "$Py_DEBUG" = 'true'
+then
+	DEBUG_EXT=_d
+fi
+AC_SUBST(DEBUG_EXT)
 
 # XXX Shouldn't the code above that fiddles with BASECFLAGS and OPT be
 # merged with this chunk of code?
@@ -2130,7 +2146,7 @@ then
 		esac
 		;;
 	CYGWIN*)   SO=.dll;;
-	*)	   SO=.so;;
+	*)	   SO=$DEBUG_EXT.so;;
 	esac
 else
 	# this might also be a termcap variable, see #610332
@@ -2241,8 +2257,8 @@ then
 		fi
 		;;
 	Linux*|GNU*|QNX*)
-		LDSHARED='$(CC) -shared'
-		LDCXXSHARED='$(CXX) -shared';;
+		LDSHARED='$(CC) -shared -Wl,-O1 -Wl,-Bsymbolic-functions'
+		LDCXXSHARED='$(CXX) -shared -Wl,-O1 -Wl,-Bsymbolic-functions';;
 	BSD/OS*/4*)
 		LDSHARED="gcc -shared"
 		LDCXXSHARED="g++ -shared";;
@@ -2344,7 +2360,7 @@ then
 	    LINKFORSHARED="-Wl,-E -Wl,+s";;
 #	    LINKFORSHARED="-Wl,-E -Wl,+s -Wl,+b\$(BINLIBDEST)/lib-dynload";;
 	BSD/OS/4*) LINKFORSHARED="-Xlinker -export-dynamic";;
-	Linux*|GNU*) LINKFORSHARED="-Xlinker -export-dynamic";;
+	Linux*|GNU*) LINKFORSHARED="-Xlinker -export-dynamic -Wl,-O1 -Wl,-Bsymbolic-functions";;
 	# -u libsys_s pulls in all symbols in libsys
 	Darwin/*) 
 		# -u _PyMac_Error is needed to pull in the mac toolbox glue,
@@ -4059,6 +4075,11 @@ int main(void) {
 [ac_cv_posix_semaphores_enabled=no],
 [ac_cv_posix_semaphores_enabled=yes])
 )
+case $ac_sys_system in
+  Linux*)
+    # assume enabled, see https://launchpad.net/bugs/630511
+    ac_cv_posix_semaphores_enabled=yes
+esac
 AC_MSG_RESULT($ac_cv_posix_semaphores_enabled)
 if test $ac_cv_posix_semaphores_enabled = no
 then
@@ -4095,6 +4116,11 @@ int main(void){
 [ac_cv_broken_sem_getvalue=yes],
 [ac_cv_broken_sem_getvalue=yes])
 )
+case $ac_sys_system in
+  Linux*)
+    # assume enabled, see https://launchpad.net/bugs/630511
+    ac_cv_broken_sem_getvalue=no
+esac
 AC_MSG_RESULT($ac_cv_broken_sem_getvalue)
 if test $ac_cv_broken_sem_getvalue = yes
 then
@@ -4939,7 +4965,7 @@ AC_MSG_RESULT($ENSUREPIP)
 AC_SUBST(ENSUREPIP)
 
 # generate output files
-AC_CONFIG_FILES(Makefile.pre Modules/Setup.config Misc/python.pc)
+AC_CONFIG_FILES(Makefile.pre Modules/Setup.config Misc/python.pc Misc/python-config.sh)
 AC_CONFIG_FILES([Modules/ld_so_aix], [chmod +x Modules/ld_so_aix])
 AC_OUTPUT
 

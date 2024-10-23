@@ -392,6 +392,7 @@ class Doc:
                                  'marshal', 'posix', 'signal', 'sys',
                                  'thread', 'zipimport') or
              (file.startswith(basedir) and
+              not file.startswith(os.path.join(basedir, 'dist-packages')) and
               not file.startswith(os.path.join(basedir, 'site-packages')))) and
             object.__name__ not in ('xml.etree', 'test.pydoc_mod')):
             if docloc.startswith(("http://", "https://")):
@@ -1394,6 +1395,8 @@ def getpager():
         return plainpager
     if sys.platform == 'win32' or sys.platform.startswith('os2'):
         return lambda text: tempfilepager(plain(text), 'more <')
+    if hasattr(os, 'system') and os.system('(pager) 2>/dev/null') == 0:
+        return lambda text: pipepager(text, 'pager')
     if hasattr(os, 'system') and os.system('(less) 2>/dev/null') == 0:
         return lambda text: pipepager(text, 'less')
 

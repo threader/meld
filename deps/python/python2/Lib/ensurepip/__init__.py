@@ -1,6 +1,7 @@
 #!/usr/bin/env python2
 from __future__ import print_function
 
+import glob
 import os
 import os.path
 import pkgutil
@@ -11,14 +12,25 @@ import tempfile
 
 __all__ = ["version", "bootstrap"]
 
+def _ensurepip_is_disabled_in_debian():
+    if True:
+        print ('''\
+ensurepip is disabled in Debian/Ubuntu for the system python.
 
-_SETUPTOOLS_VERSION = "41.2.0"
+Python modules For the system python are usually handled by dpkg and apt-get.
 
-_PIP_VERSION = "19.2.3"
+    apt-get install python-<module name>
+
+Install the python-pip package to use pip itself.  Using pip together
+with the system python might have unexpected results for any system installed
+module, so use it on your own risk, or make sure to only use it in virtual
+environments.
+''')
+        sys.exit(1)
 
 _PROJECTS = [
-    ("setuptools", _SETUPTOOLS_VERSION),
-    ("pip", _PIP_VERSION),
+    ("setuptools"),
+    ("pip"),
 ]
 
 
@@ -36,7 +48,12 @@ def version():
     """
     Returns a string specifying the bundled version of pip.
     """
-    return _PIP_VERSION
+    _ensurepip_is_disabled_in_debian()
+    whl_name = 'pip'
+    wheel_names = glob.glob('/usr/share/python-wheels/%s-*.whl' % whl_name)
+    if len(wheel_names) == 1:
+        return os.path.basename(wheel_names[0]).split('-')[1]
+    raise RuntimeError('missing dependency wheel %s. Installation of the python-%s-whl package is needed to use ensurepip.' % (whl_name, whl_name))
 
 
 def _disable_pip_configuration_settings():
@@ -75,6 +92,7 @@ def _bootstrap(root=None, upgrade=False, user=False,
 
     Note that calling this function will alter both sys.path and os.environ.
     """
+    _ensurepip_is_disabled_in_debian()
     if altinstall and default_pip:
         raise ValueError("Cannot use altinstall and default_pip together")
 
@@ -93,21 +111,53 @@ def _bootstrap(root=None, upgrade=False, user=False,
         # omit pip and easy_install
         os.environ["ENSUREPIP_OPTIONS"] = "install"
 
+    # Debian: The bundled wheels are useless to us because we must use ones
+    # crafted from source code in the archive.  As we build the virtual
+    # environment, copy the wheels from the system location into the virtual
+    # environment, and place those wheels on sys.path.
+    def copy_wheels(wheels, destdir, paths):
+        for project in wheels:
+            wheel_names = glob.glob(
+                '/usr/share/python-wheels/{}-*.whl'.format(project))
+            if len(wheel_names) == 0:
+                raise RuntimeError('missing dependency wheel %s. Installation of the python-%s-whl package is needed to use ensurepip.' % (project, project))
+            assert len(wheel_names) == 1, wheel_names
+            wheel_name = os.path.basename(wheel_names[0])
+            path = os.path.join('/usr/share/python-wheels', wheel_name)
+            with open(path, 'rb') as fp:
+                whl = fp.read()
+            dest = os.path.join(destdir, wheel_name)
+            with open(dest, 'wb') as fp:
+                fp.write(whl)
+            paths.append(dest)
+
+    # check that the python-{pip,setuptools}-whl packages are installed
+    missing = []
+    for project in reversed(_PROJECTS):
+        wheel_names = glob.glob('/usr/share/python-wheels/%s-*.whl' % project)
+        if len(wheel_names) != 1:
+            missing.append(project)
+    if missing:
+        raise RuntimeError('missing wheel(s) %s. Installation of the %s package(s) is needed to use ensurepip.' \
+                           % (', '.join([missing]),
+                              ', '.join(['python-%s-whl' % m for m in missing])) \
+                           )
+
     tmpdir = tempfile.mkdtemp()
+
+    for project in _PROJECTS:
+        try:
+            with open('/usr/share/python-wheels/%s.dependencies' % project) as fp:
+                dependencies = [line[:-1].split()[0] for line in fp.readlines()]
+        except IOError:
+            dependencies = []
+        copy_wheels(dependencies, tmpdir, sys.path)
+
     try:
         # Put our bundled wheels into a temporary directory and construct the
         # additional paths that need added to sys.path
         additional_paths = []
-        for project, version in _PROJECTS:
-            wheel_name = "{}-{}-py2.py3-none-any.whl".format(project, version)
-            whl = pkgutil.get_data(
-                "ensurepip",
-                "_bundled/{}".format(wheel_name),
-            )
-            with open(os.path.join(tmpdir, wheel_name), "wb") as fp:
-                fp.write(whl)
-
-            additional_paths.append(os.path.join(tmpdir, wheel_name))
+        copy_wheels(_PROJECTS, tmpdir, additional_paths)
 
         # Construct the arguments to be passed to the pip command
         args = ["install", "--no-index", "--find-links", tmpdir]
@@ -120,7 +170,7 @@ def _bootstrap(root=None, upgrade=False, user=False,
         if verbosity:
             args += ["-" + "v" * verbosity]
 
-        return _run_pip(args + [p[0] for p in _PROJECTS], additional_paths)
+        return _run_pip(args + _PROJECTS, additional_paths)
     finally:
         shutil.rmtree(tmpdir, ignore_errors=True)
 
@@ -136,7 +186,8 @@ def _uninstall_helper(verbosity=0):
         return
 
     # If the pip version doesn't match the bundled one, leave it alone
-    if pip.__version__ != _PIP_VERSION:
+    # Disabled for Debian, always using the version from the python3-pip package.
+    if False and pip.__version__ != _PIP_VERSION:
         msg = ("ensurepip will only uninstall a matching version "
                "({!r} installed, {!r} bundled)")
         print(msg.format(pip.__version__, _PIP_VERSION), file=sys.stderr)
@@ -149,7 +200,7 @@ def _uninstall_helper(verbosity=0):
     if verbosity:
         args += ["-" + "v" * verbosity]
 
-    return _run_pip(args + [p[0] for p in reversed(_PROJECTS)])
+    return _run_pip(args + reversed(_PROJECTS))
 
 
 def _main(argv=None):

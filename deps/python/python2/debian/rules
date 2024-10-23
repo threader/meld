@@ -835,9 +835,9 @@ endif
 	rm -f $(d)/$(scriptdir)/plat-*/regen
 	rm -f $(d)/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig/python.pc
 	rm -f $(d)/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig/python2.pc
-	rm -f $(d)/usr/bin/python2{,-config}
-	rm -f $(d)/usr/share/man/man1/python2.1
-	rm -f $(d)/usr/share/man/man1/python22{,-config}.1
+	rm -f $(d)/usr/bin/python{,-config}
+	rm -f $(d)/usr/share/man/man1/python.1
+	rm -f $(d)/usr/share/man/man1/python{,-config}.1
 	rm -f $(d)/$(scriptdir)/lib2to3/*.pickle
 
 	if [ -d $(d)/$(scriptdir)/ensurepip/_bundled ]; then \
@@ -864,7 +864,7 @@ endif
 	cp -p debian/pdb.1 $(d)/usr/share/man/man1/pdb$(VER).1
 
 	: # versioned install only
-	rm -f $(d)/usr/bin/python2-config
+	rm -f $(d)/usr/bin/python-config
 
 	mv $(d)/usr/bin/2to3 $(d)/usr/bin/2to3-$(VER)
 	cp debian/2to3-$(VER).1 $(d)/usr/share/man/man1/2to3-$(VER).1
@@ -1132,7 +1132,7 @@ endif
 	mkdir -p $(d)/usr/lib/python$(VER)/dist-packages
 	(cd $(d) && tar cf - .) | (cd $(d_base) && tar xpf -)
 	sh debian/dh_rmemptydirs -p$(p_base)
-	rm -f $(d_base)/usr/bin/python2
+	rm -f $(d_base)/usr/bin/python
 
 	: # install egg-info for arparse
 	install -m 644 debian/argparse.egg-info $(d_lbase)/$(scriptdir)/

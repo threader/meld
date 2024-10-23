@@ -500,10 +500,10 @@ class PyBuildExt(build_ext):
             os.unlink(tmpfile)
 
     def detect_modules(self):
-        # Ensure that /usr/local is always used
-        if not cross_compiling:
-            add_dir_to_list(self.compiler.library_dirs, '/usr/local/lib')
-            add_dir_to_list(self.compiler.include_dirs, '/usr/local/include')
+        # On Debian /usr/local is always used, so we don't include it twice
+        #if not cross_compiling:
+        #    add_dir_to_list(self.compiler.library_dirs, '/usr/local/lib')
+        #    add_dir_to_list(self.compiler.include_dirs, '/usr/local/include')
         if cross_compiling:
             self.add_gcc_paths()
         self.add_multiarch_paths()
@@ -920,7 +920,7 @@ class PyBuildExt(build_ext):
                 print ("warning: openssl 0x%08x is too old for _hashlib" %
                        openssl_ver)
                 missing.append('_hashlib')
-        if COMPILED_WITH_PYDEBUG or not have_usable_openssl:
+        if True or COMPILED_WITH_PYDEBUG or not have_usable_openssl:
             # The _sha module implements the SHA1 hash algorithm.
             exts.append( Extension('_sha', ['shamodule.c']) )
             # The _md5 module implements the RSA Data Security, Inc. MD5
@@ -931,7 +931,7 @@ class PyBuildExt(build_ext):
                             depends = ['md5.h']) )
 
         min_sha2_openssl_ver = 0x00908000
-        if COMPILED_WITH_PYDEBUG or openssl_ver < min_sha2_openssl_ver:
+        if True or COMPILED_WITH_PYDEBUG or openssl_ver < min_sha2_openssl_ver:
             # OpenSSL doesn't do these until 0.9.8 so we'll bring our own hash
             exts.append( Extension('_sha256', ['sha256module.c']) )
             exts.append( Extension('_sha512', ['sha512module.c']) )
@@ -1136,7 +1136,13 @@ class PyBuildExt(build_ext):
             if db_setup_debug:
                 print "bsddb using BerkeleyDB lib:", db_ver, dblib
                 print "bsddb lib dir:", dblib_dir, " inc dir:", db_incdir
-            db_incs = [db_incdir]
+            # only add db_incdir/dblib_dir if not in the standard paths
+            if db_incdir in inc_dirs:
+                db_incs = []
+            else:
+                db_incs = [db_incdir]
+            if dblib_dir[0] in lib_dirs:
+                dblib_dir = []
             dblibs = [dblib]
             # We add the runtime_library_dirs argument because the
             # BerkeleyDB lib we're linking against often isn't in the
@@ -1240,7 +1246,7 @@ class PyBuildExt(build_ext):
                 sqlite_defines.append(('MODULE_NAME', '\\"sqlite3\\"'))
 
             # Comment this out if you want the sqlite3 module to be able to load extensions.
-            sqlite_defines.append(("SQLITE_OMIT_LOAD_EXTENSION", "1"))
+            # sqlite_defines.append(("SQLITE_OMIT_LOAD_EXTENSION", "1"))
 
             if host_platform == 'darwin':
                 # In every directory on the search path search for a dynamic
@@ -2185,7 +2191,7 @@ class PyBuildExt(build_ext):
                           'ffi_wrapper_h'.format(ffi_h))
         ffi_lib = None
         if ffi_inc is not None:
-            for lib_name in ('ffi_convenience', 'ffi_pic', 'ffi'):
+            for lib_name in ('ffi', 'ffi_convenience', 'ffi_pic', 'ffi'):
                 if (self.compiler.find_library_file(lib_dirs, lib_name)):
                     ffi_lib = lib_name
                     break
