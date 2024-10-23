@@ -114,7 +114,7 @@ stamp-install: stamp-build control-file stamp-control
 #	dh_installdirs -ppython usr/share/doc/python
 	dh_install
 	-make 
-	DESTDIR=debian/python2-minimal PREFIX=/usr make install-runtime
+#	DESTDIR=debian/python2-minimal PREFIX=/usr make install-runtime
 	DESTDIR=debian/python2 PREFIX=/usr make install-dev
 	touch $@
 
@@ -127,6 +127,7 @@ stamp-dh_python:
 	-make check_versions
 	DESTDIR=debian/python2-minimal PREFIX=/usr make install-runtime
 	DESTDIR=debian/python2 PREFIX=/usr make install-dev
+	DESTDIR=debian/python2 PREFIX=/usr make install-runtime
 	# disabled by default, run manually if you want to update it
 	# (requires apt-file and network connection)
 	#make -C pydist dist_fallback
