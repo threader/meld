@@ -679,8 +679,8 @@ minimal-test:
 		test_codecencodings_tw test_codecs test_multibytecodec \
 
 stamps/stamp-doc-html:
-	dh_testdir
-	$(MAKE) -C Doc html
+#	dh_testdir
+#	$(MAKE) -C Doc html
 	@mkdir -p stamps
 	touch stamps/stamp-doc-html
 
@@ -723,7 +723,7 @@ clean: control-file
 	rm -rf stamps .pc
 	rm -f debian/test_results
 
-	$(MAKE) -C Doc clean
+#	$(MAKE) -C Doc clean
 	sed 's/^@/#/' Makefile.pre.in | $(MAKE) -f - srcdir=. distclean
 	rm -rf Lib/test/db_home
 	rm -rf $(buildd_static) $(buildd_shared) $(buildd_debug) $(buildd_shdebug)
@@ -767,8 +767,8 @@ endif
 
 install: build-arch stamps/stamp-install
 stamps/stamp-install: stamps/stamp-build control-file stamps/stamp-control
-	dh_testdir
-	dh_testroot
+#	dh_testdir
+#	dh_testroot
 	dh_prep
 	dh_installdirs
 
@@ -1228,7 +1228,7 @@ endif
 	cp -p Misc/SpecialBuilds.txt $(d_dbg)/usr/share/doc/$(p_base)/
 	cp -p debian/$(PVER)-dbg.README.Debian \
 		$(d_dbg)/usr/share/doc/$(p_base)/README.debug
-	cp -p $(buildd_debug)/python2 $(d_dbg)/usr/bin/$(PVER)-dbg
+	cp -p $(buildd_debug)/python $(d_dbg)/usr/bin/$(PVER)-dbg
 	cp -p $(d)-shdbg/usr/bin/python-config.sh \
 		$(d_dbg)/usr/bin/$(PVER)-dbg-config
 #	cp -p $(buildd_debug)/build/lib*/*_d.so \
@@ -1296,12 +1296,12 @@ binary-indep: build-indep install stamps/stamp-control
 			/usr/share/doc/$(p_base)/html/_static/underscore.js
 
 	: # devhelp docs
-	$(buildd_static)/python debian/pyhtml2devhelp.py \
-		$(d_doc)/usr/share/doc/$(p_base)/html index.html $(VER) \
-		> $(d_doc)/usr/share/doc/$(p_base)/html/$(PVER).devhelp
-	gzip -9nv $(d_doc)/usr/share/doc/$(p_base)/html/$(PVER).devhelp
-	dh_link -p$(p_doc) \
-		/usr/share/doc/$(p_base)/html /usr/share/devhelp/books/$(PVER)
+	#$(buildd_static)/python debian/pyhtml2devhelp.py \
+	#	$(d_doc)/usr/share/doc/$(p_base)/html index.html $(VER) \
+	#	> $(d_doc)/usr/share/doc/$(p_base)/html/$(PVER).devhelp
+	#gzip -9nv $(d_doc)/usr/share/doc/$(p_base)/html/$(PVER).devhelp
+	#dh_link -p$(p_doc) \
+	#	/usr/share/doc/$(p_base)/html /usr/share/devhelp/books/$(PVER)
 
 	for i in $(p_ltst); do \
 	  rm -rf debian/$$i/usr/share/doc/$$i; \
@@ -1332,8 +1332,8 @@ binary-indep: build-indep install stamps/stamp-control
 
 # Build architecture-dependent files here.
 binary-arch: build-arch install
-	dh_testdir -a
-	dh_testroot -a
+#	dh_testdir -a
+#	dh_testroot -a
 #	dh_installdebconf -a
 	dh_installexamples -a
 	-dh_icons -a || dh_iconcache -a
@@ -1417,7 +1417,7 @@ $(patchdir)/series: $(patchdir)/series.in
 
 patch: stamps/stamp-patch
 stamps/stamp-patch: $(patchdir)/series
-	dh_testdir
+#	dh_testdir
 	uname -a
 	@echo USER=$$USER, LOGNAME=$$LOGNAME
 	QUILT_PATCHES=$(patchdir) quilt push -a || test $$? = 2
