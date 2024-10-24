@@ -739,6 +739,12 @@ clean: control-file
 	    rm -f $$f2; \
 	  fi; \
 	done
+
+	for f in build*; do \
+		`make clean"`; \
+	fi; \
+	done
+
 	dh_clean
 
 stamps/stamp-control:
@@ -864,7 +870,7 @@ endif
 	cp -p debian/pdb.1 $(d)/usr/share/man/man1/pdb$(VER).1
 
 	: # versioned install only
-	rm -f $(d)/usr/bin/python2-config
+	rm -f $(d)/usr/bin/python-config
 
 	mv $(d)/usr/bin/2to3 $(d)/usr/bin/2to3-$(VER)
 	cp debian/2to3-$(VER).1 $(d)/usr/share/man/man1/2to3-$(VER).1

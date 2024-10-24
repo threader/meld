@@ -985,10 +985,10 @@ bininstall:	altbininstall
 	(cd $(DESTDIR)$(BINDIR); $(LN) -s python2$(EXE) $(PYTHON))
 	-rm -f $(DESTDIR)$(BINDIR)/python2$(EXE)
 	(cd $(DESTDIR)$(BINDIR); $(LN) -s python$(VERSION)$(EXE) python2$(EXE))
-	-rm -f $(DESTDIR)$(BINDIR)/python2-config
-	(cd $(DESTDIR)$(BINDIR); $(LN) -s python$(VERSION)-config python2-config)
 	-rm -f $(DESTDIR)$(BINDIR)/python-config
-	(cd $(DESTDIR)$(BINDIR); $(LN) -s python2-config python-config)
+	(cd $(DESTDIR)$(BINDIR); $(LN) -s python$(VERSION)-config python-config)
+	-rm -f $(DESTDIR)$(BINDIR)/python-config
+	(cd $(DESTDIR)$(BINDIR); $(LN) -s python-config python-config)
 	-test -d $(DESTDIR)$(LIBPC) || $(INSTALL) -d -m $(DIRMODE) $(DESTDIR)$(LIBPC)
 	-rm -f $(DESTDIR)$(LIBPC)/python2.pc
 	(cd $(DESTDIR)$(LIBPC); $(LN) -s python-$(VERSION).pc python2.pc)

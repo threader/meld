@@ -30,7 +30,7 @@ Package: python2.7
 Architecture: any
 Multi-Arch: allowed
 Priority: optional
-Depends: python2.7-minimal (= ${binary:Version}), libpython2.7-stdlib (= ${binary:Version}), media-types | mime-support, ${shlibs:Depends}, ${misc:Depends}
+Depends: media-types | mime-support, ${shlibs:Depends}, ${misc:Depends}
 Suggests: python2.7-doc, binutils
 Conflicts: python-profiler (<= 2.7.1-2)
 Breaks: python-virtualenv (<< 1.7.1.2-2~), vim-nox (<< 2:7.3.547-4), vim-gtk (<< 2:7.3.547-4), vim-gnome (<< 2:7.3.547-4), vim-athena (<< 2:7.3.547-4), ${python27:Breaks}
@@ -44,7 +44,7 @@ Package: libpython2.7-stdlib
 Architecture: any
 Multi-Arch: same
 Priority: optional
-Depends: libpython2.7-minimal (= ${binary:Version}), libssl1.1 (>= 1.1.1), media-types | mime-support, ${shlibs:Depends}, ${misc:Depends}
+Depends: libssl1.1 (>= 1.1.1), media-types | mime-support, ${shlibs:Depends}, ${misc:Depends}
 Provides: python2.7-cjkcodecs, python2.7-ctypes, python2.7-elementtree, python2.7-celementtree, python2.7-wsgiref, python2.7-profiler, python2.7-argparse, python-argparse
 Replaces: python2.7 (<< 2.7.5-0~), libpython2.7-testsuite (<< 2.7.13-4)
 Breaks: python-urllib3 (<< 1.9.1-3), ${pyfpe:Breaks}, ${python27:Breaks}
@@ -61,7 +61,7 @@ Architecture: any
 Multi-Arch: allowed
 Priority: optional
 Pre-Depends: ${shlibs:Pre-Depends}
-Depends: libpython2.7-minimal (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}
 Recommends: python2.7
 Suggests: binfmt-support
 Replaces: python2.7 (<< 2.7.8-7~)
@@ -93,7 +93,7 @@ Multi-Arch: same
 Section: libs
 Priority: optional
 Pre-Depends: ${misc:Pre-Depends} 
-Depends: libpython2.7-stdlib (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}
 Replaces: python2.7 (<< 2.6)
 Description: Shared Python runtime library (version 2.7)
  Python is a high-level, interactive, object-oriented language. Its 2.7 version
@@ -114,7 +114,7 @@ Description: Examples for the Python language (v2.7)
 Package: python2.7-dev
 Architecture: any
 Multi-Arch: allowed
-Depends: python2.7 (= ${binary:Version}), libpython2.7-dev (= ${binary:Version}), libpython2.7 (= ${binary:Version}), libexpat1-dev, ${shlibs:Depends}, ${misc:Depends}
+Depends: libexpat1-dev, ${shlibs:Depends}, ${misc:Depends}
 Recommends: libc6-dev | libc-dev
 Replaces: python2.7 (<< 2.7-3)
 Description: Header files and a static library for Python (v2.7)
@@ -129,7 +129,7 @@ Section: libdevel
 Architecture: any
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends} 
-Depends: libpython2.7-stdlib (= ${binary:Version}), libpython2.7 (= ${binary:Version}), libexpat1-dev, ${shlibs:Depends}, ${misc:Depends}
+Depends: libexpat1-dev, ${shlibs:Depends}, ${misc:Depends}
 Replaces: python2.7 (<< 2.7-3), python2.7-dev (<< 2.7.3-10), python2.7-minimal (<< 2.7.3-10)
 Recommends: libc6-dev | libc-dev
 Description: Header files and a static library for Python (v2.7)
@@ -145,7 +145,7 @@ Description: Header files and a static library for Python (v2.7)
 Package: libpython2.7-testsuite
 Section: libdevel
 Architecture: all
-Depends: libpython2.7-stdlib (>= ${binary:Version}), ${misc:Depends}
+Depends: ${misc:Depends}
 Suggests: python-gdbm, python-tk
 Description: Testsuite for the Python standard library (v2.7)
  The complete testsuite for the Python standard library.  Note that
@@ -156,7 +156,7 @@ Description: Testsuite for the Python standard library (v2.7)
 
 Package: idle-python2.7
 Architecture: all
-Depends: python2.7, python-tk (>= 2.6~a3), python2.7-tk, ${misc:Depends}
+Depends: python-tk (>= 2.6~a3), ${misc:Depends}
 Enhances: python2.7
 Replaces: python2.7 (<< 2.6.1-2)
 Description: IDE for Python (v2.7) using Tkinter
@@ -189,7 +189,7 @@ Package: python2.7-dbg
 Section: debug
 Architecture: any
 Multi-Arch: allowed
-Depends: python2.7 (= ${binary:Version}), libpython2.7-dbg (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
+Depends: libpython2.7-dbg (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
 Suggests: python-gdbm-dbg, python-tk-dbg
 Description: Debug Build of the Python Interpreter (version 2.7)
  The package holds two things:
@@ -206,7 +206,7 @@ Section: debug
 Architecture: any
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends} 
-Depends: libpython2.7-stdlib (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}
 Suggests: python2.7-gdbm-dbg, python2.7-tk-dbg
 Replaces: python2.7-dbg (<< 2.7.3-10)
 Description: Debug Build of the Python Interpreter (version 2.7)
