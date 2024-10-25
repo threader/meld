@@ -679,7 +679,7 @@ minimal-test:
 		test_codecencodings_tw test_codecs test_multibytecodec \
 
 stamps/stamp-doc-html:
-#	dh_testdir
+	dh_testdir
 #	$(MAKE) -C Doc html
 	@mkdir -p stamps
 	touch stamps/stamp-doc-html
@@ -772,8 +772,8 @@ endif
 
 install: build-arch stamps/stamp-install
 stamps/stamp-install: stamps/stamp-build control-file stamps/stamp-control
-#	dh_testdir
-#	dh_testroot
+	dh_testdir
+	dh_testroot
 	dh_prep
 	dh_installdirs
 
@@ -1281,8 +1281,8 @@ endif
 
 # Build architecture-independent files here.
 binary-indep: build-indep install stamps/stamp-control
-#	dh_testdir -i
-#	dh_testroot -i
+	dh_testdir -i
+	dh_testroot -i
 
 	: # $(p_doc) package
 #	dh_installdirs -p$(p_doc) \
@@ -1308,10 +1308,10 @@ binary-indep: build-indep install stamps/stamp-control
 	#dh_link -p$(p_doc) \
 	#	/usr/share/doc/$(p_base)/html /usr/share/devhelp/books/$(PVER)
 
-#	for i in $(p_ltst); do \
-#	  rm -rf debian/$$i/usr/share/doc/$$i; \
-#	  ln -s $(p_lbase) debian/$$i/usr/share/doc/$$i; \
-#	done
+	for i in $(p_ltst); do \
+	  rm -rf debian/$$i/usr/share/doc/$$i; \
+	  ln -s $(p_lbase) debian/$$i/usr/share/doc/$$i; \
+	done
 
 	dh_installdebconf -i $(dh_args)
 	dh_installexamples -i $(dh_args)
@@ -1337,8 +1337,8 @@ binary-indep: build-indep install stamps/stamp-control
 
 # Build architecture-dependent files here.
 binary-arch: build-arch install
-#	dh_testdir -a
-#	dh_testroot -a
+	dh_testdir -a
+	dh_testroot -a
 #	dh_installdebconf -a
 	dh_installexamples -a
 	-dh_icons -a || dh_iconcache -a
@@ -1422,7 +1422,7 @@ $(patchdir)/series: $(patchdir)/series.in
 
 patch: stamps/stamp-patch
 stamps/stamp-patch: $(patchdir)/series
-#	dh_testdir
+	dh_testdir
 	uname -a
 	@echo USER=$$USER, LOGNAME=$$LOGNAME
 	QUILT_PATCHES=$(patchdir) quilt push -a || test $$? = 2
