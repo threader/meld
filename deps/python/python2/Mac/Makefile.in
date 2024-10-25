@@ -55,7 +55,7 @@ install_pythonw: pythonw
 	$(INSTALL_PROGRAM) $(STRIPFLAG) pythonw "$(DESTDIR)$(prefix)/bin/pythonw$(VERSION)"
 	$(INSTALL_PROGRAM) $(STRIPFLAG) pythonw "$(DESTDIR)$(prefix)/bin/python$(VERSION)"
 	ln -sf python$(VERSION) "$(DESTDIR)$(prefix)/bin/python2"
-	ln -sf python2 "$(DESTDIR)$(prefix)/bin/python"
+	ln -sf python2 "$(DESTDIR)$(prefix)/bin/python2"
 	ln -sf pythonw$(VERSION) "$(DESTDIR)$(prefix)/bin/pythonw2"
 	ln -sf pythonw2 "$(DESTDIR)$(prefix)/bin/pythonw"
 ifneq ($(LIPO_32BIT_FLAGS),)
