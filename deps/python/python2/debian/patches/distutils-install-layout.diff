@@ -30,7 +30,7 @@
     :file:`{prefix}` and :file:`{exec-prefix}` are usually both :file:`/usr` on
 @@ -448,6 +458,15 @@ them to go in :file:`/usr/local/lib/pyth
  
-    /usr/bin/python setup.py install --prefix=/usr/local
+    /usr/bin/python2 setup.py install --prefix=/usr/local
  
 +Starting with Python-2.6 Debian/Ubuntu does use
 +:file:`/usr/lib/python{X.Y}/dist-packages` and
@@ -43,7 +43,7 @@
 +
  Another possibility is a network filesystem where the name used to write to a
  remote directory is different from the name used to read it: for example, the
- Python interpreter accessed as :file:`/usr/local/bin/python` might search for
+ Python interpreter accessed as :file:`/usr/local/bin/python2` might search for
 @@ -699,6 +718,17 @@ Add-on Python modules might then belong
  import them, this directory must be added to ``sys.path``.  There are several
  different ways to add the directory.

@@ -739,6 +739,11 @@ clean: control-file
 	    rm -f $$f2; \
 	  fi; \
 	done
+
+	for f in build*; do \
+		`make clean"`; \
+	done
+
 	dh_clean
 
 stamps/stamp-control:
@@ -783,7 +788,7 @@ endif
 	mkdir -p $(d)/usr/include/$(DEB_HOST_MULTIARCH)/$(PVER)
 	mv $(d)/usr/include/$(PVER)/pyconfig.h \
 		$(d)/usr/include/$(DEB_HOST_MULTIARCH)/$(PVER)/.
-	mv $(d)/usr/bin/python-config.sh $(d)/usr/bin/python$(VER)-config
+	mv $(d)/usr/bin/python2-config.sh $(d)/usr/bin/python$(VER)-config
 	sed -i \
 	  -e 's/-O3/-O2/g;s/$(LTO_CFLAGS)//g' \
 	  -e 's/-fprofile-use *-fprofile-correction//g' \
@@ -963,7 +968,7 @@ endif
 	sed 's/@subdir@/$(PVER)/;s/@header@/pyconfig.h/' \
 		debian/multiarch.h.in > $(d_ldev)/usr/include/$(PVER)/pyconfig.h
 
-	cp -p debian/python-config.1 \
+	cp -p debian/python2-config.1 \
 		$(d_ldev)/usr/share/man/man1/$(DEB_HOST_MULTIARCH)-python$(VER)-config.1
 
 ifneq ($(DEB_HOST_MULTIARCH),$(DEB_HOST_GNU_TYPE))
@@ -1207,8 +1212,8 @@ endif
 		$(d)-dbg/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig/python-$(VER).pc \
 		> $(d_ldbg)/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig/python-$(VER)-dbg.pc
 
-	: # in $(p_ldbg), prefix python-config with triplets
-	cp $(d)-shdbg/usr/bin/python-config.sh \
+	: # in $(p_ldbg), prefix python2-config with triplets
+	cp $(d)-shdbg/usr/bin/python2-config.sh \
 		$(d_ldbg)/usr/bin/$(DEB_HOST_MULTIARCH)-$(PVER)-dbg-config
 	ln -sf $(DEB_HOST_MULTIARCH)-$(PVER)-config.1.gz \
 		$(d_ldbg)/usr/share/man/man1/$(DEB_HOST_MULTIARCH)-$(PVER)-dbg-config.1.gz
@@ -1229,7 +1234,7 @@ endif
 	cp -p debian/$(PVER)-dbg.README.Debian \
 		$(d_dbg)/usr/share/doc/$(p_base)/README.debug
 	cp -p $(buildd_debug)/python $(d_dbg)/usr/bin/$(PVER)-dbg
-	cp -p $(d)-shdbg/usr/bin/python-config.sh \
+	cp -p $(d)-shdbg/usr/bin/python2-config.sh \
 		$(d_dbg)/usr/bin/$(PVER)-dbg-config
 #	cp -p $(buildd_debug)/build/lib*/*_d.so \
 		$(d_dbg)/$(scriptdir)/lib-dynload/
@@ -1276,24 +1281,24 @@ endif
 
 # Build architecture-independent files here.
 binary-indep: build-indep install stamps/stamp-control
-	dh_testdir -i
-	dh_testroot -i
+#	dh_testdir -i
+#	dh_testroot -i
 
 	: # $(p_doc) package
-	dh_installdirs -p$(p_doc) \
-		usr/share/doc/$(p_base) \
-		usr/share/doc/$(p_doc)
-	dh_installdocs -p$(p_doc)
-	cp -a Doc/build/html $(d_doc)/usr/share/doc/$(p_base)/
-	rm -f $(d_doc)/usr/share/doc/$(p_base)/html/_static/jquery.js
-	rm -f $(d_doc)/usr/share/doc/$(p_base)/html/_static/underscore.js
-	dh_link -p$(p_doc) \
-		/usr/share/doc/$(p_base)/html \
-			/usr/share/doc/$(p_doc)/html \
-		/usr/share/javascript/jquery/jquery.js \
-			/usr/share/doc/$(p_base)/html/_static/jquery.js \
-		/usr/share/javascript/underscore/underscore.js \
-			/usr/share/doc/$(p_base)/html/_static/underscore.js
+#	dh_installdirs -p$(p_doc) \
+#		usr/share/doc/$(p_base) \
+#		usr/share/doc/$(p_doc)
+#	dh_installdocs -p$(p_doc)
+#	cp -a Doc/build/html $(d_doc)/usr/share/doc/$(p_base)/
+#	rm -f $(d_doc)/usr/share/doc/$(p_base)/html/_static/jquery.js
+#	rm -f $(d_doc)/usr/share/doc/$(p_base)/html/_static/underscore.js
+#	dh_link -p$(p_doc) \
+#		/usr/share/doc/$(p_base)/html \
+#			/usr/share/doc/$(p_doc)/html \
+#		/usr/share/javascript/jquery/jquery.js \
+#			/usr/share/doc/$(p_base)/html/_static/jquery.js \
+#		/usr/share/javascript/underscore/underscore.js \
+#			/usr/share/doc/$(p_base)/html/_static/underscore.js
 
 	: # devhelp docs
 	#$(buildd_static)/python debian/pyhtml2devhelp.py \
@@ -1303,10 +1308,10 @@ binary-indep: build-indep install stamps/stamp-control
 	#dh_link -p$(p_doc) \
 	#	/usr/share/doc/$(p_base)/html /usr/share/devhelp/books/$(PVER)
 
-	for i in $(p_ltst); do \
-	  rm -rf debian/$$i/usr/share/doc/$$i; \
-	  ln -s $(p_lbase) debian/$$i/usr/share/doc/$$i; \
-	done
+#	for i in $(p_ltst); do \
+#	  rm -rf debian/$$i/usr/share/doc/$$i; \
+#	  ln -s $(p_lbase) debian/$$i/usr/share/doc/$$i; \
+#	done
 
 	dh_installdebconf -i $(dh_args)
 	dh_installexamples -i $(dh_args)

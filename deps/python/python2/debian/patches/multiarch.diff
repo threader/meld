@@ -56,7 +56,7 @@
 -LIBPC=		$(LIBDIR)/pkgconfig
 +LIBPC=		$(LIBDIR)/$(MULTIARCH)/pkgconfig
  
- libainstall:	@DEF_MAKE_RULE@ python-config
+ libainstall:	@DEF_MAKE_RULE@ python2-config
  	@for i in $(LIBDIR) $(LIBP) $(LIBPL) $(LIBPC); \
 @@ -1493,6 +1500,11 @@ patchcheck:
  

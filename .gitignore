@@ -16,3 +16,8 @@ MANIFEST
 *.install
 data/appdata.xml
 data/mime/meld.xml
+deps/*.deb
+deps/*/*.deb
+deps/*/*.buildinfo
+deps/*/*.changes
+deps/*/stamp-*

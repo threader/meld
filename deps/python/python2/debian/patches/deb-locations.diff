@@ -41,7 +41,7 @@ Index: b/Misc/python.man
  and should be interpreted as for GNU software; they may be the same.
 -The default for both is \fI/usr/local\fP.
 +On Debian GNU/{Hurd,Linux} the default for both is \fI/usr\fP.
- .IP \fI${exec_prefix}/bin/python\fP
+ .IP \fI${exec_prefix}/bin/python2\fP
  Recommended location of the interpreter.
  .PP
 Index: b/Tools/faqwiz/faqconf.py

@@ -96,8 +96,8 @@
  
  # pkgconfig directory
  LIBPC=		$(LIBDIR)/pkgconfig
---- a/Misc/python-config.in
-+++ b/Misc/python-config.in
+--- a/Misc/python2-config.in
++++ b/Misc/python2-config.in
 @@ -44,7 +44,7 @@ for opt in opt_flags:
          print ' '.join(flags)
  
