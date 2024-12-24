@@ -42,9 +42,15 @@ class Vc(_vc.CachedVc):
     CMD = "git"
     NAME = "Git"
     VC_DIR = ".git"
+<<<<<<< HEAD
     GIT_DIFF_FILES_RE = ":(\d+) (\d+) [a-z0-9]+ [a-z0-9]+ ([XADMTU])\t(.*)"
+=======
+>>>>>>> exp
 
     VC_COLUMNS = (_vc.DATA_NAME, _vc.DATA_STATE, _vc.DATA_OPTIONS)
+
+    GIT_DIFF_FILES_RE = ":(\d+) (\d+) [a-z0-9]+ [a-z0-9]+ ([ADMU])\t(.*)"
+    DIFF_RE = re.compile(GIT_DIFF_FILES_RE)
 
     conflict_map = {
         # These are the arguments for git-show
@@ -65,21 +71,33 @@ class Vc(_vc.CachedVc):
 
     def __init__(self, location):
         super(Vc, self).__init__(location)
-        self.diff_re = re.compile(self.GIT_DIFF_FILES_RE)
         self._tree_cache = {}
         self._tree_meta_cache = {}
 
+<<<<<<< HEAD
     def check_repo_root(cls, location):
         # Check exists instead of isdir, since .git might be a git-file
         if not os.path.exists(os.path.join(location, cls.VC_DIR)):
             raise ValueError
         return location
+=======
+    @classmethod
+    def is_installed(cls):
+        try:
+            proc = _vc.popen([cls.CMD, '--version'])
+            assert proc.read().startswith('git version')
+            return True
+        except:
+            return False
+
+    @classmethod
+    def check_repo_root(self, location):
+        # Check exists instead of isdir, since .git might be a git-file
+        return os.path.exists(os.path.join(location, self.VC_DIR))
+>>>>>>> exp
 
     def commit_command(self, message):
         return [self.CMD, "commit", "-m", message]
-
-    def add_command(self):
-        return [self.CMD, "add"]
 
     # Prototyping VC interface version 2
 
@@ -155,7 +173,7 @@ class Vc(_vc.CachedVc):
         for p in paths:
             if os.path.isdir(p):
                 entries = self._get_modified_files(p)
-                names = [self.diff_re.search(e).groups()[3] for e in entries]
+                names = [self.DIFF_RE.search(e).groups()[3] for e in entries]
                 files.extend(names)
             else:
                 files.append(os.path.relpath(p, self.root))
@@ -180,6 +198,10 @@ class Vc(_vc.CachedVc):
     def push(self, runner):
         command = [self.CMD, 'push']
         runner(command, [], refresh=True, working_dir=self.root)
+
+    def add(self, runner, files):
+        command = [self.CMD, 'add']
+        runner(command, files, refresh=True, working_dir=self.root)
 
     def remove(self, runner, files):
         command = [self.CMD, 'rm', '-r']
@@ -246,13 +268,11 @@ class Vc(_vc.CachedVc):
             shutil.copyfileobj(vc_file, f)
         return f.name
 
-    def valid_repo(self):
+    @classmethod
+    def valid_repo(cls, path):
         # TODO: On Windows, this exit code is wrong under the normal shell; it
         # appears to be correct under the default git bash shell however.
-        if _vc.call([self.CMD, "branch"], cwd=self.root):
-            return False
-        else:
-            return True
+        return not _vc.call([cls.CMD, "branch"], cwd=path)
 
     def get_working_directory(self, workdir):
         if workdir.startswith("/"):
@@ -321,7 +341,7 @@ class Vc(_vc.CachedVc):
         else:
             # There are 1 or more modified files, parse their state
             for entry in entries:
-                columns = self.diff_re.search(entry).groups()
+                columns = self.DIFF_RE.search(entry).groups()
                 old_mode, new_mode, statekey, name = columns
                 if os.name == 'nt':
                     # Git returns unix-style paths on Windows

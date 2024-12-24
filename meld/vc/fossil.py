@@ -65,18 +65,15 @@ class Vc(_vc.CachedVc):
     def revert_command(self):
         return [self.CMD, "revert"]
 
-    def valid_repo(self):
-        if _vc.call([self.CMD, "info"], cwd=self.root):
-            return False
-        else:
-            return True
+    @classmethod
+    def valid_repo(cls, path):
+        return not _vc.call([cls.CMD, "info"], cwd=path)
 
+    @classmethod
     def check_repo_root(self, location):
         # Fossil uses a file -- not a directory
-        for metafile in self.VC_METADATA:
-            if os.path.isfile(os.path.join(location, metafile)):
-                return location
-        raise ValueError
+        return any(os.path.isfile(os.path.join(location, m))
+                   for m in self.VC_METADATA)
 
     def get_working_directory(self, workdir):
         return self.root

@@ -61,11 +61,9 @@ class Vc(_vc.CachedVc):
     def revert_command(self):
         return [self.CMD, "revert"]
 
-    def valid_repo(self):
-        if _vc.call([self.CMD, "root"], cwd=self.root):
-            return False
-        else:
-            return True
+    @classmethod
+    def valid_repo(cls, path):
+        return not _vc.call([cls.CMD, "root"], cwd=path)
 
     def get_working_directory(self, workdir):
         if workdir.startswith("/"):

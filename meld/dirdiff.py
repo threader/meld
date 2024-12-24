@@ -25,6 +25,8 @@ import stat
 import sys
 import time
 
+import gio
+import gobject
 import gtk
 import gtk.keysyms
 
@@ -304,29 +306,12 @@ class DirDiff(melddoc.MeldDoc, gnomeglade.Component):
 
     def __init__(self, prefs, num_panes):
         melddoc.MeldDoc.__init__(self, prefs)
-        gnomeglade.Component.__init__(self, paths.ui_dir("dirdiff.ui"), "dirdiff")
+        gnomeglade.Component.__init__(self, paths.ui_dir("dirdiff.ui"),
+                                      "dirdiff", ["DirdiffActions"])
 
-        actions = (
-            ("DirCompare",   gtk.STOCK_DIALOG_INFO,  _("_Compare"), None, _("Compare selected"), self.on_button_diff_clicked),
-            ("DirCopyLeft",  gtk.STOCK_GO_BACK,      _("Copy _Left"),     "<Alt>Left", _("Copy to left"), self.on_button_copy_left_clicked),
-            ("DirCopyRight", gtk.STOCK_GO_FORWARD,   _("Copy _Right"),    "<Alt>Right", _("Copy to right"), self.on_button_copy_right_clicked),
-            ("DirDelete",    gtk.STOCK_DELETE,        None,         "Delete", _("Delete selected"), self.on_button_delete_clicked),
-            ("Hide",         gtk.STOCK_NO,           _("Hide"),     None, _("Hide selected"), self.on_filter_hide_current_clicked),
-        )
-
-        toggleactions = (
-            ("IgnoreCase",   gtk.STOCK_ITALIC,  _("Ignore Filename Case"), None, _("Consider differently-cased filenames that are otherwise-identical to be the same"), self.on_button_ignore_case_toggled, False),
-            ("ShowSame",     gtk.STOCK_APPLY,   _("Same"),     None, _("Show identical"), self.on_filter_state_toggled, False),
-            ("ShowNew",      gtk.STOCK_ADD,     _("New"),      None, _("Show new"), self.on_filter_state_toggled, False),
-            ("ShowModified", gtk.STOCK_REMOVE,  _("Modified"), None, _("Show modified"), self.on_filter_state_toggled, False),
-
-            ("CustomFilterMenu", None, _("Filters"), None, _("Set active filters"), self.on_custom_filter_menu_toggled, False),
-        )
         self.ui_file = paths.ui_dir("dirdiff-ui.xml")
-        self.actiongroup = gtk.ActionGroup('DirdiffToolbarActions')
+        self.actiongroup = self.DirdiffActions
         self.actiongroup.set_translation_domain("meld")
-        self.actiongroup.add_actions(actions)
-        self.actiongroup.add_toggle_actions(toggleactions)
         self.main_actiongroup = None
 
         self.name_filters = []
@@ -338,10 +323,6 @@ class DirDiff(melddoc.MeldDoc, gnomeglade.Component):
                              app.connect("text-filters-changed",
                                          self.on_text_filters_changed)]
 
-        for button in ("DirCompare", "DirCopyLeft", "DirCopyRight",
-                       "DirDelete", "ShowSame",
-                       "ShowNew", "ShowModified", "CustomFilterMenu"):
-            self.actiongroup.get_action(button).props.is_important = True
         self.map_widgets_into_lists(["treeview", "fileentry", "scrolledwindow",
                                      "diffmap", "linkmap", "msgarea_mgr",
                                      "vbox"])
@@ -881,8 +862,15 @@ class DirDiff(melddoc.MeldDoc, gnomeglade.Component):
                                 continue
                         misc.copytree(src, dst)
                         self.recursively_update( path )
-                except (OSError, IOError) as e:
-                    misc.run_dialog(_("Error copying '%s' to '%s'\n\n%s.") % (src, dst,e), self)
+                except (OSError, IOError, shutil.Error) as err:
+                    misc.error_dialog(
+                        _("Error copying file"),
+                        _("Couldn't copy %s\nto %s.\n\n%s") % (
+                            gobject.markup_escape_text(src),
+                            gobject.markup_escape_text(dst),
+                            gobject.markup_escape_text(str(err)),
+                        )
+                    )
 
     def delete_selected(self):
         """Delete all selected files/folders recursively.
@@ -896,18 +884,11 @@ class DirDiff(melddoc.MeldDoc, gnomeglade.Component):
                 it = self.model.get_iter(path)
                 name = self.model.value_path(it, pane)
                 try:
-                    if os.path.isfile(name):
-                        os.remove(name)
-                        self.file_deleted( path, pane)
-                    elif os.path.isdir(name):
-                        if misc.run_dialog(_("'%s' is a directory.\nRemove recursively?") % os.path.basename(name),
-                                parent = self,
-                                buttonstype=gtk.BUTTONS_OK_CANCEL) == gtk.RESPONSE_OK:
-                            shutil.rmtree(name)
-                            self.recursively_update(path)
-                            self.file_deleted(path, pane)
-                except OSError as e:
-                    misc.run_dialog(_("Error removing %s\n\n%s.") % (name,e), parent = self)
+                    gfile = gio.File(name)
+                    gfile.trash()
+                    self.file_deleted(path, pane)
+                except gio.Error as e:
+                    misc.error_dialog(_("Error deleting %s") % name, str(e))
 
     def on_treemodel_row_deleted(self, model, path):
 

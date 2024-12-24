@@ -58,8 +58,7 @@ class Vc(_vc.CachedVc):
 
     def update_command(self):
         return [self.CMD,"update"]
-    def add_command(self):
-        return [self.CMD,"add"]
+
     def remove_command(self, force=0):
         return [self.CMD,"rm","--force"]
     def revert_command(self):
@@ -152,9 +151,9 @@ class Vc(_vc.CachedVc):
             return False
 
         # Check for repository version, trusting format file then entries file
-        format_path = os.path.join(self.root, self.VC_DIR, "format")
-        entries_path = os.path.join(self.root, self.VC_DIR, "entries")
-        wcdb_path = os.path.join(self.root, self.VC_DIR, "wc.db")
+        format_path = os.path.join(path, cls.VC_DIR, "format")
+        entries_path = os.path.join(path, cls.VC_DIR, "entries")
+        wcdb_path = os.path.join(path, cls.VC_DIR, "wc.db")
         format_exists = os.path.exists(format_path)
         entries_exists = os.path.exists(entries_path)
         wcdb_exists = os.path.exists(wcdb_path)

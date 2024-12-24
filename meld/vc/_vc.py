@@ -105,21 +105,16 @@ class Vc(object):
 
     VC_COLUMNS = (DATA_NAME, DATA_STATE)
 
-    def __init__(self, location):
+    def __init__(self, path):
         # Save the requested comparison location. The location may be a
         # sub-directory of the repository we are diffing and can be useful in
         # limiting meld's output to the requested location.
         #
         # If the location requested is a file (e.g., a single-file command line
         # comparison) then the location is set to the containing directory.
-        if not os.path.isdir(location):
-            location = os.path.dirname(location)
-        self.location = location
-
-        if self.VC_ROOT_WALK:
-            self.root = self.find_repo_root(self.location)
-        else:
-            self.root = self.check_repo_root(self.location)
+        self.root, self.location = self.is_in_repo(path)
+        if not self.root:
+            raise ValueError
 
     def commit_command(self, message):
         raise NotImplementedError()
@@ -159,6 +154,9 @@ class Vc(object):
     def get_commits_to_push_summary(self):
         raise NotImplementedError()
 
+    def add(self, runner, files):
+        raise NotImplementedError()
+
     def remove(self, runner, files):
         raise NotImplementedError()
 
@@ -187,23 +185,6 @@ class Vc(object):
         """
         raise NotImplementedError()
 
-    def check_repo_root(self, location):
-        if not os.path.isdir(os.path.join(location, self.VC_DIR)):
-            raise ValueError
-        return location
-
-    def find_repo_root(self, location):
-        while True:
-            try:
-                return self.check_repo_root(location)
-            except ValueError:
-                pass
-            tmp = os.path.dirname(location)
-            if tmp == location:
-                break
-            location = tmp
-        raise ValueError()
-
     def get_working_directory(self, workdir):
         return workdir
 
@@ -221,10 +202,6 @@ class Vc(object):
         accurate.
         """
         pass
-
-    # Determine if a directory is a valid git/svn/hg/cvs/etc repository
-    def valid_repo(self):
-        return True
 
     def listdir(self, path="."):
         try:
@@ -263,6 +240,44 @@ class Vc(object):
         if not vc_files:
             return None
         return vc_files[0]
+
+    @classmethod
+    def is_installed(cls):
+        try:
+            popen([cls.CMD])
+            return True
+        except:
+            return False
+
+    @classmethod
+    def is_in_repo(cls, path):
+        root = None
+        location = path if os.path.isdir(path) else os.path.dirname(path)
+
+        if cls.VC_ROOT_WALK:
+            root = cls.find_repo_root(location)
+        elif cls.check_repo_root(location):
+            root = location
+        return root, location
+
+    @classmethod
+    def check_repo_root(cls, location):
+        return os.path.isdir(os.path.join(location, cls.VC_DIR))
+
+    @classmethod
+    def find_repo_root(cls, location):
+        while location:
+            if cls.check_repo_root(location):
+                return location
+
+            location, old = os.path.dirname(location), location
+            if location == old:
+                break
+
+    @classmethod
+    def valid_repo(cls, path):
+        """Determine if a directory is a valid repository for this class"""
+        raise NotImplementedError
 
 
 class CachedVc(Vc):

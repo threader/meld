@@ -30,8 +30,6 @@ import gobject
 import gtk
 
 
-whitespace_re = re.compile(r"\s")
-
 if os.name != "nt":
     from select import select
 else:
@@ -42,10 +40,29 @@ else:
         return rlist, wlist, xlist
 
 
-def shelljoin( command ):
-    def quote(s):
-        return ((whitespace_re.search(s) is None) and s or ('"%s"' % s))
-    return " ".join( [ quote(x) for x in command ] )
+def error_dialog(primary, secondary, parent=None, messagetype=gtk.MESSAGE_ERROR):
+    """A common error dialog handler for Meld
+
+    This should only ever be used as a last resort, and for errors that
+    a user is unlikely to encounter. If you're tempted to use this,
+    think twice.
+
+    Primary must be plain text. Secondary must be valid markup.
+    """
+    if not parent:
+        from meld.meldapp import app
+        parent = app.window.widget
+
+    dialog = gtk.MessageDialog(
+        parent=parent,
+        flags=gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+        type=messagetype,
+        buttons=gtk.BUTTONS_CLOSE,
+        message_format=primary)
+    dialog.format_secondary_markup(secondary)
+    dialog.run()
+    dialog.destroy()
+
 
 def run_dialog( text, parent=None, messagetype=gtk.MESSAGE_WARNING, buttonstype=gtk.BUTTONS_OK, extrabuttons=()):
     """Run a dialog with text 'text'.

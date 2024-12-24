@@ -84,19 +84,13 @@ class FindBar(gnomeglade.Component):
         self.find_entry.grab_focus()
         self.wrap_box.hide()
 
-    def on_find_entry__activate(self, entry):
-        self.find_next_button.activate()
-
-    def on_replace_entry__activate(self, entry):
-        self.replace_button.activate()
-
-    def on_find_next_button__clicked(self, button):
+    def on_find_next_button_clicked(self, button):
         self._find_text()
 
-    def on_find_previous_button__clicked(self, button):
+    def on_find_previous_button_clicked(self, button):
         self._find_text(backwards=True)
 
-    def on_replace_button__clicked(self, entry):
+    def on_replace_button_clicked(self, entry):
         buf = self.textview.get_buffer()
         oldsel = buf.get_selection_bounds()
         match = self._find_text(0)
@@ -110,7 +104,7 @@ class FindBar(gnomeglade.Component):
             self._find_text(0)
             buf.end_user_action()
 
-    def on_replace_all_button__clicked(self, entry):
+    def on_replace_all_button_clicked(self, entry):
         buf = self.textview.get_buffer()
         saved_insert = buf.create_mark(
             None, buf.get_iter_at_mark(buf.get_insert()), True)

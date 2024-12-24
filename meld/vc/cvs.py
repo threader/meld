@@ -24,7 +24,6 @@
 
 import logging
 import os
-from gettext import gettext as _
 import re
 import shutil
 import tempfile
@@ -32,6 +31,8 @@ import time
 
 from meld import misc
 from . import _vc
+
+log = logging.getLogger(__name__)
 
 
 class FakeErrorStream(object):
@@ -63,21 +64,15 @@ class Vc(_vc.Vc):
     def update_command(self):
         return [self.CMD, "update"]
 
-    def add_command(self):
-        return [self.CMD, "add"]
-
     def remove_command(self, force=0):
         return [self.CMD, "rm", "-f"]
 
     def revert_command(self):
         return [self.CMD, "update", "-C"]
 
-    def valid_repo(self):
-        entry_path = os.path.join(self.root, self.VC_DIR, "Entries")
-        if os.path.exists(entry_path):
-            return True
-        else:
-            return False
+    @classmethod
+    def valid_repo(cls, path):
+        return os.path.exists(os.path.join(path, cls.VC_DIR, "Entries"))
 
     def get_path_for_repo_file(self, path, commit=None):
         if commit is not None:
@@ -123,9 +118,18 @@ class Vc(_vc.Vc):
             if os.path.exists(destfile):
                 os.rmdir(tmpdir)
 
-    def _get_dirsandfiles(self, directory, dirs, files):
-        log = logging.getLogger(__name__)
+    def add(self, runner, files):
+        # CVS needs to add folders from their immediate parent
+        dirs = [s for s in files if os.path.isdir(s)]
+        files = [s for s in files if os.path.isfile(s)]
+        command = [self.CMD, 'add']
+        for path in dirs:
+            runner(command, [path], refresh=True,
+                   working_dir=os.path.dirname(path))
+        if files:
+            runner(command, files, refresh=True)
 
+    def _get_dirsandfiles(self, directory, dirs, files):
         vc_path = os.path.join(directory, self.VC_DIR)
 
         try:
@@ -227,10 +231,10 @@ class Vc(_vc.Vc):
             try:
                 regexes = [misc.shell_to_regex(i)[:-1] for i in ignored]
                 ignore_re = re.compile("(" + "|".join(regexes) + ")")
-            except re.error as e:
-                misc.run_dialog(_("Error converting to a regular expression\n"
-                                  "The pattern was '%s'\nThe error was '%s'") %
-                                (",".join(ignored), e))
+            except re.error as err:
+                log.warning(
+                    "Error converting %s to a regular expression: %s'" %
+                    (",".join(ignored), err))
         else:
             class dummy(object):
                 def match(self, *args):

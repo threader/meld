@@ -24,6 +24,7 @@ import stat
 import sys
 from gettext import gettext as _
 
+import gio
 import gtk
 import pango
 
@@ -152,58 +153,10 @@ class VcView(melddoc.MeldDoc, gnomeglade.Component):
     def __init__(self, prefs):
         melddoc.MeldDoc.__init__(self, prefs)
         gnomeglade.Component.__init__(self, paths.ui_dir("vcview.ui"),
-                                      "vcview")
-
-        actions = (
-            ("VcCompare", gtk.STOCK_DIALOG_INFO, _("_Compare"), None,
-                _("Compare selected files"),
-                self.on_button_diff_clicked),
-            ("VcCommit", "vc-commit-24", _("Co_mmit..."), "<Ctrl>M",
-                _("Commit changes to version control"),
-                self.on_button_commit_clicked),
-            ("VcUpdate", "vc-update-24", _("_Update"), None,
-                _("Update working copy from version control"),
-                self.on_button_update_clicked),
-            ("VcPush", "vc-push-24", _("_Push"), None,
-                _("Push local changes to remote"),
-                self.on_button_push_clicked),
-            ("VcAdd", "vc-add-24", _("_Add"), None,
-                _("Add to version control"),
-                self.on_button_add_clicked),
-            ("VcRemove", "vc-remove-24", _("_Remove"), None,
-                _("Remove from version control"),
-                self.on_button_remove_clicked),
-            ("VcResolved", "vc-resolve-24", _("Mar_k as Resolved"), None,
-                _("Mark as resolved in version control"),
-                self.on_button_resolved_clicked),
-            ("VcRevert", gtk.STOCK_REVERT_TO_SAVED, _("Re_vert"), None,
-                _("Revert working copy to original state"),
-                self.on_button_revert_clicked),
-            ("VcDeleteLocally", gtk.STOCK_DELETE, None, None,
-                _("Delete from working copy"),
-                self.on_button_delete_clicked),
-        )
-
-        toggleactions = (
-            ("VcFlatten", gtk.STOCK_GOTO_BOTTOM, _("_Flatten"),  None,
-                _("Flatten directories"),
-                self.on_button_flatten_toggled, False),
-            ("VcShowModified", "filter-modified-24", _("_Modified"), None,
-                _("Show modified files"),
-                self.on_filter_state_toggled, False),
-            ("VcShowNormal", "filter-normal-24", _("_Normal"), None,
-                _("Show normal files"),
-                self.on_filter_state_toggled, False),
-            ("VcShowNonVC", "filter-nonvc-24", _("Un_versioned"), None,
-                _("Show unversioned files"),
-                self.on_filter_state_toggled, False),
-            ("VcShowIgnored", "filter-ignored-24", _("Ignored"), None,
-                _("Show ignored files"),
-                self.on_filter_state_toggled, False),
-        )
+                                      "vcview", ["VcviewActions", 'liststore_vcs'])
 
         self.ui_file = paths.ui_dir("vcview-ui.xml")
-        self.actiongroup = gtk.ActionGroup('VcviewActions')
+        self.actiongroup = self.VcviewActions
         self.actiongroup.set_translation_domain("meld")
         self.main_actiongroup = None
         self.actiongroup.add_actions(actions)
@@ -277,18 +230,12 @@ class VcView(melddoc.MeldDoc, gnomeglade.Component):
             self.on_console_view_toggle(self.console_hide_box)
         self.vc = None
         self.valid_vc_actions = tuple()
-        # VC ComboBox
-        self.combobox_vcs = gtk.ComboBox()
-        self.combobox_vcs.lock = True
-        self.combobox_vcs.set_model(gtk.ListStore(str, object, bool))
+
         cell = gtk.CellRendererText()
         self.combobox_vcs.pack_start(cell, False)
         self.combobox_vcs.add_attribute(cell, 'text', 0)
         self.combobox_vcs.add_attribute(cell, 'sensitive', 2)
         self.combobox_vcs.lock = False
-        self.hbox2.pack_end(self.combobox_vcs, expand=False)
-        self.combobox_vcs.show()
-        self.combobox_vcs.connect("changed", self.on_vc_change)
 
     def _set_external_action_sensitivity(self, focused):
         try:
@@ -326,12 +273,15 @@ class VcView(melddoc.MeldDoc, gnomeglade.Component):
                 action.props.sensitive = False
         self.valid_vc_actions = tuple(valid_vc_actions)
 
-    def choose_vc(self, vcs):
+    def choose_vc(self, location):
         """Display VC plugin(s) that can handle the location"""
         self.combobox_vcs.lock = True
-        self.combobox_vcs.get_model().clear()
+        vcs_model = self.combobox_vcs.get_model()
+        vcs_model.clear()
         default_active = -1
         valid_vcs = []
+        location = os.path.abspath(location or ".")
+        vcs = vc.get_vcs(location)
         # Try to keep the same VC plugin active on refresh()
         for idx, avc in enumerate(vcs):
             # See if the necessary version control command exists.  If so,
@@ -340,20 +290,11 @@ class VcView(melddoc.MeldDoc, gnomeglade.Component):
             # tool and display a basic error message in the drop-down menu.
             err_str = ""
 
-            def vc_installed(cmd):
-                if not cmd:
-                    return True
-                try:
-                    return not vc._vc.call(["which", cmd])
-                except OSError:
-                    if os.name == 'nt':
-                        return not vc._vc.call(["where", cmd])
-
-            if not vc_installed(avc.CMD):
+            if not avc.is_installed():
                 # TRANSLATORS: this is an error message when a version control
                 # application isn't installed or can't be found
                 err_str = _("%s not installed" % avc.CMD)
-            elif not avc.valid_repo():
+            elif not avc.valid_repo(location):
                 # TRANSLATORS: this is an error message when a version
                 # controlled repository is invalid or corrupted
                 err_str = _("Invalid repository")
@@ -364,17 +305,17 @@ class VcView(melddoc.MeldDoc, gnomeglade.Component):
                     default_active = idx
 
             if err_str:
-                self.combobox_vcs.get_model().append(
+                vcs_model.append(
                     [_("%s (%s)") % (avc.NAME, err_str), avc, False])
             else:
                 name = avc.NAME or _("None")
-                self.combobox_vcs.get_model().append([name, avc, True])
+                vcs_model.append([name, avc(location), True])
 
         if not valid_vcs:
             # If we didn't get any valid vcs then fallback to null
-            null_vcs = _null.Vc(vcs[0].location)
+            null_vcs = _null.Vc(location)
             vcs.append(null_vcs)
-            self.combobox_vcs.get_model().insert(
+            vcs_model.insert(
                 0, [_("None"), null_vcs, True])
             default_active = 0
 
@@ -405,7 +346,7 @@ class VcView(melddoc.MeldDoc, gnomeglade.Component):
             self.update_visible_columns()
 
     def set_location(self, location):
-        self.choose_vc(vc.get_vcs(os.path.abspath(location or ".")))
+        self.choose_vc(location)
 
     def _set_location(self, location):
         self.location = location
@@ -646,7 +587,13 @@ class VcView(melddoc.MeldDoc, gnomeglade.Component):
         """Run 'command' on 'files'. Return a tuple of the directory the
            command was executed in and the output of the command.
         """
-        msg = misc.shelljoin(command)
+
+        def shelljoin(command):
+            def quote(s):
+                return '"%s"' % s if len(s.split()) > 1 else s
+            return " ".join(quote(tok) for tok in command)
+
+        msg = shelljoin(command)
         yield "[%s] %s" % (self.label_text, msg.replace("\n", "\t"))
         def relpath(pbase, p):
             kill = 0
@@ -670,9 +617,10 @@ class VcView(melddoc.MeldDoc, gnomeglade.Component):
                 r = next(readiter)
                 self.consolestream.output(r)
                 yield 1
-        except IOError as e:
-            misc.run_dialog("Error running command.\n'%s'\n\nThe error was:\n%s" % ( misc.shelljoin(command), e),
-                parent=self, messagetype=gtk.MESSAGE_ERROR)
+        except IOError as err:
+            misc.error_dialog(
+                "Error running command",
+                "While running '%s'\nError: %s" % (msg, err))
         self.consolestream.output("\n")
 
         returncode = next(readiter)
@@ -712,18 +660,9 @@ class VcView(melddoc.MeldDoc, gnomeglade.Component):
                 self.vc.commit_command(commit_msg))
 
     def on_button_add_clicked(self, obj):
-        # This is an evil hack to let CVS and SVN < 1.7 deal with the
-        # requirement of adding folders from their immediate parent.
-        if self.vc.NAME in ("CVS", "Subversion"):
-            selected = self._get_selected_files()
-            dirs = [s for s in selected if os.path.isdir(s)]
-            files = [s for s in selected if os.path.isfile(s)]
-            for path in dirs:
-                self._command(self.vc.add_command(), [path],
-                              working_dir=os.path.dirname(path))
-            if files:
-                self._command(self.vc.add_command(), files)
-        else:
+        try:
+            self.vc.add(self._command, self._get_selected_files())
+        except NotImplementedError:
             self._command_on_selected(self.vc.add_command())
 
     def on_button_remove_clicked(self, obj):
@@ -747,7 +686,7 @@ class VcView(melddoc.MeldDoc, gnomeglade.Component):
                 return
 
         try:
-            self.vc.remove(self._command, self._get_selected_files())
+            self.vc.remove(self._command, selected)
         except NotImplementedError:
             self._command_on_selected(self.vc.remove_command())
 
@@ -767,16 +706,10 @@ class VcView(melddoc.MeldDoc, gnomeglade.Component):
         files = self._get_selected_files()
         for name in files:
             try:
-                if os.path.isfile(name):
-                    os.remove(name)
-                elif os.path.isdir(name):
-                    if misc.run_dialog(_("'%s' is a directory.\nRemove recursively?") % os.path.basename(name),
-                            parent = self,
-                            buttonstype=gtk.BUTTONS_OK_CANCEL) == gtk.RESPONSE_OK:
-                        shutil.rmtree(name)
-            except OSError as e:
-                misc.run_dialog(_("Error removing %s\n\n%s.") % (name, e),
-                                parent=self)
+                gfile = gio.File(name)
+                gfile.trash()
+            except gio.Error as e:
+                misc.error_dialog(_("Error removing %s") % name, str(e))
         workdir = _commonprefix(files)
         self.refresh_partial(workdir)
 
