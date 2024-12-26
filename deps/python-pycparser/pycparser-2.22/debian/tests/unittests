@@ -1,0 +1,15 @@
+#!/bin/sh
+set -efu
+
+pythons="$(py3versions -sv)"
+
+cp -a tests $AUTOPKGTEST_TMP
+mkdir $AUTOPKGTEST_TMP/utils
+ln -s /usr/share/python3-pycparser/fake_libc_include $AUTOPKGTEST_TMP/utils
+ln -s /usr/share/doc/python3-pycparser/examples $AUTOPKGTEST_TMP/
+cd "$AUTOPKGTEST_TMP"
+
+for py in $pythons; do
+	echo "=== python$py ==="
+	python$py -m unittest discover -v 2>&1
+done

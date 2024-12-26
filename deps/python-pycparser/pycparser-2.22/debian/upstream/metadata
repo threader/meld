@@ -1,0 +1,11 @@
+---
+Bug-Database: https://github.com/eliben/pycparser/issues
+Bug-Submit: https://github.com/eliben/pycparser/issues/new
+Changelog: https://github.com/eliben/pycparser/blob/master/CHANGES
+Contact: Eli Bendersky <eliben@gmail.com>
+Name: pycparser
+Registry:
+  - Name: PyPI
+    Entry: pycparser
+Repository-Browse: https://github.com/eliben/pycparser
+Repository: https://github.com/eliben/pycparser

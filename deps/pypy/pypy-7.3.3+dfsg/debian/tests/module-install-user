@@ -1,0 +1,43 @@
+#!/bin/sh
+
+cp -a debian/tests/packages "$AUTOPKGTEST_TMP"
+
+HOME="$AUTOPKGTEST_TMP/home"
+mkdir "$HOME"
+
+tearDown() {
+	# Remove the --user install directory
+	rm -rf "$HOME/.local/lib/pypy2.7/site-packages"
+}
+
+testFibPy() {
+	cd "$AUTOPKGTEST_TMP/packages/fibpy"
+	pypy setup.py install --user
+	assertTrue 'Install fibpy in --user' $?
+	cd "$AUTOPKGTEST_TMP"
+	stdout=$(pypy -m fibpy 5)
+	assertTrue 'Execute fibpy from a virtualenv' $?
+	assertEquals 'Correct result' 8 "$stdout"
+}
+
+testFibC() {
+	cd "$AUTOPKGTEST_TMP/packages/fibc"
+	pypy setup.py install --user
+	assertTrue 'Install fibc in --user' $?
+	cd "$AUTOPKGTEST_TMP"
+	stdout=$(pypy -c 'from fibc import fib; print(fib(5))')
+	assertTrue 'Execute fibc from a virtualenv' $?
+	assertEquals 'Correct result' 8 "$stdout"
+}
+
+testFibCFFI() {
+	cd "$AUTOPKGTEST_TMP/packages/fibcffi"
+	pypy setup.py install --user
+	assertTrue 'Install fibcffi in --user' $?
+	cd "$AUTOPKGTEST_TMP"
+	stdout=$(pypy -m fibcffi 5)
+	assertTrue 'Execute fibcffi from a virtualenv' $?
+	assertEquals 'Correct result' 8 "$stdout"
+}
+
+. shunit2

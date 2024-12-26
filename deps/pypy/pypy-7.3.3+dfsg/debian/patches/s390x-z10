@@ -1,0 +1,26 @@
+From: Stefano Rivera <stefanor@debian.org>
+Date: Wed, 15 Jan 2020 09:56:01 +0000
+Subject: Arch: Target z10 on s390x
+
+That's the oldest version that Debian targets.
+
+Forwarded: not-needed
+---
+ rpython/translator/platform/arch/s390x.py | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+diff --git a/rpython/translator/platform/arch/s390x.py b/rpython/translator/platform/arch/s390x.py
+index a44af09..f80abf9 100644
+--- a/rpython/translator/platform/arch/s390x.py
++++ b/rpython/translator/platform/arch/s390x.py
+@@ -103,9 +103,7 @@ def update_cflags(cflags):
+         if cflag.startswith('-march='):
+             break
+     else:
+-        # the default cpu architecture is zEC12
+-        # one can directly specifying -march=... if needed
+-        revision = 'zEC12'
++        revision = 'z10'
+         cflags += ('-march='+revision,)
+     cflags += ('-m64','-mzarch')
+     return cflags

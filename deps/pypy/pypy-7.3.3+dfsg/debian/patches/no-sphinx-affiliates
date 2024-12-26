@@ -1,0 +1,25 @@
+From: Stefano Rivera <stefanor@debian.org>
+Date: Tue, 22 Sep 2020 13:43:40 -0700
+Subject: Debian: Disable sphinx-affiliates search
+
+Not packaged in Debian, yet.
+
+Forwarded: not-needed
+---
+ pypy/doc/conf.py | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/pypy/doc/conf.py b/pypy/doc/conf.py
+index 1dc98d7..8d06455 100644
+--- a/pypy/doc/conf.py
++++ b/pypy/doc/conf.py
+@@ -43,7 +43,8 @@ extensions = [# 'sphinx.ext.autodoc',
+               'sphinx.ext.ifconfig',
+               'sphinx.ext.graphviz',
+               # 'pypyconfig',
+-              'sphinx_affiliates']
++              # 'sphinx_affiliates'
++              ]
+ 
+ # Canonical URL (including the '/') so searching from rpython docs finds these
+ affiliate_options = {
