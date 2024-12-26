@@ -741,7 +741,9 @@ clean: control-file
 	done
 
 	for f in build*; do \
-		`make clean"`; \
+		if [ -e ./Makefile ]; then \
+		'make clean > /dev/null &&'; \
+		fi \
 	done
 
 	dh_clean
@@ -1425,7 +1427,7 @@ stamps/stamp-patch: $(patchdir)/series
 #	dh_testdir
 	uname -a
 	@echo USER=$$USER, LOGNAME=$$LOGNAME
-	QUILT_PATCHES=$(patchdir) quilt push -a || test $$? = 2
+#	QUILT_PATCHES=$(patchdir) quilt push -a || test $$? = 2
 	rm -rf autom4te.cache configure
 	autoconf
 	mkdir -p stamps
@@ -1455,7 +1457,7 @@ stamps/stamp-patch: $(patchdir)/series
 
 reverse-patches: unpatch
 unpatch:
-	QUILT_PATCHES=$(patchdir) quilt pop -a -R || test $$? = 2
+	# QUILT_PATCHES=$(patchdir) quilt pop -a -R || test $$? = 2
 	rm -f stamps/stamp-patch $(patchdir)/series
 	rm -rf configure autom4te.cache
 	rm -f Lib/dist-packages
